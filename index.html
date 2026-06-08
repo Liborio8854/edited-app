@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edited – Video Editor</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',-apple-system,sans-serif;color:#1a1a2e;height:100vh;overflow:hidden;
+  background:linear-gradient(140deg,#fce4ec 0%,#e8d5f5 15%,#c8e6ff 30%,#d4f5e9 45%,#fff3cd 60%,#ffd6e0 75%,#d0d4ff 90%)}
+.g{background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);
+  border:1px solid rgba(255,255,255,.6);box-shadow:0 2px 20px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.7)}
+.b{background:rgba(255,255,255,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);padding:7px 14px;border-radius:12px;
+  cursor:pointer;font-size:12px;font-family:inherit;color:#555;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.b:hover{background:rgba(255,255,255,.7);transform:translateY(-1px)}
+.b.on{background:rgba(255,255,255,.75);color:#1a1a2e;font-weight:600}
+.b.ac{background:linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,138,92,.1));border:1px solid rgba(232,62,90,.25);color:#e83e5a;font-weight:700}
+.inp{width:100%;background:rgba(255,255,255,.45);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);border-radius:14px;
+  padding:14px 18px;font-size:14px;color:#333;font-family:inherit;outline:0}
+.inp:focus{border-color:rgba(232,62,90,.4)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,15px) scale(1.04)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const ADMIN_EMAIL='eduard.falta@gmail.com';
+const R=document.getElementById('root');
+let user=null, adminUsers=[], clipIdCounter=1;
+
+// ═══ LOGIN ═══
+function showLogin(mode){
+  mode=mode||'welcome';
+  R.style.cssText='height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden';
+  let h=`<div style="position:absolute;top:-10%;right:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(232,62,90,.12),transparent 70%);pointer-events:none;animation:drift 12s ease-in-out infinite"></div>
+  <div style="position:absolute;bottom:-15%;left:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.08),transparent 70%);pointer-events:none;animation:drift 15s ease-in-out infinite 3s"></div>
+  <div class="g" style="padding:40px 36px;border-radius:28px;width:420px;max-width:92vw;position:relative;z-index:2;animation:fadeUp .6s ease">
+  <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent);border-radius:28px 28px 0 0;pointer-events:none"></div>
+  <div style="text-align:center;margin-bottom:28px;position:relative">
+    <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#e83e5a,#ff8a5c);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;font-weight:800;margin:0 auto 14px;box-shadow:0 6px 24px rgba(232,62,90,.25)">▸</div>
+    <h1 style="font-size:32px;font-weight:800;margin-bottom:4px;background:linear-gradient(135deg,#1a1a2e,#5a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</h1>
+    <p style="font-size:13px;color:#999">Kreativní video editor</p>
+  </div>`;
+
+  if(mode==='welcome'){
+    h+=`<div style="display:flex;flex-direction:column;gap:10px;position:relative">
+      <button class="b" onclick="doOAuth('google')" style="width:100%;border-radius:14px;padding:14px 18px;font-size:14px;font-weight:500;color:#333;justify-content:flex-start;gap:12px">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Pokračovat přes Google</button>
+      <button class="b" onclick="doOAuth('apple')" style="width:100%;border-radius:14px;padding:14px 18px;font-size:14px;font-weight:500;color:#333;justify-content:flex-start;gap:12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#333"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C3.79 16.17 4.36 9.53 8.7 9.28c1.23.06 2.08.72 2.8.75.95-.2 1.87-.88 2.9-.8 1.23.1 2.16.6 2.77 1.52-2.55 1.52-1.95 4.87.52 5.8-.43 1.14-.99 2.27-1.64 3.73zM12.03 9.2c-.13-2.15 1.57-4 3.64-4.17.27 2.4-2.16 4.37-3.64 4.17z"/></svg>
+        Pokračovat přes Apple</button>
+      <button class="b" onclick="doOAuth('facebook')" style="width:100%;border-radius:14px;padding:14px 18px;font-size:14px;font-weight:500;color:#333;justify-content:flex-start;gap:12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Pokračovat přes Facebook</button>
+      <div style="display:flex;align-items:center;gap:12px;margin:6px 0"><div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div><span style="font-size:11px;color:#bbb">nebo</span><div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div></div>
+      <button class="b" onclick="showLogin('email')" style="width:100%;border-radius:14px;padding:14px 18px;font-size:14px;color:#555;justify-content:flex-start;gap:12px">✉️ Přihlásit se emailem</button>
+      <div style="text-align:center;margin-top:4px"><span style="font-size:12px;color:#aaa">Nemáš účet? </span><button onclick="showLogin('register')" style="background:0;border:0;color:#e83e5a;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Zaregistruj se</button></div>
+    </div>`;
+  } else if(mode==='email'){
+    h+=`<div style="display:flex;flex-direction:column;gap:12px"><input class="inp" id="le" placeholder="Email" type="email"><input class="inp" id="lp" placeholder="Heslo" type="password" onkeydown="if(event.key==='Enter')doEmail()"><div id="lerr" style="font-size:12px;color:#e83e5a;display:none"></div><button onclick="doEmail()" style="width:100%;border-radius:14px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff8a5c);border:none;cursor:pointer">Přihlásit se</button><button onclick="showLogin()" style="background:0;border:0;color:#aaa;font-size:12px;cursor:pointer;font-family:inherit">← Zpět</button></div>`;
+  } else {
+    h+=`<div style="display:flex;flex-direction:column;gap:12px"><input class="inp" id="rn" placeholder="Jméno"><input class="inp" id="re" placeholder="Email" type="email"><input class="inp" id="rp" placeholder="Heslo" type="password" onkeydown="if(event.key==='Enter')doReg()"><div id="rerr" style="font-size:12px;color:#e83e5a;display:none"></div><button onclick="doReg()" style="width:100%;border-radius:14px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff8a5c);border:none;cursor:pointer">Vytvořit účet</button><button onclick="showLogin()" style="background:0;border:0;color:#aaa;font-size:12px;cursor:pointer;font-family:inherit">← Zpět</button></div>`;
+  }
+  h+=`<div style="text-align:center;margin-top:20px;font-size:10px;color:#c0c0c0">Přihlášením souhlasíš s <span style="color:#999">Podmínkami</span> a <span style="color:#999">Ochranou údajů</span></div></div>`;
+  R.innerHTML=h;
+}
+
+function doOAuth(p){login({name:p==='google'?'Eduard':'Uživatel',email:p==='google'?'Eduard.Falta@gmail.com':'user@'+p+'.com',method:p})}
+function doEmail(){const e=document.getElementById('le').value,p=document.getElementById('lp').value,err=document.getElementById('lerr');if(!e.includes('@')){err.textContent='Zadej platný email';err.style.display='block';return}if(p.length<4){err.textContent='Min. 4 znaky';err.style.display='block';return}login({name:e.split('@')[0],email:e,method:'email'})}
+function doReg(){const n=document.getElementById('rn').value,e=document.getElementById('re').value,p=document.getElementById('rp').value,err=document.getElementById('rerr');if(!n.trim()){err.textContent='Zadej jméno';err.style.display='block';return}if(!e.includes('@')){err.textContent='Zadej platný email';err.style.display='block';return}if(p.length<4){err.textContent='Min. 4 znaky';err.style.display='block';return}login({name:n,email:e,method:'email'})}
+function login(u){u.role=u.email.toLowerCase()===ADMIN_EMAIL?'admin':'user';user=u;adminUsers=[{id:1,n:u.name,e:u.email,r:u.role,s:'online',last:'Právě teď',vids:0,joined:new Date().toLocaleDateString('cs')}];showApp()}
+
+// ═══ HELPERS ═══
+function fmt(s){return!s||isNaN(s)?'0:00':Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+function ytIdFromUrl(url){const m=url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null}
+
+// ═══ MAIN APP ═══
+function showApp(){
+  const A=user.role==='admin';
+  R.style.cssText='height:100vh;display:flex;flex-direction:column;overflow:hidden';
+  R.innerHTML=`
+  <div class="g" style="height:52px;display:flex;align-items:center;padding:0 16px;gap:6px;border-bottom:1px solid rgba(255,255,255,.5);flex-shrink:0;z-index:50;position:relative;border-radius:0;border-top:0;border-left:0;border-right:0">
+    <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#e83e5a,#ff8a5c);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:800;box-shadow:0 2px 8px rgba(232,62,90,.3)">▸</div><span style="font-weight:700;font-size:17px;background:linear-gradient(135deg,#1a1a2e,#4a4a6a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</span>${A?'<span style="font-size:8px;font-weight:700;color:#e83e5a;background:rgba(232,62,90,.08);padding:2px 6px;border-radius:5px">ADMIN</span>':''}</div>
+    <div style="flex:1"></div>
+    <button class="b on" id="nH" onclick="nav('home')">🏠 Domů</button>
+    <button class="b" id="nE" onclick="nav('editor')">✂️ Editor</button>
+    <button class="b" id="nA" onclick="nav('ai')">✨ AI</button>
+    ${A?'<button class="b" id="nAd" onclick="nav(\'admin\')" style="color:#e83e5a;font-weight:600">🛡️ Admin</button>':''}
+    <div style="width:1px;height:22px;background:rgba(0,0,0,.06);margin:0 2px"></div>
+    <input type="file" id="fi" accept="video/*,.mkv,.avi,.mov,.mp4,.webm,.m4v" style="display:none">
+    <button class="b ac" onclick="document.getElementById('fi').click()">+ Video</button>
+    <div style="position:relative"><button class="b" onclick="document.getElementById('pdd').style.display=document.getElementById('pdd').style.display==='none'?'block':'none'" style="border-radius:50%;width:32px;height:32px;padding:0;justify-content:center;font-size:13px;font-weight:700;color:${A?'#fff':'#e83e5a'};${A?'background:linear-gradient(135deg,#e83e5a,#ff8a5c);border:none':''}">${user.name[0].toUpperCase()}</button>
+      <div id="pdd" class="g" style="display:none;position:absolute;top:40px;right:0;border-radius:16px;padding:16px;width:240px;z-index:100;animation:fadeUp .2s">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.06)">
+          <div style="width:36px;height:36px;border-radius:10px;background:${A?'linear-gradient(135deg,#e83e5a,#ff8a5c)':'linear-gradient(135deg,#ddd,#ccc)'};display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700">${user.name[0].toUpperCase()}</div>
+          <div><div style="font-size:13px;font-weight:600;color:#222">${user.name} ${A?'<span style="font-size:7px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff8a5c);padding:1px 5px;border-radius:4px;vertical-align:middle">ADMIN</span>':''}</div><div style="font-size:10px;color:#aaa">${user.email}</div></div>
+        </div>
+        <button class="b" onclick="user=null;showLogin()" style="width:100%;justify-content:center;color:#999">Odhlásit se</button>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+
+    <!-- HOME -->
+    <div id="vHome" style="flex:1;overflow:auto;padding:28px 36px">
+      <h1 style="font-size:28px;font-weight:800;background:linear-gradient(135deg,#1a1a2e,#5a4a8a,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ahoj, ${user.name} 👋</h1>
+      <p style="font-size:13px;color:#888;margin-top:4px" id="homeSubtitle">Nahraj video a začni tvořit</p>
+      <div style="display:flex;gap:12px;margin:20px 0;flex-wrap:wrap">
+        <button class="b" onclick="document.getElementById('fi').click()" style="padding:14px 22px;font-size:13px;border-radius:16px">📂 Nahrát video</button>
+        <button class="b" onclick="nav('editor');setTimeout(()=>showTab('yt'),50)" style="padding:14px 22px;font-size:13px;border-radius:16px">▶ YouTube</button>
+        <button class="b" onclick="nav('ai')" style="padding:14px 22px;font-size:13px;border-radius:16px">✨ AI Studio</button>
+        ${A?'<button class="b" onclick="nav(\'admin\')" style="padding:14px 22px;font-size:13px;border-radius:16px">🛡️ Admin</button>':''}
+      </div>
+      <div id="homeProjects"></div>
+    </div>
+
+    <!-- EDITOR -->
+    <div id="vEditor" style="display:none;flex:1;flex-direction:row;overflow:hidden">
+      <div class="g" style="width:280px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;border-radius:0;border-top:0;border-bottom:0;border-left:0">
+        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.05);flex-shrink:0" id="stabs">
+          <button class="on" onclick="showTab('media')" style="flex:1;padding:10px 4px;border:none;border-bottom:2px solid #e83e5a;background:rgba(255,255,255,.4);cursor:pointer;font-size:9px;font-family:inherit;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#e83e5a;display:flex;flex-direction:column;align-items:center;gap:2px" data-tab="media"><span style="font-size:15px">📁</span>Média</button>
+          <button onclick="showTab('yt')" style="flex:1;padding:10px 4px;border:none;border-bottom:2px solid transparent;background:0;cursor:pointer;font-size:9px;font-family:inherit;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#999;display:flex;flex-direction:column;align-items:center;gap:2px" data-tab="yt"><span style="font-size:15px">▶</span>YouTube</button>
+          <button onclick="showTab('mu')" style="flex:1;padding:10px 4px;border:none;border-bottom:2px solid transparent;background:0;cursor:pointer;font-size:9px;font-family:inherit;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#999;display:flex;flex-direction:column;align-items:center;gap:2px" data-tab="mu"><span style="font-size:15px">🎵</span>Hudba</button>
+        </div>
+        <div style="flex:1;overflow:auto;padding:14px">
+          <div id="pMedia">
+            <button class="b ac" onclick="document.getElementById('fi').click()" style="width:100%;justify-content:center;padding:12px;border-radius:14px;margin-bottom:12px">📂 Nahrát video</button>
+            <div id="cl"></div>
+          </div>
+          <div id="pYt" style="display:none">
+            <div style="display:flex;gap:6px;margin-bottom:10px">
+              <input class="inp" id="ytq" placeholder="Hledej na YouTube..." style="padding:10px 14px;font-size:12px;border-radius:12px">
+              <button class="b ac" onclick="var q=document.getElementById('ytq').value;if(q)window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'_blank')" style="border-radius:12px;font-size:13px;flex-shrink:0">🔍</button>
+            </div>
+            <div style="font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px">Přidat video z URL</div>
+            <input class="inp" id="yturl" placeholder="Vlož YouTube URL..." style="padding:10px 14px;font-size:12px;border-radius:12px;margin-bottom:8px">
+            <button class="b ac" onclick="addYtUrl()" style="width:100%;justify-content:center;border-radius:12px;padding:10px">➕ Přidat do editu</button>
+            <div id="ytClips" style="margin-top:12px"></div>
+            <div style="text-align:center;padding:20px;color:#ccc;margin-top:8px">
+              <div style="font-size:11px;color:#aaa;line-height:1.6">1. Hledej na YouTube tlačítkem 🔍<br>2. Zkopíruj URL videa<br>3. Vlož sem a klikni Přidat</div>
+            </div>
+          </div>
+          <div id="pMu" style="display:none">
+            <input type="file" id="mi" accept="audio/*" style="display:none">
+            <button class="b" onclick="document.getElementById('mi').click()" style="width:100%;justify-content:center;padding:12px;border-radius:14px;color:#8b5cf6;margin-bottom:12px">🎵 Přidat MP3</button>
+            <div id="ml"><div style="text-align:center;padding:30px;color:#ccc"><div style="font-size:36px;margin-bottom:8px">🎵</div><div style="font-size:12px;color:#aaa">Nahraj audio podkres</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px;border-radius:20px;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.03);position:relative;min-height:200px;overflow:hidden" id="pa">
+          <video id="vid" controls playsinline preload="metadata" style="display:none;max-width:98%;max-height:98%;border-radius:12px;background:#000"></video>
+          <iframe id="ytframe" style="display:none;width:94%;height:94%;border:none;border-radius:14px" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          <div id="es" style="text-align:center"><div style="font-size:56px;margin-bottom:14px;animation:float 3s ease infinite">🎬</div><p style="font-size:14px;font-weight:600;color:#aaa">Nahraj video nebo přidej z YouTube</p></div>
+        </div>
+        <div id="tr" style="display:none;padding:6px 14px;align-items:center;gap:5px;flex-wrap:wrap;flex-shrink:0">
+          <button class="b" onclick="vid.currentTime=Math.max(0,vid.currentTime-5)">−5s</button>
+          <button class="b ac" onclick="vid.paused?vid.play():vid.pause()" id="pb" style="width:36px;justify-content:center;font-size:14px">▶</button>
+          <button class="b" onclick="vid.currentTime=Math.min(vid.duration||0,vid.currentTime+5)">+5s</button>
+          <div style="width:1px;height:20px;background:rgba(0,0,0,.06);margin:0 3px"></div>
+          <button class="b" onclick="addCut()" style="color:#e83e5a">✂️ Střih</button>
+          <div style="flex:1"></div>
+          <span id="td" style="font-size:12px;color:#aaa;font-weight:500">0:00 / 0:00</span>
+          <button class="b" onclick="vid.muted=!vid.muted;this.textContent=vid.muted?'🔇':'🔊'" style="padding:5px 8px">🔊</button>
+          <input type="range" min="0" max="100" value="80" oninput="vid.volume=this.value/100" style="width:50px;accent-color:#e83e5a;height:3px">
+        </div>
+        <div id="tla" class="g" style="display:none;height:75px;border-radius:0;border-left:0;border-right:0;border-bottom:0;flex-shrink:0;flex-direction:column;padding:5px 12px">
+          <div class="g" style="flex:1;border-radius:10px;position:relative;cursor:crosshair" onclick="var r=this.getBoundingClientRect();vid.currentTime=Math.max(0,Math.min(1,(event.clientX-r.left)/r.width))*(vid.duration||0)">
+            <div id="trm" style="position:absolute;top:0;height:100%;border-top:2px solid rgba(232,62,90,.5);border-bottom:2px solid rgba(232,62,90,.5);background:rgba(232,62,90,.06)"></div>
+            <div id="phd" style="position:absolute;top:-4px;width:2px;height:calc(100% + 8px);background:#e83e5a;z-index:5;pointer-events:none;left:0"></div>
+            <div id="cms"></div>
+          </div>
+          <div style="display:flex;gap:14px;font-size:9px;color:#bbb;padding-top:3px"><span id="ii">IN 0:00</span><span id="io">OUT 0:00</span><span id="id">Délka 0:00</span><span id="ic">0 střihů</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div id="vAi" style="display:none;flex:1;flex-direction:column;max-width:800px;margin:0 auto;width:100%;padding:0 20px;overflow:hidden">
+      <div style="text-align:center;padding:20px 0 12px"><div style="font-size:40px;margin-bottom:4px">✨</div><h2 style="font-size:22px;font-weight:700;background:linear-gradient(135deg,#1a1a2e,#8b5cf6,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">AI Studio</h2></div>
+      <div id="aiKeyBar" style="display:none;margin-bottom:12px"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px;flex-wrap:wrap">
+        <button class="b" onclick="document.getElementById('aq').value='5 tipů na střih videa'" style="border-radius:20px;font-size:11px">💡 Tipy</button>
+        <button class="b" onclick="document.getElementById('aq').value='Nejlepší přechody?'" style="border-radius:20px;font-size:11px">🎬 Přechody</button>
+        <button class="b" onclick="document.getElementById('aq').value='Editace pro Instagram Reels?'" style="border-radius:20px;font-size:11px">📱 Reels</button>
+      </div>
+      <div id="ach" style="flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;padding-bottom:12px"><div style="flex:1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:13px">Začni konverzaci...</div></div>
+      <div class="g" style="border-radius:18px;padding:6px;display:flex;gap:8px;margin-bottom:16px;flex-shrink:0">
+        <input id="aq" placeholder="Zeptej se na cokoli..." onkeydown="if(event.key==='Enter')sAi()" style="flex:1;background:0;border:0;padding:10px 14px;font-size:13px;color:#333;font-family:inherit;outline:0">
+        <button class="b ac" onclick="sAi()" style="border-radius:14px;padding:10px 20px">Odeslat ↑</button>
+      </div>
+    </div>
+
+    ${A?`<!-- ADMIN -->
+    <div id="vAdmin" style="display:none;flex:1;overflow:auto;padding:28px 36px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><h1 style="font-size:24px;font-weight:800;background:linear-gradient(135deg,#e83e5a,#ff8a5c);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Admin Panel</h1><span class="g" style="border-radius:8px;padding:3px 10px;font-size:10px;font-weight:700;color:#e83e5a">🛡️</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px" id="adminStats"></div>
+      <div class="g" style="border-radius:20px;padding:20px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px">📊 Přehled obsahu</div>
+        <div id="adminContent" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px"></div>
+      </div>
+      <div class="g" style="border-radius:20px;padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#333">👥 Správa uživatelů</div><span id="userCount" style="font-size:10px;color:#999"></span></div>
+        <div id="userRows"></div>
+      </div>
+    </div>`:''}
+
+  </div>`;
+
+  // ═══ INIT ═══
+  const vid=document.getElementById('vid');
+  const fi=document.getElementById('fi');
+  let clips=[],cuts=[],aC=null,tS=0,tE=0,mTr=[];
+
+  // ── Sidebar tabs ──
+  window.showTab=function(t){
+    document.querySelectorAll('#stabs button').forEach(b=>{b.classList.remove('on');b.style.borderBottomColor='transparent';b.style.color='#999';b.style.background='transparent'});
+    const btn=document.querySelector('#stabs button[data-tab="'+t+'"]');
+    if(btn){btn.classList.add('on');btn.style.borderBottomColor='#e83e5a';btn.style.color='#e83e5a';btn.style.background='rgba(255,255,255,.4)'}
+    document.getElementById('pMedia').style.display=t==='media'?'block':'none';
+    document.getElementById('pYt').style.display=t==='yt'?'block':'none';
+    document.getElementById('pMu').style.display=t==='mu'?'block':'none';
+  };
+
+  // ── Video upload ──
+  fi.addEventListener('change',function(e){
+    const f=e.target.files[0];if(!f)return;
+    const url=URL.createObjectURL(f);
+    vid.src=url;vid.style.display='block';
+    document.getElementById('ytframe').style.display='none';
+    document.getElementById('es').style.display='none';
+    document.getElementById('tr').style.display='flex';
+    document.getElementById('tla').style.display='flex';
+    const c={id:clipIdCounter++,name:f.name,url,type:'local'};clips.push(c);aC=c;cuts=[];tS=0;
+    renderCl();nav('editor');fi.value='';
+    if(A)updAdmin();
+  });
+
+  vid.onloadedmetadata=function(){tE=vid.duration;updTl();updTd()};
+  vid.ontimeupdate=function(){updTd();if(vid.duration)document.getElementById('phd').style.left=(vid.currentTime/vid.duration*100)+'%';if(tE>0&&vid.currentTime>=tE)vid.pause()};
+  vid.onplay=function(){document.getElementById('pb').textContent='⏸'};
+  vid.onpause=function(){document.getElementById('pb').textContent='▶'};
+
+  function updTd(){document.getElementById('td').textContent=fmt(vid.currentTime)+' / '+fmt(vid.duration)}
+  function updTl(){if(!vid.duration)return;document.getElementById('trm').style.left=(tS/vid.duration*100)+'%';document.getElementById('trm').style.width=((tE-tS)/vid.duration*100)+'%';document.getElementById('ii').textContent='IN '+fmt(tS);document.getElementById('io').textContent='OUT '+fmt(tE);document.getElementById('id').textContent='Délka '+fmt(tE-tS);document.getElementById('ic').textContent=cuts.length+' střihů';document.getElementById('cms').innerHTML=cuts.map(c=>'<div style="position:absolute;top:0;left:'+(c/vid.duration*100)+'%;width:2px;height:100%;background:#fb923c;z-index:4"><span style="position:absolute;top:-11px;left:-4px;font-size:9px;color:#fb923c">✂</span></div>').join('')}
+  window.addCut=function(){if(!vid.duration)return;cuts.push(vid.currentTime);cuts.sort((a,b)=>a-b);updTl();renderCl()};
+
+  // ── YouTube URL ──
+  window.addYtUrl=function(){
+    const url=document.getElementById('yturl').value.trim();
+    const id=ytIdFromUrl(url);
+    if(!id){alert('Neplatná YouTube URL. Zkopíruj celou adresu videa.');return}
+    if(clips.some(c=>c.ytId===id))return;
+    const c={id:clipIdCounter++,name:'YouTube video',ytId:id,type:'youtube'};
+    clips.push(c);aC=c;
+    document.getElementById('yturl').value='';
+    vid.style.display='none';
+    document.getElementById('tr').style.display='none';
+    document.getElementById('tla').style.display='none';
+    const fr=document.getElementById('ytframe');fr.src='https://www.youtube.com/embed/'+id;fr.style.display='block';
+    document.getElementById('es').style.display='none';
+    renderCl();renderYtClips();if(A)updAdmin();
+  };
+
+  function renderYtClips(){
+    const yc=clips.filter(c=>c.type==='youtube');
+    document.getElementById('ytClips').innerHTML=yc.map(c=>`
+      <div class="g" style="border-radius:14px;overflow:hidden;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px">
+          <img src="https://img.youtube.com/vi/${c.ytId}/default.jpg" style="width:48px;height:32px;border-radius:6px;object-fit:cover">
+          <div style="flex:1;font-size:11px;font-weight:600;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div>
+          <button class="b" onclick="selCl(${c.id})" style="padding:3px 8px;font-size:10px;color:#e83e5a">▶</button>
+          <button class="b" onclick="rmCl(${c.id})" style="padding:3px 8px;font-size:10px">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Clips ──
+  function renderCl(){
+    let h='';clips.forEach(c=>{
+      h+=`<div class="g" style="padding:10px;border-radius:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:8px;${aC&&aC.id===c.id?'border-color:rgba(232,62,90,.3)!important;background:rgba(255,255,255,.6)':''}" onclick="selCl(${c.id})">
+        ${c.type==='youtube'&&c.ytId?'<img src="https://img.youtube.com/vi/'+c.ytId+'/default.jpg" style="width:44px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<div style="width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#38bdf833,#38bdf811);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📂</div>'}
+        <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Lokální'}</div></div>
+        <button class="b" onclick="event.stopPropagation();rmCl(${c.id})" style="padding:2px 7px;font-size:10px">✕</button></div>`});
+    if(cuts.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">Střihy</div>';cuts.forEach((c,i)=>{h+=`<div class="g" style="padding:5px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;font-size:11px"><span style="color:#e83e5a;font-weight:600">✂ ${fmt(c)}</span><button class="b" onclick="rmCut(${i})" style="padding:2px 7px;font-size:10px">✕</button></div>`})}
+    document.getElementById('cl').innerHTML=h;
+    document.getElementById('homeSubtitle').textContent=clips.length?clips.length+' klipů v editu':'Nahraj video a začni tvořit';
+  }
+  window.selCl=function(id){const c=clips.find(x=>x.id===id);if(!c)return;aC=c;
+    if(c.type==='youtube'){vid.style.display='none';document.getElementById('tr').style.display='none';document.getElementById('tla').style.display='none';const fr=document.getElementById('ytframe');fr.src='https://www.youtube.com/embed/'+c.ytId;fr.style.display='block';document.getElementById('es').style.display='none'}
+    else{document.getElementById('ytframe').style.display='none';vid.src=c.url;vid.style.display='block';document.getElementById('es').style.display='none';document.getElementById('tr').style.display='flex';document.getElementById('tla').style.display='flex';cuts=[];tS=0}
+    renderCl()};
+  window.rmCl=function(id){clips=clips.filter(c=>c.id!==id);if(aC&&aC.id===id){aC=null;vid.src='';vid.style.display='none';document.getElementById('ytframe').style.display='none';document.getElementById('es').style.display='block';document.getElementById('tr').style.display='none';document.getElementById('tla').style.display='none'}renderCl();renderYtClips();if(A)updAdmin()};
+  window.rmCut=function(i){cuts.splice(i,1);updTl();renderCl()};
+
+  // ── Music ──
+  document.getElementById('mi').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f),a=new Audio(u);a.loop=true;a.volume=.7;mTr.push({id:Date.now(),name:f.name,audio:a,url:u});renderMu();this.value=''});
+  function renderMu(){let h='';mTr.forEach(t=>{h+=`<div class="g" style="border-radius:14px;padding:10px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="b" onclick="tgMu(${t.id})" style="padding:4px 9px;border-radius:10px">${t.audio.paused?'▶':'⏸'}</button><div style="flex:1;font-size:11px;color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div><button class="b" onclick="rmMu(${t.id})" style="padding:2px 7px;font-size:10px">✕</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px">🔈</span><input type="range" min="0" max="100" value="${t.audio.volume*100}" oninput="sMuV(${t.id},this.value)" style="flex:1;accent-color:#8b5cf6;height:3px"></div></div>`});
+  if(!mTr.length)h='<div style="text-align:center;padding:30px;color:#ccc"><div style="font-size:36px;margin-bottom:8px">🎵</div><div style="font-size:12px;color:#aaa">Nahraj audio podkres</div></div>';
+  document.getElementById('ml').innerHTML=h}
+  window.tgMu=function(id){const t=mTr.find(m=>m.id===id);if(t){t.audio.paused?t.audio.play():t.audio.pause();renderMu()}};
+  window.sMuV=function(id,v){const t=mTr.find(m=>m.id===id);if(t)t.audio.volume=v/100};
+  window.rmMu=function(id){const t=mTr.find(m=>m.id===id);if(t){t.audio.pause()}mTr=mTr.filter(m=>m.id!==id);renderMu()};
+
+  // ── AI ──
+  const aiKey=localStorage.getItem('edited_ai_key')||'';
+  function showAiKeyBar(){
+    document.getElementById('aiKeyBar').style.display='block';
+    document.getElementById('aiKeyBar').innerHTML=`<div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:12px;color:#888;flex-shrink:0">🔑 API klíč:</span>
+      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 10px;font-size:11px;color:#333;font-family:inherit;outline:0">
+      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Uloženo';setTimeout(()=>this.textContent='Uložit',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Uložit</button>
+    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Získej klíč na <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6">console.anthropic.com</a> · klíč zůstane uložen v prohlížeči</div>`;
+  }
+  showAiKeyBar();
+
+  window.sAi=async function(){
+    const inp=document.getElementById('aq'),msg=inp.value.trim();if(!msg)return;inp.value='';
+    const key=localStorage.getItem('edited_ai_key')||'';
+    const ch=document.getElementById('ach');
+    if(ch.querySelector('div[style*="flex:1"]'))ch.innerHTML='';
+    ch.innerHTML+=`<div style="align-self:flex-end;max-width:80%;padding:12px 16px;border-radius:18px;border-bottom-right-radius:6px;font-size:13px;line-height:1.6;background:linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,138,92,.08));color:#333">${msg.replace(/</g,'&lt;')}</div>`;
+    const lid='ld'+Date.now();
+    ch.innerHTML+=`<div class="g" id="${lid}" style="align-self:flex-start;max-width:80%;padding:14px 20px;border-radius:18px;border-bottom-left-radius:6px"><div style="display:flex;gap:6px">${[0,.15,.3].map(d=>`<div style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;animation:float 1s ease infinite ${d}s;opacity:.5"></div>`).join('')}</div></div>`;
+    ch.scrollTop=ch.scrollHeight;
+    try{
+      const headers={'Content-Type':'application/json'};
+      if(key)headers['x-api-key']=key;
+      if(key)headers['anthropic-version']='2023-06-01';
+      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Jsi AI asistent pro video editaci. Odpovídej česky, stručně a prakticky.',messages:[{role:'user',content:msg}]})});
+      if(!r.ok)throw new Error(r.status);
+      const d=await r.json();const txt=d.content?.filter(c=>c.type==='text').map(c=>c.text).join('\n')||'Chyba.';
+      document.getElementById(lid).innerHTML=`<span style="font-size:10px;color:#8b5cf6;font-weight:600;display:block;margin-bottom:4px">✨ AI</span><span style="white-space:pre-wrap">${txt.replace(/</g,'&lt;')}</span>`;
+    }catch(e){
+      document.getElementById(lid).innerHTML=`<div style="color:#e83e5a;font-size:12px">Nepodařilo se spojit s AI.<br><span style="color:#999;font-size:11px">${key?'Zkontroluj API klíč.':'Zadej API klíč v poli nahoře.'}</span></div>`;
+    }
+    ch.scrollTop=ch.scrollHeight;
+  };
+
+  // ── Admin ──
+  if(A){
+    function updAdmin(){
+      const totalVids=clips.filter(c=>c.type==='local').length;
+      const totalYt=clips.filter(c=>c.type==='youtube').length;
+      document.getElementById('adminStats').innerHTML=[
+        {l:'Uživatelé',v:adminUsers.length,i:'👥',c:'#38bdf8'},
+        {l:'Lokální videa',v:totalVids,i:'🎬',c:'#a78bfa'},
+        {l:'YouTube klipy',v:totalYt,i:'▶',c:'#ef4444'},
+        {l:'Střihy',v:cuts.length,i:'✂️',c:'#f472b6'},
+        {l:'Hudební stopy',v:mTr.length,i:'🎵',c:'#8b5cf6'},
+        {l:'Online nyní',v:adminUsers.filter(u=>u.s==='online').length,i:'🟢',c:'#22c55e'}
+      ].map(s=>`<div class="g" style="border-radius:16px;padding:14px 16px;position:relative;overflow:hidden"><div style="position:absolute;top:-20%;right:-10%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,${s.c}22,transparent 70%);pointer-events:none"></div><div style="font-size:22px;margin-bottom:4px">${s.i}</div><div style="font-size:22px;font-weight:800;color:#1a1a2e">${s.v}</div><div style="font-size:10px;color:#999">${s.l}</div></div>`).join('');
+
+      document.getElementById('adminContent').innerHTML=[
+        {l:'Klipy celkem',v:clips.length,sub:totalVids+' lokálních · '+totalYt+' YouTube'},
+        {l:'Střihy celkem',v:cuts.length,sub:cuts.map(c=>fmt(c)).join(', ')||'Žádné'},
+        {l:'Audio stopy',v:mTr.length,sub:mTr.map(t=>t.name).join(', ')||'Žádné'}
+      ].map(s=>`<div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.4)"><div style="font-size:18px;font-weight:800;color:#1a1a2e;margin-bottom:2px">${s.v}</div><div style="font-size:11px;font-weight:600;color:#555;margin-bottom:3px">${s.l}</div><div style="font-size:9px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.sub}</div></div>`).join('');
+
+      document.getElementById('userCount').textContent=adminUsers.length+' uživatelů · '+adminUsers.filter(u=>u.s==='online').length+' online';
+      document.getElementById('userRows').innerHTML=adminUsers.map(u=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.04)">
+          <div style="width:32px;height:32px;border-radius:10px;background:${u.r==='admin'?'linear-gradient(135deg,#e83e5a,#ff8a5c)':u.s==='banned'?'#888':'linear-gradient(135deg,#ddd,#ccc)'};display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">${u.n[0]}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:12px;font-weight:600;color:${u.s==='banned'?'#999':'#222'};${u.s==='banned'?'text-decoration:line-through':''}">${u.n}</div>
+            <div style="font-size:10px;color:#aaa">${u.e}</div>
+            <div style="font-size:9px;color:#ccc">Registrace: ${u.joined} · ${u.vids} videí · Naposledy: ${u.last}</div>
+          </div>
+          <span style="padding:3px 7px;border-radius:8px;font-size:9px;font-weight:700;background:${u.s==='online'?'rgba(52,211,153,.1)':u.s==='banned'?'rgba(239,68,68,.1)':'rgba(0,0,0,.04)'};color:${u.s==='online'?'#34d399':u.s==='banned'?'#ef4444':'#999'}">${u.s==='online'?'● Online':u.s==='banned'?'⛔ Ban':'○ Offline'}</span>
+          ${u.r!=='admin'?`<button class="b" onclick="banUsr(${u.id})" style="padding:3px 7px;font-size:9px;border-radius:8px;color:${u.s==='banned'?'#34d399':'#fb923c'}">${u.s==='banned'?'✓ Unban':'⛔ Ban'}</button><button class="b" onclick="delUsr(${u.id})" style="padding:3px 7px;font-size:9px;border-radius:8px;color:#ef4444">🗑️</button>`:'<span style="font-size:9px;color:#ccc">—</span>'}
+        </div>`).join('');
+    }
+    window.banUsr=function(id){const u=adminUsers.find(x=>x.id===id);if(u){u.s=u.s==='banned'?'offline':'banned';u.last=u.s==='banned'?'Zabanován '+new Date().toLocaleDateString('cs'):'Odbanován'}updAdmin()};
+    window.delUsr=function(id){const u=adminUsers.find(x=>x.id===id);if(!u||u.r==='admin')return;if(!confirm('Smazat účet '+u.n+'? Nevratná akce.'))return;adminUsers=adminUsers.filter(x=>x.id!==id);updAdmin()};
+    updAdmin();
+  }
+  renderCl();
+}
+
+// ═══ NAV ═══
+function nav(id){['Home','Editor','Ai','Admin'].forEach(v=>{const el=document.getElementById('v'+v);if(el)el.style.display='none'});
+  const el=document.getElementById('v'+id.charAt(0).toUpperCase()+id.slice(1));if(!el)return;
+  if(id==='editor'){el.style.display='flex';el.style.flexDirection='row'}
+  else if(id==='ai'){el.style.display='flex';el.style.flexDirection='column'}
+  else{el.style.display='block'}
+  ['nH','nE','nA','nAd'].forEach(n=>{const b=document.getElementById(n);if(b)b.classList.remove('on')});
+  const map={home:'nH',editor:'nE',ai:'nA',admin:'nAd'};const nb=document.getElementById(map[id]);if(nb)nb.classList.add('on')}
+window.nav=nav;
+
+function dlApp(){const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent('<!DOCTYPE html>'+document.documentElement.outerHTML);a.download='edited.html';a.click()}
+window.dlApp=dlApp;
+
+// ═══ START APP ═══
+showLogin();
+</script>
+</body>
+</html>
