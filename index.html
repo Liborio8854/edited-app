@@ -278,56 +278,56 @@ function showLogin(mode){
       <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;font-weight:900;margin:0 auto 10px;box-shadow:0 8px 28px rgba(232,62,90,.3)">▸</div>
       <h1 style="font-size:28px;font-weight:900;margin-bottom:2px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</h1>
       <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px">
-        <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(232,62,90,.08);color:#e83e5a;font-weight:600">✂️ Střih</span>
-        <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);color:#8b5cf6;font-weight:600">🎵 Hudba</span>
+        <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(232,62,90,.08);color:#e83e5a;font-weight:600">✂️ Cut</span>
+        <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);color:#8b5cf6;font-weight:600">🎵 Music</span>
         <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,.08);color:#0284c7;font-weight:600">✨ AI</span>
       </div>
     </div>
 
     ${mode==='welcome'||mode==='login' ? `
     <div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(232,62,90,.05),rgba(255,122,61,.03));border:1.5px solid rgba(232,62,90,.12);margin-bottom:14px">
-      <div style="font-size:11px;font-weight:800;color:#e83e5a;margin-bottom:12px;letter-spacing:.5px">🔐 PŘIHLÁŠENÍ</div>
+      <div style="font-size:11px;font-weight:800;color:#e83e5a;margin-bottom:12px;letter-spacing:.5px">🔐 SIGN IN</div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <input class="inp" id="le" placeholder="📧  Email" type="email" style="font-size:13px;padding:11px 14px">
         <div style="position:relative">
-          <input class="inp" id="lp" placeholder="🔒  Heslo" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doEmail()">
+          <input class="inp" id="lp" placeholder="🔒  Password" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doEmail()">
           <button type="button" onclick="togglePw('lp',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:0;border:0;cursor:pointer;font-size:15px;padding:4px;color:#aaa;line-height:1">👁️</button>
         </div>
-        <div style="text-align:right"><button onclick="showLogin('forgot')" style="background:0;border:0;color:#aaa;font-size:11px;cursor:pointer;font-family:inherit;text-decoration:underline">Zapomenuté heslo?</button></div>
+        <div style="text-align:right"><button onclick="showLogin('forgot')" style="background:0;border:0;color:#aaa;font-size:11px;cursor:pointer;font-family:inherit;text-decoration:underline">Forgot password?</button></div>
         <div id="lerr" style="font-size:11px;color:#e83e5a;display:none;padding:6px 10px;border-radius:8px;background:rgba(232,62,90,.06);font-weight:500"></div>
-        <button class="btnprimary" onclick="doEmail()" style="margin-top:2px">Přihlásit se →</button>
+        <button class="btnprimary" onclick="doEmail()" style="margin-top:2px">Sign in →</button>
       </div>
     </div>
-    <div style="text-align:center"><span style="font-size:12px;color:#bbb">Ještě nemáš účet? </span><button onclick="showLogin('register')" style="background:0;border:0;color:#8b5cf6;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Zaregistruj se zdarma ✨</button></div>
+    <div style="text-align:center"><span style="font-size:12px;color:#bbb">Don't have an account? </span><button onclick="showLogin('register')" style="background:0;border:0;color:#8b5cf6;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Sign up for free ✨</button></div>
     ` : mode==='forgot' ? `
     <div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(139,92,246,.03));border:1.5px solid rgba(56,189,248,.15);margin-bottom:14px">
-      <div style="font-size:11px;font-weight:800;color:#0284c7;margin-bottom:6px;letter-spacing:.5px">🔑 OBNOVENÍ HESLA</div>
-      <div style="font-size:11px;color:#999;margin-bottom:12px;line-height:1.5">Zadej email, na který ti pošleme odkaz pro nastavení nového hesla.</div>
+      <div style="font-size:11px;font-weight:800;color:#0284c7;margin-bottom:6px;letter-spacing:.5px">🔑 PASSWORD RECOVERY</div>
+      <div style="font-size:11px;color:#999;margin-bottom:12px;line-height:1.5">Enter your email and we'll send you a link to set a new password.</div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <input class="inp" id="fe" placeholder="📧  Email" type="email" style="font-size:13px;padding:11px 14px" onkeydown="if(event.key==='Enter')doForgot()">
         <div id="ferr" style="font-size:11px;color:#e83e5a;display:none;padding:6px 10px;border-radius:8px;background:rgba(232,62,90,.06);font-weight:500"></div>
         <div id="fok" style="font-size:11px;color:#16a34a;display:none;padding:6px 10px;border-radius:8px;background:rgba(34,197,94,.08);font-weight:500"></div>
-        <button onclick="doForgot()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#38bdf8,#0284c7);box-shadow:0 4px 20px rgba(56,189,248,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Odeslat odkaz →</button>
+        <button onclick="doForgot()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#38bdf8,#0284c7);box-shadow:0 4px 20px rgba(56,189,248,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Send link →</button>
       </div>
     </div>
-    <div style="text-align:center"><button onclick="showLogin('login')" style="background:0;border:0;color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">← Zpět na přihlášení</button></div>
+    <div style="text-align:center"><button onclick="showLogin('login')" style="background:0;border:0;color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">← Back to sign in</button></div>
     ` : `
     <div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(56,189,248,.03));border:1.5px solid rgba(139,92,246,.15);margin-bottom:14px">
-      <div style="font-size:11px;font-weight:800;color:#8b5cf6;margin-bottom:12px;letter-spacing:.5px">✨ NOVÝ ÚČET — ZDARMA</div>
+      <div style="font-size:11px;font-weight:800;color:#8b5cf6;margin-bottom:12px;letter-spacing:.5px">✨ NEW ACCOUNT — FREE</div>
       <div style="display:flex;flex-direction:column;gap:8px">
-        <input class="inp" id="rn" placeholder="👤  Tvoje jméno" style="font-size:13px;padding:11px 14px">
+        <input class="inp" id="rn" placeholder="👤  Your name" style="font-size:13px;padding:11px 14px">
         <input class="inp" id="re" placeholder="📧  Email" type="email" style="font-size:13px;padding:11px 14px">
         <div style="position:relative">
-          <input class="inp" id="rp" placeholder="🔒  Heslo (min. 6 znaků)" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doReg()">
+          <input class="inp" id="rp" placeholder="🔒  Password (min. 6 chars)" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doReg()">
           <button type="button" onclick="togglePw('rp',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:0;border:0;cursor:pointer;font-size:15px;padding:4px;color:#aaa;line-height:1">👁️</button>
         </div>
         <div id="rerr" style="font-size:11px;color:#e83e5a;display:none;padding:6px 10px;border-radius:8px;background:rgba(232,62,90,.06);font-weight:500"></div>
-        <button onclick="doReg()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#8b5cf6,#38bdf8);box-shadow:0 4px 20px rgba(139,92,246,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Vytvořit účet →</button>
+        <button onclick="doReg()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#8b5cf6,#38bdf8);box-shadow:0 4px 20px rgba(139,92,246,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Create account →</button>
       </div>
     </div>
-    <div style="text-align:center"><span style="font-size:12px;color:#bbb">Máš už účet? </span><button onclick="showLogin('login')" style="background:0;border:0;color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Přihlásit se</button></div>
+    <div style="text-align:center"><span style="font-size:12px;color:#bbb">Already have an account? </span><button onclick="showLogin('login')" style="background:0;border:0;color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Sign in</button></div>
     `}
-    <div style="text-align:center;margin-top:14px;font-size:10px;color:#ccc">Přihlášením souhlasíš s <span style="color:#aaa;cursor:pointer">Podmínkami</span> a <span style="color:#aaa;cursor:pointer">Ochranou údajů</span></div>
+    <div style="text-align:center;margin-top:14px;font-size:10px;color:#ccc">By signing in you agree to the <span style="color:#aaa;cursor:pointer">Terms</span> a <span style="color:#aaa;cursor:pointer">Privacy Policy</span></div>
   </div>`;
 }
 
@@ -397,17 +397,17 @@ function toast(msg,color){
 function doEmail(){
   const e=document.getElementById('le').value.trim(),p=document.getElementById('lp').value,err=document.getElementById('lerr');
   err.style.display='none';
-  if(!e.includes('@')){err.textContent='Zadej platný email';err.style.display='block';return}
-  if(p.length<6){err.textContent='Heslo musí mít min. 6 znaků';err.style.display='block';return}
+  if(!e.includes('@')){err.textContent='Enter a valid email';err.style.display='block';return}
+  if(p.length<6){err.textContent='Password must be at least 6 characters';err.style.display='block';return}
 
   const btn=document.querySelector('.btnprimary');
   const origText=btn.textContent;
-  btn.textContent='Přihlašuji...';btn.disabled=true;
+  btn.textContent='Signing in...';btn.disabled=true;
 
   sb.auth.signInWithPassword({email:e,password:p}).then(({data,error})=>{
     btn.textContent=origText;btn.disabled=false;
     if(error){
-      err.textContent=error.message==='Invalid login credentials'?'Nesprávný email nebo heslo':(error.message.includes('fetch')?'📡 Server neodpovídá. Projekt v Supabase může být pozastavený (Restore v dashboardu), nebo spojení blokuje prohlížeč.':error.message);
+      err.textContent=error.message==='Invalid login credentials'?'Incorrect email or password':(error.message.includes('fetch')?'📡 Server not responding. The Supabase project may be paused (Restore it in the dashboard), or your browser is blocking the connection.':error.message);
       err.style.display='block';return;
     }
     window._showingLogin=true;
@@ -418,23 +418,23 @@ function doEmail(){
 function doReg(){
   const n=document.getElementById('rn').value.trim(),e=document.getElementById('re').value.trim(),p=document.getElementById('rp').value,err=document.getElementById('rerr');
   err.style.display='none';
-  if(!n){err.textContent='Zadej jméno';err.style.display='block';return}
-  if(!e.includes('@')){err.textContent='Zadej platný email';err.style.display='block';return}
-  if(p.length<6){err.textContent='Heslo musí mít min. 6 znaků';err.style.display='block';return}
+  if(!n){err.textContent='Enter your name';err.style.display='block';return}
+  if(!e.includes('@')){err.textContent='Enter a valid email';err.style.display='block';return}
+  if(p.length<6){err.textContent='Password must be at least 6 characters';err.style.display='block';return}
 
   const btn=document.querySelector('button[onclick="doReg()"]');
   const origText=btn.textContent;
-  btn.textContent='Vytvářím účet...';btn.disabled=true;
+  btn.textContent='Creating account...';btn.disabled=true;
 
   sb.auth.signUp({email:e,password:p,options:{data:{name:n}}}).then(({data,error})=>{
     btn.textContent=origText;btn.disabled=false;
     if(error){
-      err.textContent=error.message.includes('already registered')?'Účet s tímto emailem už existuje. Přihlas se.':(error.message.includes('fetch')?'📡 Server neodpovídá. Projekt v Supabase může být pozastavený (Restore v dashboardu), nebo spojení blokuje prohlížeč.':error.message);
+      err.textContent=error.message.includes('already registered')?'An account with this email already exists. Sign in instead.':(error.message.includes('fetch')?'📡 Server not responding. The Supabase project may be paused (Restore it in the dashboard), or your browser is blocking the connection.':error.message);
       err.style.display='block';return;
     }
     if(!data.session){
       // Email confirmation required (shouldn't happen since we disabled it, but just in case)
-      err.textContent='Zkontroluj svůj email pro potvrzení registrace.';
+      err.textContent='Check your email to confirm your registration.';
       err.style.display='block';err.style.color='#22c55e';return;
     }
     window._showingLogin=true;
@@ -449,7 +449,7 @@ function loadProfileAndEnter(authUser){
       console.error('Profile load error:',error);
       showLogin();
       const err=document.getElementById('lerr')||document.getElementById('rerr');
-      if(err){err.textContent='Nepodařilo se načíst profil. Zkus to znovu.';err.style.display='block'}
+      if(err){err.textContent="Couldn't load your profile. Please try again.";err.style.display='block'}
       return;
     }
     if(profile.edited_status==='banned'){
@@ -457,7 +457,7 @@ function loadProfileAndEnter(authUser){
       showLogin();
       setTimeout(()=>{
         const err=document.getElementById('lerr');
-        if(err){err.textContent='Tvůj účet byl zablokován administrátorem.';err.style.display='block'}
+        if(err){err.textContent='Your account has been blocked by an administrator.';err.style.display='block'}
       },100);
       return;
     }
@@ -472,7 +472,7 @@ function loadProfileAndEnter(authUser){
     sb.from('profiles').update({edited_last_login:new Date().toISOString()}).eq('id',authUser.id).then(()=>{});
     showApp();
     if(window._showingLogin){
-      setTimeout(()=>confetti(user.role==='admin'?'🛡️ Vítej zpět, '+user.name+'!':'👋 Vítej, '+user.name+'!',user.role==='admin'?'🛡️':'🎉'),200);
+      setTimeout(()=>confetti(user.role==='admin'?'🛡️ Welcome back, '+user.name+'!':'👋 Welcome, '+user.name+'!',user.role==='admin'?'🛡️':'🎉'),200);
       window._showingLogin=false;
     }
   });
@@ -515,16 +515,16 @@ function doForgot(){
   const e=document.getElementById('fe').value.trim();
   const err=document.getElementById('ferr'),ok=document.getElementById('fok');
   err.style.display='none';ok.style.display='none';
-  if(!e.includes('@')){err.textContent='Zadej platný email';err.style.display='block';return}
+  if(!e.includes('@')){err.textContent='Enter a valid email';err.style.display='block';return}
 
   const btn=document.querySelector('button[onclick="doForgot()"]');
   const origText=btn.textContent;
-  btn.textContent='Odesílám...';btn.disabled=true;
+  btn.textContent='Sending...';btn.disabled=true;
 
   sb.auth.resetPasswordForEmail(e,{redirectTo:window.location.origin+window.location.pathname}).then(({error})=>{
     btn.textContent=origText;btn.disabled=false;
     if(error){err.textContent=error.message;err.style.display='block';return}
-    ok.textContent='✅ Odkaz pro obnovení hesla byl odeslán na '+e+'. Zkontroluj svou schránku (i spam).';
+    ok.textContent='✅ Password reset link sent to '+e+'. Check your inbox (and spam).';
     ok.style.display='block';
   });
 }
@@ -537,17 +537,17 @@ function showResetPassword(){
   <div class="g" style="padding:32px 30px;border-radius:28px;width:390px;max-width:94vw;position:relative;z-index:2;animation:fadeUp .5s ease">
     <div style="text-align:center;margin-bottom:22px">
       <div style="font-size:48px;margin-bottom:10px">🔑</div>
-      <h1 style="font-size:24px;font-weight:900;margin-bottom:4px;background:linear-gradient(135deg,#ffffff,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Nové heslo</h1>
-      <p style="font-size:12px;color:#999">Zadej svoje nové heslo</p>
+      <h1 style="font-size:24px;font-weight:900;margin-bottom:4px;background:linear-gradient(135deg,#ffffff,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">New password</h1>
+      <p style="font-size:12px;color:#999">Enter your new password</p>
     </div>
     <div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(139,92,246,.03));border:1.5px solid rgba(56,189,248,.15)">
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="position:relative">
-          <input class="inp" id="newpw" placeholder="🔒  Nové heslo (min. 6 znaků)" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doResetPassword()">
+          <input class="inp" id="newpw" placeholder="🔒  New password (min. 6 chars)" type="password" style="font-size:13px;padding:11px 40px 11px 14px;width:100%" onkeydown="if(event.key==='Enter')doResetPassword()">
           <button type="button" onclick="togglePw('newpw',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:0;border:0;cursor:pointer;font-size:15px;padding:4px;color:#aaa;line-height:1">👁️</button>
         </div>
         <div id="rpwerr" style="font-size:11px;color:#e83e5a;display:none;padding:6px 10px;border-radius:8px;background:rgba(232,62,90,.06);font-weight:500"></div>
-        <button onclick="doResetPassword()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#38bdf8,#0284c7);box-shadow:0 4px 20px rgba(56,189,248,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Uložit nové heslo →</button>
+        <button onclick="doResetPassword()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#38bdf8,#0284c7);box-shadow:0 4px 20px rgba(56,189,248,.3);border-radius:14px;padding:14px;font-size:14px;width:100%;margin-top:2px">Save new password →</button>
       </div>
     </div>
   </div>`;
@@ -557,11 +557,11 @@ window.doResetPassword=function(){
   const p=document.getElementById('newpw').value;
   const err=document.getElementById('rpwerr');
   err.style.display='none';
-  if(p.length<6){err.textContent='Heslo musí mít min. 6 znaků';err.style.display='block';return}
+  if(p.length<6){err.textContent='Password must be at least 6 characters';err.style.display='block';return}
 
   const btn=document.querySelector('button[onclick="doResetPassword()"]');
   const origText=btn.textContent;
-  btn.textContent='Ukládám...';btn.disabled=true;
+  btn.textContent='Saving...';btn.disabled=true;
 
   sb.auth.updateUser({password:p}).then(({data,error})=>{
     btn.textContent=origText;btn.disabled=false;
@@ -570,7 +570,7 @@ window.doResetPassword=function(){
     window.location.hash='';
     window._showingLogin=true;
     loadProfileAndEnter(data.user);
-    setTimeout(()=>confetti('✅ Heslo bylo změněno!','🔑'),200);
+    setTimeout(()=>confetti('✅ Password changed!','🔑'),200);
   });
 };
 
@@ -591,7 +591,7 @@ function showApp(){
       ${A?'<span style="font-size:8px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:2px 7px;border-radius:6px;box-shadow:0 2px 8px rgba(232,62,90,.3)">ADMIN</span>':''}
     </div>
     <div style="flex:1"></div>
-    <button class="b on" id="nH" onclick="nav('home')" style="gap:5px"><span>🏠</span><span class="topbar-label" style="font-size:11px">Domů</span></button>
+    <button class="b on" id="nH" onclick="nav('home')" style="gap:5px"><span>🏠</span><span class="topbar-label" style="font-size:11px">Home</span></button>
     <button class="b" id="nE" onclick="nav('editor')" style="gap:5px"><span>✂️</span><span class="topbar-label" style="font-size:11px">Editor</span></button>
     <button class="b" id="nA" onclick="nav('ai')" style="gap:5px"><span>✨</span><span class="topbar-label" style="font-size:11px">AI</span></button>
     ${A?'<button class="b" id="nAd" onclick="nav(\'admin\')" style="gap:5px;color:#e83e5a;font-weight:700;border-color:rgba(232,62,90,.2)"><span>🛡️</span><span class="topbar-label" style="font-size:11px">Admin</span></button>':''}
@@ -616,7 +616,7 @@ function showApp(){
             <div style="font-size:10px;color:#aaa;margin-top:1px">${user.email}</div>
           </div>
         </div>
-        <button onclick="logout()" style="width:100%;padding:10px;border-radius:12px;border:1.5px solid rgba(239,68,68,.2);background:rgba(239,68,68,.05);color:#ef4444;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s">🚪 Odhlásit se</button>
+        <button onclick="logout()" style="width:100%;padding:10px;border-radius:12px;border:1.5px solid rgba(239,68,68,.2);background:rgba(239,68,68,.05);color:#ef4444;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s">🚪 Sign out</button>
       </div>
     </div>
   </div>
@@ -624,100 +624,77 @@ function showApp(){
 
     <!-- HOME -->
     <div id="vHome" style="flex:1;overflow:auto;padding:0">
+      <div class="home-section-pad" style="padding:26px 36px;max-width:1200px;margin:0 auto">
 
-      <!-- Hero banner -->
-      <div class="home-hero" style="padding:28px 36px 24px;background:linear-gradient(135deg,rgba(232,62,90,.06) 0%,rgba(139,92,246,.06) 50%,rgba(56,189,248,.04) 100%);border-bottom:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden">
-        <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(232,62,90,.12),transparent 70%);pointer-events:none"></div>
-        <div style="position:absolute;bottom:-30px;left:30%;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.1),transparent 70%);pointer-events:none"></div>
+        <!-- Greeting -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:2px">
+          <h1 style="font-size:24px;font-weight:900;color:#f2f2f5">Hi, ${user.name} 👋</h1>
+          ${A?'<span style="font-size:9px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:3px 8px;border-radius:6px">🛡️ ADMIN</span>':''}
+        </div>
+        <p style="font-size:12px;color:#8f8f98;margin-bottom:22px" id="homeSubtitle">Ready to create something great?</p>
 
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative">
-          <div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-              <h1 style="font-size:28px;font-weight:900;background:linear-gradient(135deg,#ffffff,#b9a5ee,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ahoj, ${user.name}! 👋</h1>
-              ${A?'<span style="font-size:9px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:3px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(232,62,90,.3)">🛡️ ADMIN</span>':''}
-            </div>
-            <p style="font-size:13px;color:#999;margin-bottom:16px" id="homeSubtitle">Připravený na editaci? Vyber akci níže.</p>
-
-            <!-- Quick stats -->
-            <div style="display:flex;gap:16px;flex-wrap:wrap">
-              ${[
-                {v:'0',l:'Klipů v editu',c:'#e83e5a',id:'statClips'},
-                {v:'0',l:'Střihů',c:'#f97316',id:'statCuts'},
-                {v:'0',l:'Audio stop',c:'#8b5cf6',id:'statMusic'}
-              ].map(s=>`<div style="display:flex;align-items:center;gap:8px">
-                <div style="width:36px;height:36px;border-radius:10px;background:${s.c}15;border:1.5px solid ${s.c}25;display:flex;align-items:center;justify-content:center">
-                  <span id="${s.id}" style="font-size:15px;font-weight:900;color:${s.c}">${s.v}</span>
-                </div>
-                <span style="font-size:11px;color:#aaa;font-weight:500">${s.l}</span>
-              </div>`).join('')}
-            </div>
-          </div>
-
-          <!-- Big CTA button -->
+        <!-- CapCut-style create row -->
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin-bottom:30px" class="home-actions">
+          <!-- Big create project card -->
           <button onclick="document.getElementById('fi').click()"
-            style="padding:16px 28px;border-radius:18px;border:none;background:linear-gradient(135deg,#e83e5a,#ff7a3d);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(232,62,90,.3);transition:all .25s;display:flex;align-items:center;gap:10px;flex-shrink:0"
-            onmouseover="this.style.transform='translateY(-3px) scale(1.02)';this.style.boxShadow='0 10px 32px rgba(232,62,90,.4)'"
-            onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(232,62,90,.3)'">
-            <span style="font-size:22px">📂</span>
-            <div style="text-align:left">
-              <div>+ Nahrát video</div>
-              <div style="font-size:10px;opacity:.8;font-weight:400">MP4, MOV, WebM, MKV...</div>
-            </div>
+            style="min-height:150px;border-radius:20px;border:none;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,#e83e5a,#ff7a3d);color:#fff;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:20px;gap:6px;box-shadow:0 8px 30px rgba(232,62,90,.28);transition:all .25s;position:relative;overflow:hidden"
+            onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(232,62,90,.4)'"
+            onmouseout="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(232,62,90,.28)'">
+            <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.12);pointer-events:none"></div>
+            <div style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:300;margin-bottom:auto">+</div>
+            <div style="font-size:16px;font-weight:800">New project</div>
+            <div style="font-size:10px;opacity:.85">Upload a video · MP4, MOV, WebM, MKV</div>
           </button>
-        </div>
-      </div>
 
-      <!-- Content -->
-      <div class="home-section-pad" style="padding:24px 36px">
-
-        <!-- Action grid -->
-        <div style="margin-bottom:28px">
-          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px">⚡ Rychlé akce</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
-            ${[
-              {icon:'▶',label:'Hledat na YouTube',sub:'Importuj libovolné video',c1:'#ef4444',c2:'#f97316',fn:"nav('editor');setTimeout(()=>showTab('yt'),50)"},
-              {icon:'✂️',label:'Editor',sub:'Střihej a upravuj',c1:'#e83e5a',c2:'#ff7a3d',fn:"nav('editor')"},
-              {icon:'✨',label:'AI Studio',sub:'Rady a nápady od AI',c1:'#8b5cf6',c2:'#38bdf8',fn:"nav('ai')"},
-              {icon:'🎵',label:'Přidat hudbu',sub:'MP3 jako podkres',c1:'#f472b6',c2:'#a78bfa',fn:"nav('editor');setTimeout(()=>showTab('mu'),50)"},
-              ...(A?[{icon:'🛡️',label:'Admin panel',sub:'Správa uživatelů',c1:'#e83e5a',c2:'#f97316',fn:"nav('admin')"}]:[])
-            ].map(a=>`
-              <button onclick="${a.fn}"
-                style="padding:16px 14px;border-radius:18px;cursor:pointer;display:flex;align-items:center;gap:12px;font-family:inherit;border:1.5px solid ${a.c1}20;background:linear-gradient(135deg,${a.c1}0e,${a.c2}07);transition:all .22s;text-align:left;backdrop-filter:blur(12px)"
-                onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px ${a.c1}20';this.style.borderColor='${a.c1}40'"
-                onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='${a.c1}20'">
-                <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,${a.c1},${a.c2});display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px ${a.c1}30;flex-shrink:0">${a.icon}</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:#f2f2f5">${a.label}</div>
-                  <div style="font-size:10px;color:#bbb;margin-top:1px">${a.sub}</div>
-                </div>
-              </button>`).join('')}
-          </div>
+          <!-- Secondary cards -->
+          ${[
+            {icon:'▶',label:'YouTube',sub:'Import a video',c1:'#3a3a44',c2:'#26262e',ac:'#ef4444',fn:"nav('editor');setTimeout(()=>showTab('yt'),50)"},
+            {icon:'🎵',label:'Music',sub:'Add MP3 track',c1:'#3a3a44',c2:'#26262e',ac:'#8b5cf6',fn:"nav('editor');setTimeout(()=>showTab('mu'),50)"},
+            {icon:'✨',label:'AI Studio',sub:'Tips & ideas',c1:'#3a3a44',c2:'#26262e',ac:'#38bdf8',fn:"nav('ai')"}
+          ].map(a=>`
+            <button onclick="${a.fn}"
+              style="min-height:150px;border-radius:20px;border:1px solid rgba(255,255,255,.08);cursor:pointer;font-family:inherit;background:linear-gradient(160deg,${a.c1},${a.c2});display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:18px;gap:5px;transition:all .25s"
+              onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='${a.ac}55'"
+              onmouseout="this.style.transform='';this.style.borderColor='rgba(255,255,255,.08)'">
+              <div style="width:38px;height:38px;border-radius:12px;background:${a.ac}22;border:1px solid ${a.ac}33;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:auto">${a.icon}</div>
+              <div style="font-size:13px;font-weight:800;color:#f2f2f5">${a.label}</div>
+              <div style="font-size:10px;color:#8f8f98">${a.sub}</div>
+            </button>`).join('')}
         </div>
 
-        <!-- Tips section -->
-        <div class="g" style="border-radius:20px;padding:20px;margin-bottom:20px">
-          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px">💡 Tipy pro editaci</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
-            ${[
-              {icon:'⌨️',tip:'Klávesa Space',desc:'Spustí/zastaví přehrávání v editoru',c:'#38bdf8'},
-              {icon:'✂️',tip:'Klávesa C',desc:'Přidá střih na aktuální pozici',c:'#e83e5a'},
-              {icon:'🖱️',tip:'Klikni na timeline',desc:'Posuň se na libovolné místo ve videu',c:'#f97316'},
-              {icon:'🎵',tip:'Přidej hudbu',desc:'MP3 podkres se přehrává spolu s videem',c:'#8b5cf6'},
-              {icon:'▶',tip:'YouTube import',desc:'Zkopíruj URL videa a vlož ho do editoru',c:'#ef4444'},
-              {icon:'✨',tip:'AI asistent',desc:'Zeptej se na rady pro střih nebo efekty',c:'#a78bfa'},
-            ].map(t=>`
-              <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:14px;background:${t.c}08;border:1px solid ${t.c}18">
-                <div style="width:32px;height:32px;border-radius:10px;background:${t.c}18;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${t.icon}</div>
-                <div>
-                  <div style="font-size:12px;font-weight:700;color:#dcdce2;margin-bottom:2px">${t.tip}</div>
-                  <div style="font-size:10px;color:#aaa;line-height:1.4">${t.desc}</div>
-                </div>
-              </div>`).join('')}
-          </div>
+        <!-- Session stats (compact row) -->
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:26px">
+          ${[
+            {v:'0',l:'Clips',c:'#e83e5a',id:'statClips'},
+            {v:'0',l:'Cuts',c:'#f97316',id:'statCuts'},
+            {v:'0',l:'Audio tracks',c:'#8b5cf6',id:'statMusic'}
+          ].map(s=>`<div style="display:flex;align-items:center;gap:8px">
+            <div style="width:32px;height:32px;border-radius:10px;background:${s.c}15;border:1.5px solid ${s.c}25;display:flex;align-items:center;justify-content:center">
+              <span id="${s.id}" style="font-size:13px;font-weight:900;color:${s.c}">${s.v}</span>
+            </div>
+            <span style="font-size:11px;color:#8f8f98;font-weight:500">${s.l}</span>
+          </div>`).join('')}
+          ${A?`<div style="margin-left:auto"><button onclick="nav('admin')" style="padding:8px 16px;border-radius:12px;border:1px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">🛡️ Admin panel</button></div>`:''}
         </div>
 
-        <!-- Recent clips if any -->
+        <!-- Projects -->
         <div id="homeProjects"></div>
+
+        <!-- Shortcuts strip -->
+        <div class="g" style="border-radius:18px;padding:16px 18px;margin-top:6px">
+          <div style="font-size:10px;font-weight:800;color:#8f8f98;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">⌨️ Shortcuts & tips</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap">
+            ${[
+              {k:'Space',d:'Play / pause'},
+              {k:'C',d:'Split clip at playhead'},
+              {k:'Click timeline',d:'Jump to any moment'},
+              {k:'⬅ ➡',d:'Reorder clips (make an intro!)'}
+            ].map(t=>`<div style="display:flex;align-items:center;gap:8px">
+              <span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:3px 9px;border-radius:7px;font-size:10px;font-weight:800;color:#c9c9d0">${t.k}</span>
+              <span style="font-size:11px;color:#8f8f98">${t.d}</span>
+            </div>`).join('')}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -729,9 +706,9 @@ function showApp(){
 
         <!-- Tabs with colors -->
         <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0" id="stabs">
-          <button class="ntab on" onclick="showTab('media')" data-tab="media"><span class="ti">📁</span>Média</button>
+          <button class="ntab on" onclick="showTab('media')" data-tab="media"><span class="ti">📁</span>Media</button>
           <button class="ntab" onclick="showTab('yt')" data-tab="yt"><span class="ti">▶</span>YouTube</button>
-          <button class="ntab" onclick="showTab('mu')" data-tab="mu"><span class="ti">🎵</span>Hudba</button>
+          <button class="ntab" onclick="showTab('mu')" data-tab="mu"><span class="ti">🎵</span>Music</button>
         </div>
 
         <div style="flex:1;overflow:auto;padding:14px">
@@ -744,14 +721,14 @@ function showApp(){
               onmouseover="this.style.borderColor='rgba(232,62,90,.6)';this.style.background='linear-gradient(135deg,rgba(232,62,90,.1),rgba(255,122,61,.06))'"
               onmouseout="this.style.borderColor='rgba(232,62,90,.3)';this.style.background='linear-gradient(135deg,rgba(232,62,90,.05),rgba(255,122,61,.03))'">
               <div style="font-size:28px">📂</div>
-              <div style="font-size:13px;font-weight:700;color:#e83e5a">Nahrát video</div>
+              <div style="font-size:13px;font-weight:700;color:#e83e5a">Upload video</div>
               <div style="font-size:10px;color:#bbb">MP4, MOV, WebM, MKV...</div>
             </button>
             <div id="cl">
               <!-- Empty state hint -->
               <div style="text-align:center;padding:20px 10px;color:#ccc">
                 <div style="font-size:32px;margin-bottom:8px;animation:float 3s ease infinite">🎬</div>
-                <div style="font-size:11px;color:#bbb;line-height:1.6">Nahraj video a uvidíš ho tady<br>nebo použij YouTube záložku</div>
+                <div style="font-size:11px;color:#bbb;line-height:1.6">Upload a video and it'll show up here<br>or use the YouTube tab</div>
               </div>
             </div>
           </div>
@@ -770,20 +747,20 @@ function showApp(){
                   style="padding:9px 14px;border-radius:10px;border:none;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:13px;cursor:pointer;font-weight:700;flex-shrink:0;transition:all .2s"
                   onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">▶</button>
               </div>
-              <div style="font-size:10px;color:#bbb;margin-top:6px">↗️ Otevře YouTube v novém tabu</div>
+              <div style="font-size:10px;color:#bbb;margin-top:6px">↗️ Opens YouTube in a new tab</div>
             </div>
 
             <!-- Step 2 -->
             <div style="padding:12px;border-radius:14px;background:rgba(249,115,22,.05);border:1.5px solid rgba(249,115,22,.1)">
               <div style="font-size:10px;font-weight:800;color:#f97316;margin-bottom:8px;display:flex;align-items:center;gap:5px">
                 <span style="width:18px;height:18px;border-radius:50%;background:#f97316;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">2</span>
-                VLOŽ URL A PŘIDEJ DO EDITU
+                PASTE A URL & ADD TO YOUR EDIT
               </div>
               <input class="inp" id="yturl" placeholder="📋  youtube.com/watch?v=..." style="padding:9px 12px;font-size:12px;border-radius:10px;margin-bottom:8px">
               <button onclick="addYtUrl()"
                 style="width:100%;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#f97316,#f59e0b);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 3px 12px rgba(249,115,22,.25)"
                 onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
-                ➕ Přidat video do editu
+                ➕ Add video do editu
               </button>
             </div>
 
@@ -798,12 +775,12 @@ function showApp(){
               onmouseover="this.style.borderColor='rgba(139,92,246,.6)';this.style.background='linear-gradient(135deg,rgba(139,92,246,.1),rgba(56,189,248,.06))'"
               onmouseout="this.style.borderColor='rgba(139,92,246,.3)';this.style.background='linear-gradient(135deg,rgba(139,92,246,.05),rgba(56,189,248,.03))'">
               <div style="font-size:28px;animation:float 2s ease-in-out infinite">🎵</div>
-              <div style="font-size:13px;font-weight:700;color:#8b5cf6">Přidat hudbu</div>
+              <div style="font-size:13px;font-weight:700;color:#8b5cf6">Add hudbu</div>
               <div style="font-size:10px;color:#bbb">MP3, WAV, M4A...</div>
             </button>
             <div id="ml">
               <div style="text-align:center;padding:16px 10px">
-                <div style="font-size:11px;color:#bbb;line-height:1.6">Hudba bude hrát jako podkres<br>k tvému videu 🎧</div>
+                <div style="font-size:11px;color:#bbb;line-height:1.6">The music will play as a soundtrack<br>under your video 🎧</div>
               </div>
             </div>
           </div>
@@ -821,8 +798,8 @@ function showApp(){
           <!-- Empty state with workflow guide -->
           <div id="es" style="text-align:center;padding:24px 20px;max-width:480px">
             <div style="font-size:52px;margin-bottom:14px;animation:float 3s ease infinite">🎬</div>
-            <p style="font-size:16px;font-weight:800;color:#b6b6bf;margin-bottom:4px">Začni svůj první edit!</p>
-            <p style="font-size:12px;color:#bbb;margin-bottom:20px">Vyber jak chceš začít:</p>
+            <p style="font-size:16px;font-weight:800;color:#b6b6bf;margin-bottom:4px">Start your first edit!</p>
+            <p style="font-size:12px;color:#bbb;margin-bottom:20px">Choose how to begin:</p>
 
             <!-- Step cards -->
             <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;text-align:left">
@@ -832,7 +809,7 @@ function showApp(){
                 onmouseout="this.style.borderStyle='dashed';this.style.background='linear-gradient(135deg,rgba(232,62,90,.1),rgba(255,122,61,.07))'">
                 <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px rgba(232,62,90,.25)">📂</div>
                 <div>
-                  <div style="font-size:13px;font-weight:700;color:#e83e5a">Nahrát video ze zařízení</div>
+                  <div style="font-size:13px;font-weight:700;color:#e83e5a">Upload a video from your device</div>
                   <div style="font-size:10px;color:#bbb;margin-top:1px">MP4, MOV, WebM, MKV...</div>
                 </div>
                 <div style="margin-left:auto;font-size:16px;color:#e83e5a">→</div>
@@ -844,8 +821,8 @@ function showApp(){
                 onmouseout="this.style.borderStyle='dashed';this.style.background='linear-gradient(135deg,rgba(239,68,68,.08),rgba(249,115,22,.05))'">
                 <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px rgba(239,68,68,.25)">▶</div>
                 <div>
-                  <div style="font-size:13px;font-weight:700;color:#ef4444">Přidat video z YouTube</div>
-                  <div style="font-size:10px;color:#bbb;margin-top:1px">Hledej a přidej libovolné video</div>
+                  <div style="font-size:13px;font-weight:700;color:#ef4444">Add a video from YouTube</div>
+                  <div style="font-size:10px;color:#bbb;margin-top:1px">Search and add any video</div>
                 </div>
                 <div style="margin-left:auto;font-size:16px;color:#ef4444">→</div>
               </button>
@@ -853,13 +830,13 @@ function showApp(){
 
             <!-- Workflow steps preview -->
             <div class="g" style="border-radius:16px;padding:14px;text-align:left">
-              <div style="font-size:10px;font-weight:800;color:#aaa;margin-bottom:10px;letter-spacing:1px">📋 JAK TO FUNGUJE</div>
+              <div style="font-size:10px;font-weight:800;color:#aaa;margin-bottom:10px;letter-spacing:1px">📋 HOW IT WORKS</div>
               <div style="display:flex;flex-direction:column;gap:8px">
                 ${[
-                  {n:'1',c:'#e83e5a',t:'Nahraj video','s':'Klidně i víc videí za sebou'},
-                  {n:'2',c:'#f97316',t:'✂️ Rozděl klip','s':'V místě přehrávání (klávesa C)'},
-                  {n:'3',c:'#8b5cf6',t:'Přeskládej','s':'⬅➡ přesuň klip třeba jako intro'},
-                  {n:'4',c:'#22c55e',t:'Hudba a hotovo!','s':'MP3 podkres a sdílej'}
+                  {n:'1',c:'#e83e5a',t:'Upload a video','s':'You can add several in a row'},
+                  {n:'2',c:'#f97316',t:'✂️ Split the clip','s':'At the playhead (press C)'},
+                  {n:'3',c:'#8b5cf6',t:'Reorder','s':'⬅➡ move a clip — e.g. as an intro'},
+                  {n:'4',c:'#22c55e',t:'Add music & done!','s':'MP3 soundtrack and share'}
                 ].map(s=>`<div style="display:flex;align-items:center;gap:10px">
                   <div style="width:22px;height:22px;border-radius:50%;background:${s.c};color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.n}</div>
                   <div><span style="font-size:12px;font-weight:600;color:#c9c9d0">${s.t}</span> <span style="font-size:11px;color:#bbb">— ${s.s}</span></div>
@@ -874,7 +851,7 @@ function showApp(){
 
           <!-- Playback group -->
           <div class="g" style="display:flex;align-items:center;gap:3px;padding:5px 8px;border-radius:16px">
-            <button onclick="seekGlobal(-5)" title="−5 sekund"
+            <button onclick="seekGlobal(-5)" title="−5 seconds"
               style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
               onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
               ◀◀ <span style="font-size:9px">5s</span>
@@ -882,7 +859,7 @@ function showApp(){
             <button onclick="vid.paused?vid.play():vid.pause()" id="pb"
               style="width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#e83e5a,#ff7a3d);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(232,62,90,.35);transition:all .2s;flex-shrink:0"
               onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 6px 24px rgba(232,62,90,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(232,62,90,.35)'">▶</button>
-            <button onclick="seekGlobal(5)" title="+5 sekund"
+            <button onclick="seekGlobal(5)" title="+5 seconds"
               style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
               onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
               <span style="font-size:9px">5s</span> ▶▶
@@ -891,10 +868,10 @@ function showApp(){
 
           <!-- Cut group -->
           <div class="g" style="display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:16px">
-            <button onclick="addCut()" title="Přidat střih na aktuální pozici (C)"
+            <button onclick="addCut()" title="Split at current position (C)"
               style="padding:7px 14px;border-radius:11px;border:none;background:linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,122,61,.08));border:1.5px solid rgba(232,62,90,.2);color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:5px"
               onmouseover="this.style.background='linear-gradient(135deg,rgba(232,62,90,.2),rgba(255,122,61,.14))';this.style.transform='scale(1.04)'" onmouseout="this.style.background='linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,122,61,.08))';this.style.transform=''">
-              ✂️ Střih
+              ✂️ Cut
             </button>
           </div>
 
@@ -910,7 +887,7 @@ function showApp(){
           </div>
 
           <!-- Speed selector -->
-          <select onchange="vid.playbackRate=+this.value" title="Rychlost přehrávání"
+          <select onchange="vid.playbackRate=+this.value" title="Playback speed"
             style="padding:7px 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.07);backdrop-filter:blur(12px);font-size:11px;font-weight:700;color:#b6b6bf;font-family:inherit;cursor:pointer">
             <option value="0.25">0.25×</option><option value="0.5">0.5×</option>
             <option value="0.75">0.75×</option><option value="1" selected>1× ▶</option>
@@ -920,7 +897,7 @@ function showApp(){
           <!-- Keyboard hint -->
           <div class="g" style="padding:5px 10px;border-radius:12px;font-size:9px;color:#bbb;display:flex;align-items:center;gap:5px">
             <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">Space</span> play
-            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">C</span> střih
+            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">C</span> split
           </div>
         </div>
 
@@ -928,11 +905,11 @@ function showApp(){
         <div id="tla" class="g" style="display:none;height:112px;border-radius:0;border-left:0;border-right:0;border-bottom:0;flex-shrink:0;flex-direction:column;padding:6px 14px 5px">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
             <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🎬 Timeline</span>
-            <span style="font-size:9px;color:#aaa" id="segInfo">0 klipů</span>
+            <span style="font-size:9px;color:#aaa" id="segInfo">0 clips</span>
             <div style="flex:1"></div>
-            <button onclick="splitAtPlayhead()" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✂️ Rozdělit</button>
-            <button onclick="document.getElementById('fi').click()" title="Přidat další video na konec — pak ho šipkami přesuneš třeba na začátek jako intro" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">➕ Přidat klip</button>
-            <span style="font-size:9px;color:#ccc">klikni na klip = vybrat · 2× klik = přehrát od něj</span>
+            <button onclick="splitAtPlayhead()" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✂️ Split</button>
+            <button onclick="document.getElementById('fi').click()" title="Add another video at the end — then move it with the arrows, e.g. to the start as an intro" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">➕ Add clip</button>
+            <span style="font-size:9px;color:#ccc">click a clip = select · double-click = play from it</span>
           </div>
           <!-- Segment track -->
           <div id="segTrack" style="flex:1;position:relative;display:flex;gap:2px;border-radius:10px;overflow:visible;background:rgba(0,0,0,.03);border:1.5px solid rgba(255,255,255,.10);padding:3px;cursor:pointer"></div>
@@ -940,9 +917,9 @@ function showApp(){
           <div id="segTools" style="display:none;align-items:center;gap:6px;padding-top:5px">
             <span style="font-size:10px;font-weight:700;color:#b6b6bf" id="segName"></span>
             <div style="flex:1"></div>
-            <button onclick="moveSeg(-1)" title="Posunout doleva (např. jako intro)" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">⬅ Doleva</button>
-            <button onclick="moveSeg(1)" title="Posunout doprava" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Doprava ➡</button>
-            <button onclick="delSeg()" title="Smazat klip z timeline" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Smazat</button>
+            <button onclick="moveSeg(-1)" title="Move left (e.g. as an intro)" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">⬅ Left</button>
+            <button onclick="moveSeg(1)" title="Move right" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Right ➡</button>
+            <button onclick="delSeg()" title="Smazat klip z timeline" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Delete</button>
           </div>
           <div style="display:flex;align-items:center;gap:14px;padding-top:3px">
             <span style="font-size:9px;color:#aaa" id="id">Celkem 0:00</span>
@@ -1001,19 +978,19 @@ function showApp(){
           </div>
           <div style="text-align:left">
             <h2 style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#8b5cf6,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">AI Studio</h2>
-            <p style="font-size:12px;color:#999;max-width:240px;line-height:1.5">Tvůj chytrý asistent pro video editaci. Zeptej se na cokoli!</p>
+            <p style="font-size:12px;color:#999;max-width:240px;line-height:1.5">Your smart video-editing assistant. Ask me anything!</p>
           </div>
         </div>
 
         <!-- Feature chips -->
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
           ${[
-            {e:'✂️',l:'Střih a rytmus',c:'#e83e5a'},
-            {e:'🎬',l:'Přechody',c:'#f97316'},
-            {e:'🎵',l:'Synchronizace hudby',c:'#8b5cf6'},
+            {e:'✂️',l:'Cutting & rhythm',c:'#e83e5a'},
+            {e:'🎬',l:'Transitions',c:'#f97316'},
+            {e:'🎵',l:'Music sync',c:'#8b5cf6'},
             {e:'📱',l:'Social media',c:'#38bdf8'},
-            {e:'💡',l:'Kreativní nápady',c:'#22c55e'}
-          ].map(c=>`<button onclick="document.getElementById('aq').value='Poraď mi s tímto: ${c.l}'" style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid ${c.c}22;background:${c.c}0d;color:${c.c};cursor:pointer;font-family:inherit;transition:all .2s" onmouseover="this.style.background='${c.c}22'" onmouseout="this.style.background='${c.c}0d'">${c.e} ${c.l}</button>`).join('')}
+            {e:'💡',l:'Creative ideas',c:'#22c55e'}
+          ].map(c=>`<button onclick="document.getElementById('aq').value='Give me advice about: ${c.l}'" style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid ${c.c}22;background:${c.c}0d;color:${c.c};cursor:pointer;font-family:inherit;transition:all .2s" onmouseover="this.style.background='${c.c}22'" onmouseout="this.style.background='${c.c}0d'">${c.e} ${c.l}</button>`).join('')}
         </div>
       </div>
 
@@ -1023,15 +1000,15 @@ function showApp(){
         <!-- Welcome message from robot -->
         <div style="align-self:flex-start;max-width:85%;animation:fadeUp .5s ease">
           <div class="g" style="padding:14px 18px;border-radius:20px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6">
-            <div style="font-size:10px;color:#8b5cf6;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:5px">🤖 AI Asistent</div>
-            <div style="font-size:13px;color:#dcdce2;line-height:1.6">Ahoj! Jsem tvůj AI asistent pro video editaci. 🎬<br>Můžu ti pomoci s <b>střihem</b>, <b>hudbou</b>, <b>přechody</b> nebo jakýmikoli tipy pro tvorbu videí.<br><span style="color:#8b5cf6;font-weight:600">Klikni na některý z chipů výše nebo napiš svou otázku!</span></div>
+            <div style="font-size:10px;color:#8b5cf6;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:5px">🤖 AI Assistant</div>
+            <div style="font-size:13px;color:#dcdce2;line-height:1.6">Hi! I'm your AI video-editing assistant. 🎬<br>I can help you with <b>cutting</b>, <b>music</b>, <b>transitions</b> or any video-making tips.<br><span style="color:#8b5cf6;font-weight:600">Click one of the chips above or type your question!</span></div>
           </div>
         </div>
       </div>
 
       <div class="g" style="border-radius:18px;padding:6px;display:flex;gap:8px;margin-bottom:16px;flex-shrink:0;border:1.5px solid rgba(139,92,246,.15)">
-        <input id="aq" placeholder="🤖  Zeptej se AI asistenta..." onkeydown="if(event.key==='Enter')sAi()" style="flex:1;background:0;border:0;padding:10px 14px;font-size:13px;color:#dcdce2;font-family:inherit;outline:0">
-        <button onclick="sAi()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#8b5cf6,#38bdf8);border-radius:14px;padding:10px 20px;font-size:12px;transition:all .2s;box-shadow:0 4px 14px rgba(139,92,246,.3)" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">Odeslat ↑</button>
+        <input id="aq" placeholder="🤖  Ask the AI assistant..." onkeydown="if(event.key==='Enter')sAi()" style="flex:1;background:0;border:0;padding:10px 14px;font-size:13px;color:#dcdce2;font-family:inherit;outline:0">
+        <button onclick="sAi()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#8b5cf6,#38bdf8);border-radius:14px;padding:10px 20px;font-size:12px;transition:all .2s;box-shadow:0 4px 14px rgba(139,92,246,.3)" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">Send ↑</button>
       </div>
     </div>
 
@@ -1046,20 +1023,20 @@ function showApp(){
           <div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 20px rgba(232,62,90,.3)">🛡️</div>
           <div>
             <h1 style="font-size:22px;font-weight:900;background:linear-gradient(135deg,#e83e5a,#ff7a3d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px">Admin Panel</h1>
-            <p style="font-size:11px;color:#aaa">Přihlášen jako <b style="color:#e83e5a">${user.email}</b></p>
+            <p style="font-size:11px;color:#aaa">Signed in as <b style="color:#e83e5a">${user.email}</b></p>
           </div>
           <div style="margin-left:auto;display:flex;gap:8px">
-            <button onclick="updAdmin();confetti('✅ Data obnovena!','🔄')" style="padding:8px 16px;border-radius:12px;border:1.5px solid rgba(232,62,90,.2);background:rgba(232,62,90,.06);color:#e83e5a;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s" onmouseover="this.style.background='rgba(232,62,90,.12)'" onmouseout="this.style.background='rgba(232,62,90,.06)'">🔄 Obnovit</button>
+            <button onclick="updAdmin();confetti('✅ Data refreshed!','🔄')" style="padding:8px 16px;border-radius:12px;border:1.5px solid rgba(232,62,90,.2);background:rgba(232,62,90,.06);color:#e83e5a;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s" onmouseover="this.style.background='rgba(232,62,90,.12)'" onmouseout="this.style.background='rgba(232,62,90,.06)'">🔄 Refresh</button>
           </div>
         </div>
       </div>
 
       <!-- Admin tabs -->
       <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);flex-shrink:0" id="adminTabs">
-        <button class="ntab on" onclick="adminTab('overview')" data-atab="overview"><span class="ti">📊</span>Přehled</button>
-        <button class="ntab" onclick="adminTab('users')" data-atab="users"><span class="ti">👥</span>Uživatelé</button>
-        <button class="ntab" onclick="adminTab('pending')" data-atab="pending"><span class="ti">⏳</span>Čekají</button>
-        <button class="ntab" onclick="adminTab('content')" data-atab="content"><span class="ti">🎬</span>Obsah</button>
+        <button class="ntab on" onclick="adminTab('overview')" data-atab="overview"><span class="ti">📊</span>Overview</button>
+        <button class="ntab" onclick="adminTab('users')" data-atab="users"><span class="ti">👥</span>Users</button>
+        <button class="ntab" onclick="adminTab('pending')" data-atab="pending"><span class="ti">⏳</span>Pending</button>
+        <button class="ntab" onclick="adminTab('content')" data-atab="content"><span class="ti">🎬</span>Content</button>
       </div>
 
       <!-- Tab panels -->
@@ -1071,13 +1048,13 @@ function showApp(){
 
           <!-- Activity chart -->
           <div class="g" style="border-radius:20px;padding:20px;margin-bottom:20px">
-            <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">📈 Aktivita za posledních 7 dní</div>
+            <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">📈 Activity — last 7 days</div>
             <div style="display:flex;align-items:flex-end;gap:6px;height:80px" id="adminChart">
-              ${['Po','Út','St','Čt','Pá','So','Ne'].map((d,i)=>{
+              ${['Mo','Tu','We','Th','Fr','Sa','Su'].map((d,i)=>{
                 const h=[55,30,70,45,88,65,80][i];
                 const c=['#e83e5a','#f97316','#f59e0b','#22c55e','#38bdf8','#8b5cf6','#f472b6'][i];
                 return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-                  <div title="${h} akcí" style="width:100%;height:${h}%;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,${c},${c}88);transition:all .3s;cursor:pointer" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"></div>
+                  <div title="${h} actions" style="width:100%;height:${h}%;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,${c},${c}88);transition:all .3s;cursor:pointer" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"></div>
                   <span style="font-size:9px;color:#bbb;font-weight:600">${d}</span>
                 </div>`;}).join('')}
             </div>
@@ -1085,7 +1062,7 @@ function showApp(){
 
           <!-- Recent activity feed -->
           <div class="g" style="border-radius:20px;padding:20px">
-            <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px">🕐 Poslední aktivita</div>
+            <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px">🕐 Recent activity</div>
             <div id="activityFeed"></div>
           </div>
         </div>
@@ -1094,11 +1071,11 @@ function showApp(){
         <div id="atUsers" style="display:none">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
             <div>
-              <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:2px">Všichni uživatelé</div>
+              <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:2px">All users</div>
               <div id="userCount" style="font-size:12px;color:#aaa"></div>
             </div>
             <div style="display:flex;gap:6px" id="userSearch">
-              <input placeholder="🔍  Hledej uživatele..." style="padding:8px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.08);font-size:12px;color:#dcdce2;font-family:inherit;outline:0;width:200px" oninput="filterUsers(this.value)">
+              <input placeholder="🔍  Search users..." style="padding:8px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.08);font-size:12px;color:#dcdce2;font-family:inherit;outline:0;width:200px" oninput="filterUsers(this.value)">
             </div>
           </div>
           <div id="userRows"></div>
@@ -1106,14 +1083,14 @@ function showApp(){
 
         <!-- PENDING TAB -->
         <div id="atPending" style="display:none">
-          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:4px">Čekají na schválení</div>
-          <div style="font-size:12px;color:#aaa;margin-bottom:16px">Nové registrace čekají na tvoje schválení</div>
+          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:4px">Pending approval</div>
+          <div style="font-size:12px;color:#aaa;margin-bottom:16px">New registrations awaiting your approval</div>
           <div id="pendingRows"></div>
         </div>
 
         <!-- CONTENT TAB -->
         <div id="atContent" style="display:none">
-          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:16px">Obsah aplikace</div>
+          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:16px">App content</div>
           <div id="adminContent" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px"></div>
         </div>
 
@@ -1173,7 +1150,7 @@ function showApp(){
       document.getElementById('tla').style.display='flex';
       renderSegs();renderCl();
       if(segs.length===1)loadSeg(0,true);
-      confetti(segs.length>1?'🎬 Klip přidán na konec! Šipkami ⬅➡ ho můžeš přesunout (třeba jako intro).':'🎬 Video nahráno!','🎬');
+      confetti(segs.length>1?'🎬 Clip added at the end! Move it with ⬅➡ (e.g. as an intro).':'🎬 Video uploaded!','🎬');
       if(segs.length===1)setTimeout(showPurposeModal,600);
       if(A)updAdmin();
     };
@@ -1190,31 +1167,31 @@ function showApp(){
     }
   });
 
-  // ── Modal: Proč edituješ toto video? + rady podle účelu ──
+  // ── Modal: Why are you editing this video? + rady podle účelu ──
   const PURPOSE_TIPS={
-    youtube:{icon:'▶',label:'Na YouTube',c:'#ef4444',tips:[
-      '🏁 Dej zábavné intro! Když lidi vidí zábavné intro, většinou zůstanou koukat dál. Prvních 5 sekund rozhoduje!',
-      '✂️ Střihej nudu pryč — každou pauzu, hledání slov, hluchá místa. Rychlé tempo = lidi neodejdou.',
-      '🎵 Hudba na pozadí dělá video profi. Ale ztlum ji, ať je slyšet mluvení.',
-      '📢 Na konci řekni divákům, co mají udělat: „Dej like a odběr!" — funguje to.'
+    youtube:{icon:'▶',label:'For YouTube',c:'#ef4444',tips:[
+      '🏁 Make a fun intro! When people see a fun intro, they usually keep watching. The first 5 seconds decide!',
+      '✂️ Cut out the boring parts — every pause, filler word, dead moment. Fast pace = people stay.',
+      '🎵 Background music makes a video feel pro. Just keep it low so the talking is clear.',
+      '📢 At the end, tell viewers what to do: "Like & subscribe!" — it works.'
     ]},
-    fun:{icon:'🎉',label:'Pro zábavu',c:'#f59e0b',tips:[
-      '😜 Nemusíš nic řešit — experimentuj! Zkus rozdělit video a přeházet části, vzniknou vtipné momenty.',
-      '🎵 Zkus k videu úplně jinou hudbu, než by člověk čekal — dramatickou k obyčejným věcem, to je sranda.',
-      '✂️ Zkus rychlé střihy za sebou (klávesa C) — video dostane úplně jiný rytmus.',
-      '🏁 Udělej si vlastní intro, které pak můžeš dávat před všechna svoje videa!'
+    fun:{icon:'🎉',label:'Just for fun',c:'#f59e0b',tips:[
+      '😜 No pressure — experiment! Try splitting the video and shuffling parts, funny moments will appear.',
+      '🎵 Try totally unexpected music — dramatic music over ordinary stuff is hilarious.',
+      '✂️ Try quick cuts back to back (press C) — the video gets a whole new rhythm.',
+      '🏁 Make your own intro you can put before all your videos!'
     ]},
-    friends:{icon:'👥',label:'Pro kamarády/rodinu',c:'#22c55e',tips:[
-      '⏱️ Kraťoučké je nejlepší — nikdo nechce koukat na 10 minut. Vystřihni jen nejlepší momenty!',
-      '🏁 Začni tím nejlepším momentem, ať to kamarády hned chytne.',
-      '🎵 Přidej písničku, kterou máte rádi společně — hned to bude osobnější.',
-      '😂 Vtipné momenty nech vyznít — nestříhej je moc rychle.'
+    friends:{icon:'👥',label:'For friends & family',c:'#22c55e',tips:[
+      '⏱️ Short is best — nobody wants to watch 10 minutes. Keep only the best moments!',
+      '🏁 Start with the best moment so your friends are hooked right away.',
+      '🎵 Add a song you all love — it instantly feels more personal.',
+      "😂 Let funny moments breathe — don't cut them too fast."
     ]},
-    school:{icon:'📚',label:'Do školy',c:'#38bdf8',tips:[
-      '🎯 Drž se tématu — vystřihni všechno, co s tématem nesouvisí.',
-      '🏁 Na začátku řekni, o čem video je. Na konci to krátce shrň.',
-      '✂️ Střihej přeřeky a dlouhé pauzy, bude to působit připraveněji.',
-      '🎵 Hudbu jen tichou na pozadí, ať neruší výklad. Nebo raději žádnou.'
+    school:{icon:'📚',label:'For school',c:'#38bdf8',tips:[
+      "🎯 Stay on topic — cut everything that doesn't belong.",
+      '🏁 Say what the video is about at the start. Briefly sum it up at the end.',
+      "✂️ Cut slips and long pauses — it will feel more prepared.",
+      "🎵 Keep music quiet in the background so it doesn't distract. Or skip it entirely."
     ]}
   };
 
@@ -1227,8 +1204,8 @@ function showApp(){
       <div class="g" style="border-radius:24px;padding:26px 24px;width:440px;max-width:96vw;background:rgba(30,30,38,.95)">
         <div style="text-align:center;margin-bottom:18px">
           <div style="font-size:38px;margin-bottom:6px">🎬</div>
-          <div style="font-size:17px;font-weight:900;color:#f2f2f5;margin-bottom:3px">Proč edituješ toto video?</div>
-          <div style="font-size:11px;color:#999">Podle toho ti dám tipy, jak na to 💡</div>
+          <div style="font-size:17px;font-weight:900;color:#f2f2f5;margin-bottom:3px">Why are you editing this video?</div>
+          <div style="font-size:11px;color:#999">I'll give you tips based on your goal 💡</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           ${Object.entries(PURPOSE_TIPS).map(([key,p])=>`
@@ -1240,7 +1217,7 @@ function showApp(){
               <div style="font-size:12px;font-weight:700;color:#dcdce2">${p.label}</div>
             </button>`).join('')}
         </div>
-        <button onclick="document.getElementById('purposeModal').remove()" style="width:100%;margin-top:12px;padding:9px;border:0;background:0;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit">Přeskočit</button>
+        <button onclick="document.getElementById('purposeModal').remove()" style="width:100%;margin-top:12px;padding:9px;border:0;background:0;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit">Skip</button>
       </div>`;
     document.body.appendChild(m);
   };
@@ -1254,15 +1231,15 @@ function showApp(){
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
           <div style="width:42px;height:42px;border-radius:13px;background:${p.c};display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0">${p.icon}</div>
           <div>
-            <div style="font-size:15px;font-weight:900;color:#f2f2f5">${p.label} — tipy pro tebe</div>
-            <div style="font-size:10px;color:#aaa">Rady od profíků 💪</div>
+            <div style="font-size:15px;font-weight:900;color:#f2f2f5">${p.label} — tips for you</div>
+            <div style="font-size:10px;color:#aaa">Pro tips 💪</div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
           ${p.tips.map(t=>`<div style="padding:11px 14px;border-radius:13px;background:${p.c}0a;border:1px solid ${p.c}1f;font-size:12px;color:#c9c9d0;line-height:1.55">${t}</div>`).join('')}
         </div>
-        <button onclick="document.getElementById('purposeModal').remove();confetti('💪 Jdeme na to!','🎬')"
-          style="width:100%;padding:13px;border:0;border-radius:14px;cursor:pointer;font-family:inherit;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,${p.c},${p.c}cc);box-shadow:0 4px 18px ${p.c}44">Jdeme na to! →</button>
+        <button onclick="document.getElementById('purposeModal').remove();confetti('💪 Let's go!','🎬')"
+          style="width:100%;padding:13px;border:0;border-radius:14px;cursor:pointer;font-family:inherit;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,${p.c},${p.c}cc);box-shadow:0 4px 18px ${p.c}44">Let's go! →</button>
       </div>`;
   };
 
@@ -1315,13 +1292,13 @@ function showApp(){
         <div style="font-size:8px;color:rgba(30,30,38,.95);font-weight:600">${fmt(s.end-s.start)}${playing?' ▶':''}</div>
       </div>`;
     }).join('');
-    document.getElementById('segInfo').textContent=segs.length+' klipů';
+    document.getElementById('segInfo').textContent=segs.length+' clips';
     document.getElementById('id').textContent='Celkem '+fmt(totalDur());
     // Tools for selected
     const tools=document.getElementById('segTools');
     if(selSegIdx>=0&&segs[selSegIdx]){
       tools.style.display='flex';
-      document.getElementById('segName').textContent='Vybráno: '+(selSegIdx+1)+'. '+segs[selSegIdx].name;
+      document.getElementById('segName').textContent='Selected: '+(selSegIdx+1)+'. '+segs[selSegIdx].name;
     } else tools.style.display='none';
   }
 
@@ -1337,13 +1314,13 @@ function showApp(){
     const seg=segs[curSegIdx];
     if(!seg)return;
     const t=vid.currentTime;
-    if(t<=seg.start+0.15||t>=seg.end-0.15){confetti('⚠️ Posuň přehrávání doprostřed klipu','✂️');return}
+    if(t<=seg.start+0.15||t>=seg.end-0.15){confetti('⚠️ Move the playhead to the middle of the clip','✂️');return}
     const right={id:segIdC++,name:seg.name,url:seg.url,start:t,end:seg.end,color:SEG_COLORS[(segIdC-2)%SEG_COLORS.length]};
     seg.end=t;
     segs.splice(curSegIdx+1,0,right);
     selSegIdx=curSegIdx+1;
     renderSegs();
-    confetti('✂️ Klip rozdělen na dva!','✂️');
+    confetti('✂️ Clip split in two!','✂️');
   };
 
   // ── Přesun segmentu (intro dopředu apod.) ──
@@ -1355,7 +1332,7 @@ function showApp(){
     if(curSegIdx===selSegIdx)curSegIdx=ni;else if(curSegIdx===ni)curSegIdx=selSegIdx;
     selSegIdx=ni;
     renderSegs();
-    if(ni===0)confetti('🏁 Klip je teď na začátku — intro hotové!','🏁');
+    if(ni===0)confetti('🏁 The clip is now first — intro done!','🏁');
   };
 
   // ── Smazat segment ──
@@ -1397,7 +1374,7 @@ function showApp(){
   window.addYtUrl=function(){
     const url=document.getElementById('yturl').value.trim();
     const id=ytIdFromUrl(url);
-    if(!id){alert('Neplatná YouTube URL. Zkopíruj celou adresu videa.');return}
+    if(!id){alert('Invalid YouTube URL. Copy the full video address.');return}
     if(clips.some(c=>c.ytId===id))return;
     const c={id:clipIdCounter++,name:'YouTube video',ytId:id,type:'youtube'};
     clips.push(c);aC=c;
@@ -1408,7 +1385,7 @@ function showApp(){
     const fr=document.getElementById('ytframe');fr.src='https://www.youtube.com/embed/'+id;fr.style.display='block';
     document.getElementById('es').style.display='none';
     renderCl();renderYtClips();if(A)updAdmin();
-    confetti('▶ YouTube video přidáno!','🎥');
+    confetti('▶ YouTube video added!','🎥');
   };
 
   function renderYtClips(){
@@ -1429,11 +1406,11 @@ function showApp(){
     let h='';clips.forEach(c=>{
       h+=`<div class="g" style="padding:10px;border-radius:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:8px;${aC&&aC.id===c.id?'border-color:rgba(232,62,90,.3)!important;background:rgba(255,255,255,.10)':''}" onclick="selCl(${c.id})">
         ${c.type==='youtube'&&c.ytId?'<img src="https://img.youtube.com/vi/'+c.ytId+'/default.jpg" style="width:44px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<div style="width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#38bdf833,#38bdf811);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📂</div>'}
-        <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Lokální'}</div></div>
+        <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Local'}</div></div>
         <button class="b" onclick="event.stopPropagation();rmCl(${c.id})" style="padding:2px 7px;font-size:10px">✕</button></div>`});
     if(segs.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">🎬 Timeline ('+segs.length+')</div>';segs.forEach((s,i)=>{h+=`<div class="g" style="padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer" onclick="loadSeg2(${i})"><div style="width:10px;height:10px;border-radius:3px;background:${s.color};flex-shrink:0"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c9c9d0;font-weight:600">${i+1}. ${s.name}</span><span style="color:#aaa;font-size:10px">${fmt(s.end-s.start)}</span></div>`})}
     document.getElementById('cl').innerHTML=h;
-    document.getElementById('homeSubtitle').textContent=clips.length?clips.length+' klipů v editu · klikni pro otevření':'Připravený na editaci? Vyber akci níže.';
+    document.getElementById('homeSubtitle').textContent=clips.length?clips.length+' clips in your edit · click to open':'Ready to create something great?';
     // Update stat badges
     const sc=document.getElementById('statClips');const su=document.getElementById('statCuts');const sm=document.getElementById('statMusic');
     if(sc)sc.textContent=clips.length;if(su)su.textContent=cuts.length;if(sm)sm.textContent=mTr.length;
@@ -1446,8 +1423,8 @@ function showApp(){
     if(clips.length){
       ph+=`<div style="margin-bottom:16px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🎬 Klipy v aktuálním editu</div>
-          <button onclick="nav('editor')" style="font-size:11px;font-weight:600;color:#e83e5a;background:0;border:0;cursor:pointer;font-family:inherit">Otevřít editor →</button>
+          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🎬 Clips in current edit</div>
+          <button onclick="nav('editor')" style="font-size:11px;font-weight:600;color:#e83e5a;background:0;border:0;cursor:pointer;font-family:inherit">Open editor →</button>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
         ${clips.map(c=>`
@@ -1461,8 +1438,8 @@ function showApp(){
             <div style="padding:10px 12px">
               <div style="font-size:12px;font-weight:700;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${c.name}</div>
               <div style="display:flex;align-items:center;gap:6px">
-                <span style="font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;${c.type==='youtube'?'background:rgba(239,68,68,.1);color:#ef4444':'background:rgba(56,189,248,.1);color:#0284c7'}">${c.type==='youtube'?'▶ YouTube':'📂 Lokální'}</span>
-                ${aC&&aC.id===c.id?'<span style="font-size:9px;padding:2px 7px;border-radius:8px;background:rgba(34,197,94,.1);color:#16a34a;font-weight:600">▶ Aktivní</span>':''}
+                <span style="font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;${c.type==='youtube'?'background:rgba(239,68,68,.1);color:#ef4444':'background:rgba(56,189,248,.1);color:#0284c7'}">${c.type==='youtube'?'▶ YouTube':'📂 Local'}</span>
+                ${aC&&aC.id===c.id?'<span style="font-size:9px;padding:2px 7px;border-radius:8px;background:rgba(34,197,94,.1);color:#16a34a;font-weight:600">▶ Active</span>':''}
               </div>
             </div>
           </div>`).join('')}
@@ -1471,16 +1448,16 @@ function showApp(){
     }
     if(mTr.length){
       ph+=`<div>
-        <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">🎵 Hudební stopy</div>
+        <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">🎵 Music tracks</div>
         <div style="display:flex;flex-direction:column;gap:8px">
           ${mTr.map(t=>`
             <div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px">
               <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎵</div>
               <div style="flex:1;min-width:0">
                 <div style="font-size:12px;font-weight:700;color:#dcdce2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div>
-                <div style="font-size:10px;color:${t.audio.paused?'#bbb':'#8b5cf6'};font-weight:600;margin-top:2px">${t.audio.paused?'⏸ Pozastaveno':'▶ Přehrává se'}</div>
+                <div style="font-size:10px;color:${t.audio.paused?'#bbb':'#8b5cf6'};font-weight:600;margin-top:2px">${t.audio.paused?'⏸ Paused':'▶ Playing'}</div>
               </div>
-              <button onclick="tgMu(${t.id});renderCl()" style="padding:6px 14px;border-radius:10px;border:1.5px solid ${t.audio.paused?'rgba(139,92,246,.3)':'rgba(34,197,94,.3)'};background:${t.audio.paused?'rgba(139,92,246,.08)':'rgba(34,197,94,.08)'};color:${t.audio.paused?'#8b5cf6':'#16a34a'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">${t.audio.paused?'▶ Přehrát':'⏸ Pauza'}</button>
+              <button onclick="tgMu(${t.id});renderCl()" style="padding:6px 14px;border-radius:10px;border:1.5px solid ${t.audio.paused?'rgba(139,92,246,.3)':'rgba(34,197,94,.3)'};background:${t.audio.paused?'rgba(139,92,246,.08)':'rgba(34,197,94,.08)'};color:${t.audio.paused?'#8b5cf6':'#16a34a'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">${t.audio.paused?'▶ Play':'⏸ Pause'}</button>
               <button onclick="nav('editor');setTimeout(()=>showTab('mu'),50)" style="padding:6px 12px;border-radius:10px;border:none;background:transparent;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit">→</button>
             </div>`).join('')}
         </div>
@@ -1513,7 +1490,7 @@ function showApp(){
     renderCl();renderYtClips();if(A)updAdmin()};
 
   // ── Music ──
-  document.getElementById('mi').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f),a=new Audio(u);a.loop=true;a.volume=.7;mTr.push({id:Date.now(),name:f.name,audio:a,url:u});renderMu();renderCl();this.value='';confetti('🎵 Hudba přidána!','🎵')});
+  document.getElementById('mi').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f),a=new Audio(u);a.loop=true;a.volume=.7;mTr.push({id:Date.now(),name:f.name,audio:a,url:u});renderMu();renderCl();this.value='';confetti('🎵 Music přidána!','🎵')});
   function renderMu(){let h='';mTr.forEach(t=>{h+=`<div class="g" style="border-radius:14px;padding:10px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="b" onclick="tgMu(${t.id})" style="padding:4px 9px;border-radius:10px">${t.audio.paused?'▶':'⏸'}</button><div style="flex:1;font-size:11px;color:#c9c9d0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div><button class="b" onclick="rmMu(${t.id})" style="padding:2px 7px;font-size:10px">✕</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px">🔈</span><input type="range" min="0" max="100" value="${t.audio.volume*100}" oninput="sMuV(${t.id},this.value)" style="flex:1;accent-color:#8b5cf6;height:3px"></div></div>`});
   if(!mTr.length)h='<div style="text-align:center;padding:30px;color:#ccc"><div style="font-size:36px;margin-bottom:8px">🎵</div><div style="font-size:12px;color:#aaa">Nahraj audio podkres</div></div>';
   document.getElementById('ml').innerHTML=h}
@@ -1526,10 +1503,10 @@ function showApp(){
   function showAiKeyBar(){
     document.getElementById('aiKeyBar').style.display='block';
     document.getElementById('aiKeyBar').innerHTML=`<div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:8px">
-      <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 API klíč:</span>
+      <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 API key:</span>
       <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
-      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Uloženo';setTimeout(()=>this.textContent='Uložit',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Uložit</button>
-    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Získej klíč na <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6">console.anthropic.com</a> · klíč zůstane uložen v prohlížeči</div>`;
+      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Saved';setTimeout(()=>this.textContent='Uložit',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Save</button>
+    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Get a key at <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6">console.anthropic.com</a> · klíč zůstane uložen v prohlížeči</div>`;
   }
   showAiKeyBar();
 
@@ -1556,7 +1533,7 @@ function showApp(){
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6;display:inline-flex;align-items:center;gap:6px">
           ${[0,.2,.4].map(d=>`<div style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);animation:float .8s ease-in-out infinite ${d}s;opacity:.7"></div>`).join('')}
-          <span style="font-size:12px;color:#aaa;margin-left:4px">Přemýšlím...</span>
+          <span style="font-size:12px;color:#aaa;margin-left:4px">Thinking...</span>
         </div>
       </div>`;
     ch.scrollTop=ch.scrollHeight;
@@ -1564,7 +1541,7 @@ function showApp(){
       const headers={'Content-Type':'application/json'};
       if(key)headers['x-api-key']=key;
       if(key)headers['anthropic-version']='2023-06-01';
-      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Jsi AI asistent pro video editaci. Odpovídej česky, stručně a prakticky.',messages:[{role:'user',content:msg}]})});
+      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are an AI assistant for video editing. Reply in English, briefly and practically.',messages:[{role:'user',content:msg}]})});
       if(!r.ok)throw new Error(r.status);
       const d=await r.json();const txt=d.content?.filter(c=>c.type==='text').map(c=>c.text).join('\n')||'Chyba.';
       document.getElementById(lid).innerHTML=`
@@ -1579,8 +1556,8 @@ function showApp(){
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center">🤖</div><span>AI Asistent</span>
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #ef4444">
-          <div style="color:#e83e5a;font-size:12px;font-weight:600">⚠️ Nepodařilo se spojit</div>
-          <div style="color:#999;font-size:11px;margin-top:4px">${key?'Zkontroluj API klíč.':'Zadej API klíč v poli výše.'}</div>
+          <div style="color:#e83e5a;font-size:12px;font-weight:600">⚠️ Couldn't connect</div>
+          <div style="color:#999;font-size:11px;margin-top:4px">${key?'Check your API key.':'Enter an API key in the field above.'}</div>
         </div>`;
     }
     ch.scrollTop=ch.scrollHeight;
@@ -1605,12 +1582,12 @@ function showApp(){
 
       // Stats
       document.getElementById('adminStats').innerHTML=[
-        {l:'Uživatelé celkem',v:allAccounts.length,i:'👥',c:'#38bdf8',sub:'registrované účty'},
-        {l:'Zabanovaní',v:banned.length,i:'⛔',c:'#ef4444',sub:'blokovaní uživatelé'},
-        {l:'Klipy v editu',v:clips.length,i:'🎬',c:'#8b5cf6',sub:'aktuální session'},
-        {l:'Střihy',v:cuts.length,i:'✂️',c:'#e83e5a',sub:'v aktuálním projektu'},
-        {l:'Audio stopy',v:mTr.length,i:'🎵',c:'#f472b6',sub:'nahraná hudba'},
-        {l:'Tvoje role',v:'Admin',i:'🛡️',c:'#22c55e',sub:user.email},
+        {l:'Total users',v:allAccounts.length,i:'👥',c:'#38bdf8',sub:'registered accounts'},
+        {l:'Banned',v:banned.length,i:'⛔',c:'#ef4444',sub:'blocked users'},
+        {l:'Clips in edit',v:clips.length,i:'🎬',c:'#8b5cf6',sub:'current session'},
+        {l:'Cuts',v:cuts.length,i:'✂️',c:'#e83e5a',sub:'in current project'},
+        {l:'Audio tracks',v:mTr.length,i:'🎵',c:'#f472b6',sub:'uploaded music'},
+        {l:'Your role',v:'Admin',i:'🛡️',c:'#22c55e',sub:user.email},
       ].map(s=>`
         <div class="g" style="border-radius:18px;padding:16px;position:relative;overflow:hidden;cursor:default;transition:all .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
           <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,${s.c}20,transparent 70%);pointer-events:none"></div>
@@ -1623,10 +1600,10 @@ function showApp(){
       // Activity feed — recent logins
       const feed=document.getElementById('activityFeed');
       if(feed){
-        const activities=allAccounts.filter(a=>a.edited_last_login).sort((x,y)=>new Date(y.edited_last_login)-new Date(x.edited_last_login)).slice(0,8).map(a=>({icon:'🔐',color:'#22c55e',text:`<b>${a.edited_name||a.email}</b> se přihlásil`,time:a.edited_last_login,badge:'Přihlášení',bc:'#22c55e'}));
+        const activities=allAccounts.filter(a=>a.edited_last_login).sort((x,y)=>new Date(y.edited_last_login)-new Date(x.edited_last_login)).slice(0,8).map(a=>({icon:'🔐',color:'#22c55e',text:`<b>${a.edited_name||a.email}</b> signed in`,time:a.edited_last_login,badge:'Sign-in',bc:'#22c55e'}));
 
         if(!activities.length){
-          feed.innerHTML='<div style="text-align:center;padding:24px;color:#ccc"><div style="font-size:32px;margin-bottom:8px">😴</div><div style="font-size:12px">Zatím žádná aktivita</div></div>';
+          feed.innerHTML='<div style="text-align:center;padding:24px;color:#ccc"><div style="font-size:32px;margin-bottom:8px">😴</div><div style="font-size:12px">No activity yet</div></div>';
         } else {
           feed.innerHTML=activities.map((a,i)=>`
             <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:${i<activities.length-1?'1px solid rgba(255,255,255,.06)':'none'}">
@@ -1645,18 +1622,18 @@ function showApp(){
       if(pr){
         pr.innerHTML=`<div style="text-align:center;padding:48px;color:#ccc">
           <div style="font-size:48px;margin-bottom:12px">✅</div>
-          <div style="font-size:14px;font-weight:700;color:#aaa;margin-bottom:4px">Registrace je automatická</div>
-          <div style="font-size:12px;color:#bbb">Noví uživatelé mají přístup ihned po registraci.<br>Zde můžeš případně zpětně zablokovat uživatele v záložce Uživatelé.</div>
+          <div style="font-size:14px;font-weight:700;color:#aaa;margin-bottom:4px">Registration is automatic</div>
+          <div style="font-size:12px;color:#bbb">New users get access immediately after signing up.<br>You can block someone retroactively in the Users tab.</div>
         </div>`;
       }
 
       // Users tab
-      document.getElementById('userCount').textContent=allAccounts.length+' uživatelů · '+(allAccounts.length-banned.length)+' aktivních · '+banned.length+' zabanovaných';
+      document.getElementById('userCount').textContent=allAccounts.length+' users · '+(allAccounts.length-banned.length)+' active · '+banned.length+' banned';
       document.getElementById('userRows').innerHTML=active.map(a=>{
         const isMe=a.email.toLowerCase()===user.email.toLowerCase();
         const isAdm=a.edited_role==='admin';
         const isBanned=a.edited_status==='banned';
-        const lastLogin=a.edited_last_login?new Date(a.edited_last_login).toLocaleDateString('cs')+' '+new Date(a.edited_last_login).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}):'Nikdy';
+        const lastLogin=a.edited_last_login?new Date(a.edited_last_login).toLocaleDateString('cs')+' '+new Date(a.edited_last_login).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}):'Never';
         const statusC=isBanned?'#ef4444':isMe?'#22c55e':'#aaa';
         const statusT=isBanned?'⛔ Ban':isMe?'● Online':'○ Offline';
         const statusBg=isBanned?'rgba(239,68,68,.08)':isMe?'rgba(34,197,94,.08)':'rgba(255,255,255,.06)';
@@ -1670,20 +1647,20 @@ function showApp(){
               ${isMe?'<span style="font-size:8px;font-weight:700;color:#22c55e;background:rgba(34,197,94,.1);padding:2px 7px;border-radius:5px">TY</span>':''}
             </div>
             <div style="font-size:10px;color:#aaa">${a.email}</div>
-            <div style="font-size:9px;color:#ccc;margin-top:2px">Naposledy přihlášen: ${lastLogin}</div>
+            <div style="font-size:9px;color:#ccc;margin-top:2px">Last signed in: ${lastLogin}</div>
           </div>
           <span style="padding:4px 10px;border-radius:10px;font-size:9px;font-weight:700;background:${statusBg};color:${statusC};flex-shrink:0">${statusT}</span>
           ${!isMe?`
           <div style="display:flex;gap:6px;flex-shrink:0">
-            <button onclick="mkAdmin('${a.id}')" title="${isAdm?'Odebrat práva admina':'Povýšit na admina'}"
+            <button onclick="mkAdmin('${a.id}')" title="${isAdm?'Remove admin rights':'Promote to admin'}"
               style="padding:6px 12px;border-radius:10px;border:1.5px solid ${isAdm?'rgba(232,62,90,.3)':'rgba(139,92,246,.3)'};background:${isAdm?'rgba(232,62,90,.08)':'rgba(139,92,246,.08)'};color:${isAdm?'#e83e5a':'#8b5cf6'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
-              ${isAdm?'👑 Odebrat admina':'👑 Dát admina'}
+              ${isAdm?'👑 Remove admin':'👑 Make admin'}
             </button>
-            ${!isAdm?`<button onclick="banUsr('${a.id}')" title="${isBanned?'Odbanovat':'Zabanovat'}"
+            ${!isAdm?`<button onclick="banUsr('${a.id}')" title="${isBanned?'Unban':'Ban'}"
               style="padding:6px 12px;border-radius:10px;border:1.5px solid ${isBanned?'rgba(34,197,94,.3)':'rgba(249,115,22,.3)'};background:${isBanned?'rgba(34,197,94,.08)':'rgba(249,115,22,.08)'};color:${isBanned?'#16a34a':'#d97706'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
               ${isBanned?'✓ Unban':'⛔ Ban'}
             </button>
-            <button onclick="delUsr('${a.id}')" title="Smazat účet natrvalo"
+            <button onclick="delUsr('${a.id}')" title="Delete account permanently"
               style="padding:6px 12px;border-radius:10px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;${a.email.toLowerCase()==='libor.falta2@gmail.com'?'display:none':''}">
               🗑️
             </button>`:''}
@@ -1693,10 +1670,10 @@ function showApp(){
       // Content tab
       const ac=document.getElementById('adminContent');
       if(ac){ac.innerHTML=[
-        {l:'Klipy v editu',v:clips.length,i:'🎬',c:'#8b5cf6',detail:clips.map(c=>c.name).join(', ')||'Žádné',btn:clips.length?`<button onclick="nav('editor')" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(139,92,246,.3);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Otevřít editor</button>`:''},
-        {l:'Střihy',v:cuts.length,i:'✂️',c:'#e83e5a',detail:cuts.map(c=>fmt(c)).join(' · ')||'Žádné',btn:''},
-        {l:'Audio stopy',v:mTr.length,i:'🎵',c:'#f472b6',detail:mTr.map(t=>t.name).join(', ')||'Žádné',btn:mTr.length?`<button onclick="nav('editor');setTimeout(()=>showTab('mu'),50)" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(244,114,182,.3);background:rgba(244,114,182,.08);color:#f472b6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Hudební záložka</button>`:''},
-        {l:'Registrovaných účtů',v:allAccounts.length,i:'👥',c:'#38bdf8',detail:allAccounts.map(a=>a.edited_name||a.email).join(', ')||'Žádné',btn:''},
+        {l:'Clips in edit',v:clips.length,i:'🎬',c:'#8b5cf6',detail:clips.map(c=>c.name).join(', ')||'None',btn:clips.length?`<button onclick="nav('editor')" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(139,92,246,.3);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Open editor</button>`:''},
+        {l:'Cuts',v:cuts.length,i:'✂️',c:'#e83e5a',detail:cuts.map(c=>fmt(c)).join(' · ')||'None',btn:''},
+        {l:'Audio tracks',v:mTr.length,i:'🎵',c:'#f472b6',detail:mTr.map(t=>t.name).join(', ')||'None',btn:mTr.length?`<button onclick="nav('editor');setTimeout(()=>showTab('mu'),50)" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(244,114,182,.3);background:rgba(244,114,182,.08);color:#f472b6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Music tab</button>`:''},
+        {l:'Registered accounts',v:allAccounts.length,i:'👥',c:'#38bdf8',detail:allAccounts.map(a=>a.edited_name||a.email).join(', ')||'None',btn:''},
       ].map(s=>`
         <div class="g" style="border-radius:18px;padding:18px;position:relative;overflow:hidden">
           <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,${s.c}18,transparent 70%);pointer-events:none"></div>
@@ -1713,23 +1690,23 @@ function showApp(){
       if(!a)return;
       const newStatus=a.edited_status==='banned'?'approved':'banned';
       sb.from('profiles').update({edited_status:newStatus}).eq('id',id).then(({error})=>{
-        if(error){alert('Chyba: '+error.message);return}
+        if(error){alert('Error: '+error.message);return}
         a.edited_status=newStatus;
         renderAdmin();
-        confetti(newStatus==='banned'?'⛔ Uživatel zabanován':'✅ Uživatel odbanován',newStatus==='banned'?'⛔':'✅');
+        confetti(newStatus==='banned'?'⛔ User banned':'✅ User unbanned',newStatus==='banned'?'⛔':'✅');
       });
     };
     window.delUsr=function(id){
       const a=allProfiles.find(x=>x.id===id);
       if(!a)return;
       const name=a.edited_name||a.email;
-      if(!confirm('⚠️ SMAZAT ÚČET NATRVALO?\n\nUživatel: '+name+' ('+a.email+')\n\nPOZOR: Účet je společný pro Edited i LIFA — smazáním přijde o přístup do OBOU aplikací. Tato akce je NEVRATNÁ.'))return;
-      if(!confirm('Opravdu? Poslední šance — účet "'+name+'" bude smazán navždy.'))return;
+      if(!confirm('⚠️ DELETE ACCOUNT PERMANENTLY?\n\nUser: '+name+' ('+a.email+')\n\nWARNING: This account is shared between Edited and LIFA — deleting it removes access to BOTH apps. This action is IRREVERSIBLE.'))return;
+      if(!confirm('Are you sure? Last chance — the account "'+name+'" will be deleted forever.'))return;
       sb.rpc('delete_user_edited',{target_id:id}).then(({error})=>{
-        if(error){alert('Chyba: '+error.message);return}
+        if(error){alert('Error: '+error.message);return}
         allProfiles=allProfiles.filter(x=>x.id!==id);
         renderAdmin();
-        confetti('🗑️ Účet smazán','🗑️');
+        confetti('🗑️ Account deleted','🗑️');
       });
     };
     window.mkAdmin=function(id){
@@ -1737,12 +1714,12 @@ function showApp(){
       if(!a)return;
       const makeAdmin=a.edited_role!=='admin';
       const name=a.edited_name||a.email;
-      if(!confirm(makeAdmin?('Povýšit "'+name+'" na admina? Uvidí admin panel a bude moct spravovat uživatele.'):('Odebrat adminská práva uživateli "'+name+'"?')))return;
+      if(!confirm(makeAdmin?('Promote "'+name+'" to admin? They will see the admin panel and manage users.'):('Remove admin rights from "'+name+'"?')))return;
       sb.from('profiles').update({edited_role:makeAdmin?'admin':'user'}).eq('id',id).then(({error})=>{
-        if(error){alert('Chyba: '+error.message);return}
+        if(error){alert('Error: '+error.message);return}
         a.edited_role=makeAdmin?'admin':'user';
         renderAdmin();
-        confetti(makeAdmin?'👑 '+name+' je teď admin!':'Adminská práva odebrána','👑');
+        confetti(makeAdmin?'👑 '+name+' is now an admin!':'Admin rights removed','👑');
       });
     };
     updAdmin();
@@ -1768,19 +1745,19 @@ function showConnError(detail){
   R.style.cssText='height:100vh;display:flex;align-items:center;justify-content:center';
   R.innerHTML=`<div class="g" style="padding:36px 32px;border-radius:28px;width:420px;max-width:94vw;text-align:center;animation:fadeUp .5s ease">
     <div style="font-size:48px;margin-bottom:14px">📡</div>
-    <h2 style="font-size:20px;font-weight:800;color:#f2f2f5;margin-bottom:8px">Nelze se připojit</h2>
+    <h2 style="font-size:20px;font-weight:800;color:#f2f2f5;margin-bottom:8px">Can't connect</h2>
     <p style="font-size:13px;color:#8f8f98;line-height:1.6;margin-bottom:6px">${detail}</p>
-    <p style="font-size:11px;color:#bbb;line-height:1.6;margin-bottom:18px">Zkontroluj internetové připojení a vypni blokátor reklam / Tracking Prevention pro tuto stránku. V náhledu uvnitř chatu appka nefunguje — otevři ji na edited-video.vercel.app.</p>
-    <button onclick="location.reload()" class="btnprimary" style="width:auto;padding:12px 28px">🔄 Zkusit znovu</button>
+    <p style="font-size:11px;color:#bbb;line-height:1.6;margin-bottom:18px">Check your internet connection and disable ad-block / Tracking Prevention for this site. The app doesn't work inside chat previews — open it at edited-video.vercel.app.</p>
+    <button onclick="location.reload()" class="btnprimary" style="width:auto;padding:12px 28px">🔄 Try again</button>
   </div>`;
 }
 
 if(!sb){
-  showConnError('Nepodařilo se načíst připojovací knihovnu (CDN).');
+  showConnError("Couldn't load the connection library (CDN).");
 } else {
   tryAutoLogin().catch(err=>{
     console.error('Startup error:',err);
-    showConnError('Spojení se serverem selhalo ("Failed to fetch").');
+    showConnError('Connection to the server failed ("Failed to fetch").');
   });
 }
 </script>
