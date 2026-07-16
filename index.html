@@ -9,38 +9,39 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 :root{
+  color-scheme:dark;
   --red:#e83e5a; --orange:#ff7a3d; --purple:#8b5cf6; --blue:#38bdf8;
   --green:#22c55e; --pink:#f472b6; --yellow:#f59e0b;
   --bg1:#fce4ec; --bg2:#e8d5f5; --bg3:#c8e6ff; --bg4:#d4f5e9;
 }
 
 body{
-  font-family:'Outfit',-apple-system,sans-serif;color:#1a1a2e;height:100vh;overflow:hidden;
-  background:linear-gradient(145deg,#fce4ec 0%,#ede0ff 20%,#c8e6ff 40%,#d4f5e9 60%,#fff3cd 80%,#ffd6e0 100%);
+  font-family:'Outfit',-apple-system,sans-serif;color:#f2f2f5;height:100vh;overflow:hidden;
+  background:linear-gradient(160deg,#0e0e12 0%,#141419 45%,#0e0e12 100%);
   touch-action:manipulation;
   -webkit-text-size-adjust:100%;
 }
 
 /* Glass */
 .g{
-  background:rgba(255,255,255,.52);
+  background:rgba(26,26,32,.82);
   backdrop-filter:blur(24px) saturate(1.8);
   -webkit-backdrop-filter:blur(24px) saturate(1.8);
-  border:1px solid rgba(255,255,255,.65);
-  box-shadow:0 4px 24px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(0,0,0,.02);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 4px 24px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.02);
 }
 
 /* Buttons */
 .b{
-  background:rgba(255,255,255,.48);backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.55);padding:8px 16px;border-radius:14px;
-  cursor:pointer;font-size:12px;font-family:inherit;color:#444;font-weight:500;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.07);padding:8px 16px;border-radius:14px;
+  cursor:pointer;font-size:12px;font-family:inherit;color:#c9c9d0;font-weight:500;
   transition:all .2s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;gap:6px;
-  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  box-shadow:0 2px 8px rgba(255,255,255,.06);
 }
-.b:hover{background:rgba(255,255,255,.75);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);color:#1a1a2e}
+.b:hover{background:rgba(255,255,255,.12);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);color:#f2f2f5}
 .b:active{transform:translateY(0)}
-.b.on{background:rgba(255,255,255,.8);color:#1a1a2e;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.b.on{background:rgba(255,255,255,.14);color:#f2f2f5;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 
 /* Accent buttons with gradient */
 .b.ac{background:linear-gradient(135deg,rgba(232,62,90,.14),rgba(255,122,61,.1));border:1px solid rgba(232,62,90,.3);color:var(--red);font-weight:700}
@@ -58,12 +59,12 @@ body{
 
 /* Inputs */
 .inp{
-  width:100%;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);
-  border:1.5px solid rgba(255,255,255,.6);border-radius:14px;
-  padding:13px 18px;font-size:14px;color:#333;font-family:inherit;outline:0;
+  width:100%;background:rgba(255,255,255,.07);backdrop-filter:blur(14px);
+  border:1.5px solid rgba(255,255,255,.10);border-radius:14px;
+  padding:13px 18px;font-size:14px;color:#dcdce2;font-family:inherit;outline:0;
   transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.03);
 }
-.inp:focus{border-color:rgba(232,62,90,.5);background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(232,62,90,.1)}
+.inp:focus{border-color:rgba(232,62,90,.5);background:rgba(255,255,255,.12);box-shadow:0 4px 16px rgba(232,62,90,.1)}
 .inp::placeholder{color:#bbb}
 
 /* Colored section headers */
@@ -80,7 +81,7 @@ body{
   font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#aaa;
   display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s;
 }
-.ntab:hover{color:#888;background:rgba(255,255,255,.3)}
+.ntab:hover{color:#8f8f98;background:rgba(255,255,255,.04)}
 .ntab.on{border-bottom-color:var(--red);color:var(--red);background:rgba(232,62,90,.05)}
 .ntab .ti{font-size:18px}
 
@@ -90,7 +91,7 @@ body{
 .badge.red{background:rgba(239,68,68,.12);color:#dc2626}
 .badge.orange{background:rgba(245,158,11,.12);color:#d97706}
 .badge.purple{background:rgba(139,92,246,.12);color:#7c3aed}
-.badge.gray{background:rgba(0,0,0,.06);color:#777}
+.badge.gray{background:rgba(255,255,255,.08);color:#9a9aa3}
 
 /* Timeline */
 .ph{position:absolute;top:-6px;width:3px;height:calc(100% + 12px);background:linear-gradient(180deg,var(--red),rgba(232,62,90,.3));z-index:5;pointer-events:none;border-radius:2px}
@@ -99,7 +100,7 @@ body{
 /* Scrollbar */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:10px}
 
 /* Animations */
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -117,7 +118,7 @@ body{
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
 /* Toast notification */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9998;padding:12px 24px;border-radius:20px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,#1a1a2e,#3a2a5e);box-shadow:0 8px 32px rgba(0,0,0,.2);transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9998;padding:12px 24px;border-radius:20px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,#26262e,#1b1b22);border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.5);transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* Robot animation */
@@ -147,7 +148,7 @@ body{
     height:auto !important;
     max-height:42vh;
     border-right:0 !important;
-    border-top:1px solid rgba(255,255,255,.5);
+    border-top:1px solid rgba(255,255,255,.08);
     order:2;
   }
   .editor-main-mobile{order:1}
@@ -271,11 +272,11 @@ function showLogin(mode){
   <div class="blob" style="top:10%;right:20%;width:250px;height:250px;background:radial-gradient(circle,rgba(244,114,182,.1),transparent 70%);animation:drift 10s ease-in-out infinite 6s"></div>
 
   <div class="g" style="padding:32px 30px;border-radius:28px;width:390px;max-width:94vw;position:relative;z-index:2;animation:fadeUp .5s ease">
-    <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.4),transparent);border-radius:28px 28px 0 0;pointer-events:none"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:28px 28px 0 0;pointer-events:none"></div>
 
     <div style="text-align:center;margin-bottom:22px;position:relative">
       <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;font-weight:900;margin:0 auto 10px;box-shadow:0 8px 28px rgba(232,62,90,.3)">▸</div>
-      <h1 style="font-size:28px;font-weight:900;margin-bottom:2px;background:linear-gradient(135deg,#1a1a2e,#5a3a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</h1>
+      <h1 style="font-size:28px;font-weight:900;margin-bottom:2px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</h1>
       <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px">
         <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(232,62,90,.08);color:#e83e5a;font-weight:600">✂️ Střih</span>
         <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);color:#8b5cf6;font-weight:600">🎵 Hudba</span>
@@ -536,7 +537,7 @@ function showResetPassword(){
   <div class="g" style="padding:32px 30px;border-radius:28px;width:390px;max-width:94vw;position:relative;z-index:2;animation:fadeUp .5s ease">
     <div style="text-align:center;margin-bottom:22px">
       <div style="font-size:48px;margin-bottom:10px">🔑</div>
-      <h1 style="font-size:24px;font-weight:900;margin-bottom:4px;background:linear-gradient(135deg,#1a1a2e,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Nové heslo</h1>
+      <h1 style="font-size:24px;font-weight:900;margin-bottom:4px;background:linear-gradient(135deg,#ffffff,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Nové heslo</h1>
       <p style="font-size:12px;color:#999">Zadej svoje nové heslo</p>
     </div>
     <div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(139,92,246,.03));border:1.5px solid rgba(56,189,248,.15)">
@@ -582,11 +583,11 @@ function showApp(){
   const A=user.role==='admin';
   R.style.cssText='height:100vh;display:flex;flex-direction:column;overflow:hidden';
   R.innerHTML=`
-  <div class="g" style="height:56px;display:flex;align-items:center;padding:0 18px;gap:6px;border-bottom:1px solid rgba(255,255,255,.5);flex-shrink:0;z-index:50;position:relative;border-radius:0;border-top:0;border-left:0;border-right:0">
-    <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent);pointer-events:none"></div>
+  <div class="g" style="height:56px;display:flex;align-items:center;padding:0 18px;gap:6px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;z-index:50;position:relative;border-radius:0;border-top:0;border-left:0;border-right:0">
+    <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none"></div>
     <div style="display:flex;align-items:center;gap:8px;position:relative">
       <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:900;box-shadow:0 3px 12px rgba(232,62,90,.35)">▸</div>
-      <span style="font-weight:900;font-size:18px;background:linear-gradient(135deg,#1a1a2e,#5a3a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</span>
+      <span style="font-weight:900;font-size:18px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</span>
       ${A?'<span style="font-size:8px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:2px 7px;border-radius:6px;box-shadow:0 2px 8px rgba(232,62,90,.3)">ADMIN</span>':''}
     </div>
     <div style="flex:1"></div>
@@ -594,7 +595,7 @@ function showApp(){
     <button class="b" id="nE" onclick="nav('editor')" style="gap:5px"><span>✂️</span><span class="topbar-label" style="font-size:11px">Editor</span></button>
     <button class="b" id="nA" onclick="nav('ai')" style="gap:5px"><span>✨</span><span class="topbar-label" style="font-size:11px">AI</span></button>
     ${A?'<button class="b" id="nAd" onclick="nav(\'admin\')" style="gap:5px;color:#e83e5a;font-weight:700;border-color:rgba(232,62,90,.2)"><span>🛡️</span><span class="topbar-label" style="font-size:11px">Admin</span></button>':''}
-    <div style="width:1px;height:24px;background:rgba(0,0,0,.07);margin:0 4px" class="mob-hide"></div>
+    <div style="width:1px;height:24px;background:rgba(255,255,255,.08);margin:0 4px" class="mob-hide"></div>
     <input type="file" id="fi" accept="video/*,.mkv,.avi,.mov,.mp4,.webm,.m4v" style="display:none">
     <button class="b ac" onclick="document.getElementById('fi').click()" style="padding:8px 16px;font-size:12px;font-weight:700">📂<span class="topbar-label"> + Video</span></button>
     <div style="position:relative">
@@ -603,12 +604,12 @@ function showApp(){
         ${user.name[0].toUpperCase()}
       </button>
       <div id="pdd" class="g" style="display:none;position:absolute;top:42px;right:0;border-radius:18px;padding:18px;width:240px;z-index:100;animation:fadeUp .2s">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,.06)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08)">
           <div style="width:40px;height:40px;border-radius:12px;background:${A?'linear-gradient(135deg,#e83e5a,#ff7a3d)':'linear-gradient(135deg,#8b5cf6,#38bdf8)'};display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-weight:800;box-shadow:0 3px 12px rgba(0,0,0,.15)">
             ${user.name[0].toUpperCase()}
           </div>
           <div>
-            <div style="font-size:13px;font-weight:700;color:#222;display:flex;align-items:center;gap:6px">
+            <div style="font-size:13px;font-weight:700;color:#ececf0;display:flex;align-items:center;gap:6px">
               ${user.name}
               ${A?'<span style="font-size:8px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:1px 6px;border-radius:4px">ADMIN</span>':''}
             </div>
@@ -625,14 +626,14 @@ function showApp(){
     <div id="vHome" style="flex:1;overflow:auto;padding:0">
 
       <!-- Hero banner -->
-      <div class="home-hero" style="padding:28px 36px 24px;background:linear-gradient(135deg,rgba(232,62,90,.06) 0%,rgba(139,92,246,.06) 50%,rgba(56,189,248,.04) 100%);border-bottom:1px solid rgba(255,255,255,.5);position:relative;overflow:hidden">
+      <div class="home-hero" style="padding:28px 36px 24px;background:linear-gradient(135deg,rgba(232,62,90,.06) 0%,rgba(139,92,246,.06) 50%,rgba(56,189,248,.04) 100%);border-bottom:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden">
         <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(232,62,90,.12),transparent 70%);pointer-events:none"></div>
         <div style="position:absolute;bottom:-30px;left:30%;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.1),transparent 70%);pointer-events:none"></div>
 
         <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative">
           <div>
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-              <h1 style="font-size:28px;font-weight:900;background:linear-gradient(135deg,#1a1a2e,#5a3a8a,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ahoj, ${user.name}! 👋</h1>
+              <h1 style="font-size:28px;font-weight:900;background:linear-gradient(135deg,#ffffff,#b9a5ee,#e83e5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ahoj, ${user.name}! 👋</h1>
               ${A?'<span style="font-size:9px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:3px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(232,62,90,.3)">🛡️ ADMIN</span>':''}
             </div>
             <p style="font-size:13px;color:#999;margin-bottom:16px" id="homeSubtitle">Připravený na editaci? Vyber akci níže.</p>
@@ -686,7 +687,7 @@ function showApp(){
                 onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='${a.c1}20'">
                 <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,${a.c1},${a.c2});display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px ${a.c1}30;flex-shrink:0">${a.icon}</div>
                 <div>
-                  <div style="font-size:13px;font-weight:700;color:#1a1a2e">${a.label}</div>
+                  <div style="font-size:13px;font-weight:700;color:#f2f2f5">${a.label}</div>
                   <div style="font-size:10px;color:#bbb;margin-top:1px">${a.sub}</div>
                 </div>
               </button>`).join('')}
@@ -708,7 +709,7 @@ function showApp(){
               <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:14px;background:${t.c}08;border:1px solid ${t.c}18">
                 <div style="width:32px;height:32px;border-radius:10px;background:${t.c}18;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${t.icon}</div>
                 <div>
-                  <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:2px">${t.tip}</div>
+                  <div style="font-size:12px;font-weight:700;color:#dcdce2;margin-bottom:2px">${t.tip}</div>
                   <div style="font-size:10px;color:#aaa;line-height:1.4">${t.desc}</div>
                 </div>
               </div>`).join('')}
@@ -727,7 +728,7 @@ function showApp(){
       <div id="editorSidebar" class="g" style="width:290px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;border-radius:0;border-top:0;border-bottom:0;border-left:0">
 
         <!-- Tabs with colors -->
-        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06);flex-shrink:0" id="stabs">
+        <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0" id="stabs">
           <button class="ntab on" onclick="showTab('media')" data-tab="media"><span class="ti">📁</span>Média</button>
           <button class="ntab" onclick="showTab('yt')" data-tab="yt"><span class="ti">▶</span>YouTube</button>
           <button class="ntab" onclick="showTab('mu')" data-tab="mu"><span class="ti">🎵</span>Hudba</button>
@@ -814,13 +815,13 @@ function showApp(){
       <div class="editor-main-mobile" style="flex:1;display:flex;flex-direction:column;min-width:0">
 
         <!-- Preview window -->
-        <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px 10px 0;border-radius:20px;border:1.5px solid rgba(255,255,255,.6);background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.02));position:relative;min-height:200px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)" id="pa">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px 10px 0;border-radius:20px;border:1.5px solid rgba(255,255,255,.10);background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.02));position:relative;min-height:200px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)" id="pa">
           <video id="vid" controls playsinline preload="metadata" style="display:none;max-width:98%;max-height:98%;border-radius:14px;background:#000"></video>
           <iframe id="ytframe" style="display:none;width:96%;height:96%;border:none;border-radius:14px" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           <!-- Empty state with workflow guide -->
           <div id="es" style="text-align:center;padding:24px 20px;max-width:480px">
             <div style="font-size:52px;margin-bottom:14px;animation:float 3s ease infinite">🎬</div>
-            <p style="font-size:16px;font-weight:800;color:#555;margin-bottom:4px">Začni svůj první edit!</p>
+            <p style="font-size:16px;font-weight:800;color:#b6b6bf;margin-bottom:4px">Začni svůj první edit!</p>
             <p style="font-size:12px;color:#bbb;margin-bottom:20px">Vyber jak chceš začít:</p>
 
             <!-- Step cards -->
@@ -861,7 +862,7 @@ function showApp(){
                   {n:'4',c:'#22c55e',t:'Hudba a hotovo!','s':'MP3 podkres a sdílej'}
                 ].map(s=>`<div style="display:flex;align-items:center;gap:10px">
                   <div style="width:22px;height:22px;border-radius:50%;background:${s.c};color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.n}</div>
-                  <div><span style="font-size:12px;font-weight:600;color:#444">${s.t}</span> <span style="font-size:11px;color:#bbb">— ${s.s}</span></div>
+                  <div><span style="font-size:12px;font-weight:600;color:#c9c9d0">${s.t}</span> <span style="font-size:11px;color:#bbb">— ${s.s}</span></div>
                 </div>`).join('')}
               </div>
             </div>
@@ -874,16 +875,16 @@ function showApp(){
           <!-- Playback group -->
           <div class="g" style="display:flex;align-items:center;gap:3px;padding:5px 8px;border-radius:16px">
             <button onclick="seekGlobal(-5)" title="−5 sekund"
-              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#888;transition:all .15s;display:flex;align-items:center;gap:3px"
-              onmouseover="this.style.background='rgba(0,0,0,.06)'" onmouseout="this.style.background='transparent'">
+              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
+              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
               ◀◀ <span style="font-size:9px">5s</span>
             </button>
             <button onclick="vid.paused?vid.play():vid.pause()" id="pb"
               style="width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#e83e5a,#ff7a3d);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(232,62,90,.35);transition:all .2s;flex-shrink:0"
               onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 6px 24px rgba(232,62,90,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(232,62,90,.35)'">▶</button>
             <button onclick="seekGlobal(5)" title="+5 sekund"
-              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#888;transition:all .15s;display:flex;align-items:center;gap:3px"
-              onmouseover="this.style.background='rgba(0,0,0,.06)'" onmouseout="this.style.background='transparent'">
+              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
+              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
               <span style="font-size:9px">5s</span> ▶▶
             </button>
           </div>
@@ -898,7 +899,7 @@ function showApp(){
           </div>
 
           <!-- Time display -->
-          <div class="g" style="padding:7px 14px;border-radius:14px;font-size:13px;font-weight:800;color:#444;font-variant-numeric:tabular-nums;letter-spacing:.5px" id="td">0:00 / 0:00</div>
+          <div class="g" style="padding:7px 14px;border-radius:14px;font-size:13px;font-weight:800;color:#c9c9d0;font-variant-numeric:tabular-nums;letter-spacing:.5px" id="td">0:00 / 0:00</div>
 
           <div style="flex:1"></div>
 
@@ -910,7 +911,7 @@ function showApp(){
 
           <!-- Speed selector -->
           <select onchange="vid.playbackRate=+this.value" title="Rychlost přehrávání"
-            style="padding:7px 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.55);backdrop-filter:blur(12px);font-size:11px;font-weight:700;color:#555;font-family:inherit;cursor:pointer">
+            style="padding:7px 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.07);backdrop-filter:blur(12px);font-size:11px;font-weight:700;color:#b6b6bf;font-family:inherit;cursor:pointer">
             <option value="0.25">0.25×</option><option value="0.5">0.5×</option>
             <option value="0.75">0.75×</option><option value="1" selected>1× ▶</option>
             <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
@@ -918,8 +919,8 @@ function showApp(){
 
           <!-- Keyboard hint -->
           <div class="g" style="padding:5px 10px;border-radius:12px;font-size:9px;color:#bbb;display:flex;align-items:center;gap:5px">
-            <span style="background:rgba(0,0,0,.06);padding:2px 5px;border-radius:4px;font-weight:700">Space</span> play
-            <span style="background:rgba(0,0,0,.06);padding:2px 5px;border-radius:4px;font-weight:700">C</span> střih
+            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">Space</span> play
+            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">C</span> střih
           </div>
         </div>
 
@@ -934,10 +935,10 @@ function showApp(){
             <span style="font-size:9px;color:#ccc">klikni na klip = vybrat · 2× klik = přehrát od něj</span>
           </div>
           <!-- Segment track -->
-          <div id="segTrack" style="flex:1;position:relative;display:flex;gap:2px;border-radius:10px;overflow:visible;background:rgba(0,0,0,.03);border:1.5px solid rgba(255,255,255,.6);padding:3px;cursor:pointer"></div>
+          <div id="segTrack" style="flex:1;position:relative;display:flex;gap:2px;border-radius:10px;overflow:visible;background:rgba(0,0,0,.03);border:1.5px solid rgba(255,255,255,.10);padding:3px;cursor:pointer"></div>
           <!-- Selected segment tools -->
           <div id="segTools" style="display:none;align-items:center;gap:6px;padding-top:5px">
-            <span style="font-size:10px;font-weight:700;color:#555" id="segName"></span>
+            <span style="font-size:10px;font-weight:700;color:#b6b6bf" id="segName"></span>
             <div style="flex:1"></div>
             <button onclick="moveSeg(-1)" title="Posunout doleva (např. jako intro)" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">⬅ Doleva</button>
             <button onclick="moveSeg(1)" title="Posunout doprava" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Doprava ➡</button>
@@ -964,7 +965,7 @@ function showApp(){
               <line x1="36" y1="6" x2="36" y2="14" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
               <circle cx="36" cy="4" r="4" fill="#e83e5a" style="animation:robotGlow 1.5s ease-in-out infinite"/>
               <!-- Head -->
-              <rect x="14" y="14" width="44" height="34" rx="10" fill="url(#hgrad)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+              <rect x="14" y="14" width="44" height="34" rx="10" fill="url(#hgrad)" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
               <!-- Eyes -->
               <rect x="22" y="24" width="10" height="10" rx="3" fill="#38bdf8" style="animation:robotEye 4s ease-in-out infinite"/>
               <rect x="40" y="24" width="10" height="10" rx="3" fill="#38bdf8" style="animation:robotEye 4s ease-in-out infinite .2s"/>
@@ -972,14 +973,14 @@ function showApp(){
               <rect x="24" y="26" width="3" height="3" rx="1" fill="white" opacity=".8"/>
               <rect x="42" y="26" width="3" height="3" rx="1" fill="white" opacity=".8"/>
               <!-- Mouth -->
-              <rect x="24" y="38" width="24" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="24" y="38" width="24" height="4" rx="2" fill="rgba(255,255,255,.04)"/>
               <rect x="26" y="39" width="4" height="2" rx="1" fill="#22c55e" style="animation:pulse 1s ease-in-out infinite"/>
               <rect x="32" y="39" width="4" height="2" rx="1" fill="#22c55e" style="animation:pulse 1s ease-in-out infinite .2s"/>
               <rect x="38" y="39" width="4" height="2" rx="1" fill="#22c55e" style="animation:pulse 1s ease-in-out infinite .4s"/>
               <!-- Neck -->
               <rect x="30" y="48" width="12" height="6" rx="2" fill="#6d3ab5"/>
               <!-- Body -->
-              <rect x="10" y="54" width="52" height="22" rx="10" fill="url(#bgrad)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="10" y="54" width="52" height="22" rx="10" fill="url(#bgrad)" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
               <!-- Chest light -->
               <circle cx="36" cy="65" r="6" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity=".6"/>
               <circle cx="36" cy="65" r="3" fill="#38bdf8" style="animation:robotGlow 1s ease-in-out infinite"/>
@@ -987,8 +988,8 @@ function showApp(){
               <circle cx="20" cy="62" r="3" fill="#f472b6" opacity=".8"/>
               <circle cx="52" cy="62" r="3" fill="#f59e0b" opacity=".8"/>
               <!-- Arms -->
-              <rect x="0" y="57" width="9" height="16" rx="4" fill="url(#hgrad)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <rect x="63" y="57" width="9" height="16" rx="4" fill="url(#hgrad)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="0" y="57" width="9" height="16" rx="4" fill="url(#hgrad)" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+              <rect x="63" y="57" width="9" height="16" rx="4" fill="url(#hgrad)" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
               <!-- Hand circles -->
               <circle cx="4" cy="75" r="3.5" fill="#6d3ab5"/>
               <circle cx="68" cy="75" r="3.5" fill="#6d3ab5"/>
@@ -1023,13 +1024,13 @@ function showApp(){
         <div style="align-self:flex-start;max-width:85%;animation:fadeUp .5s ease">
           <div class="g" style="padding:14px 18px;border-radius:20px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6">
             <div style="font-size:10px;color:#8b5cf6;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:5px">🤖 AI Asistent</div>
-            <div style="font-size:13px;color:#333;line-height:1.6">Ahoj! Jsem tvůj AI asistent pro video editaci. 🎬<br>Můžu ti pomoci s <b>střihem</b>, <b>hudbou</b>, <b>přechody</b> nebo jakýmikoli tipy pro tvorbu videí.<br><span style="color:#8b5cf6;font-weight:600">Klikni na některý z chipů výše nebo napiš svou otázku!</span></div>
+            <div style="font-size:13px;color:#dcdce2;line-height:1.6">Ahoj! Jsem tvůj AI asistent pro video editaci. 🎬<br>Můžu ti pomoci s <b>střihem</b>, <b>hudbou</b>, <b>přechody</b> nebo jakýmikoli tipy pro tvorbu videí.<br><span style="color:#8b5cf6;font-weight:600">Klikni na některý z chipů výše nebo napiš svou otázku!</span></div>
           </div>
         </div>
       </div>
 
       <div class="g" style="border-radius:18px;padding:6px;display:flex;gap:8px;margin-bottom:16px;flex-shrink:0;border:1.5px solid rgba(139,92,246,.15)">
-        <input id="aq" placeholder="🤖  Zeptej se AI asistenta..." onkeydown="if(event.key==='Enter')sAi()" style="flex:1;background:0;border:0;padding:10px 14px;font-size:13px;color:#333;font-family:inherit;outline:0">
+        <input id="aq" placeholder="🤖  Zeptej se AI asistenta..." onkeydown="if(event.key==='Enter')sAi()" style="flex:1;background:0;border:0;padding:10px 14px;font-size:13px;color:#dcdce2;font-family:inherit;outline:0">
         <button onclick="sAi()" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,#8b5cf6,#38bdf8);border-radius:14px;padding:10px 20px;font-size:12px;transition:all .2s;box-shadow:0 4px 14px rgba(139,92,246,.3)" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">Odeslat ↑</button>
       </div>
     </div>
@@ -1038,7 +1039,7 @@ function showApp(){
     <div id="vAdmin" style="display:none;flex:1;overflow:auto;padding:0">
 
       <!-- Admin hero header -->
-      <div style="padding:24px 32px 20px;background:linear-gradient(135deg,rgba(232,62,90,.08),rgba(255,122,61,.05),rgba(139,92,246,.06));border-bottom:1px solid rgba(255,255,255,.5);position:relative;overflow:hidden">
+      <div style="padding:24px 32px 20px;background:linear-gradient(135deg,rgba(232,62,90,.08),rgba(255,122,61,.05),rgba(139,92,246,.06));border-bottom:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden">
         <div style="position:absolute;top:-40px;right:-40px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(232,62,90,.12),transparent 70%);pointer-events:none"></div>
         <div style="position:absolute;bottom:-50px;left:20%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.08),transparent 70%);pointer-events:none"></div>
         <div style="display:flex;align-items:center;gap:14px;position:relative">
@@ -1054,7 +1055,7 @@ function showApp(){
       </div>
 
       <!-- Admin tabs -->
-      <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.3);flex-shrink:0" id="adminTabs">
+      <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);flex-shrink:0" id="adminTabs">
         <button class="ntab on" onclick="adminTab('overview')" data-atab="overview"><span class="ti">📊</span>Přehled</button>
         <button class="ntab" onclick="adminTab('users')" data-atab="users"><span class="ti">👥</span>Uživatelé</button>
         <button class="ntab" onclick="adminTab('pending')" data-atab="pending"><span class="ti">⏳</span>Čekají</button>
@@ -1093,11 +1094,11 @@ function showApp(){
         <div id="atUsers" style="display:none">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
             <div>
-              <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:2px">Všichni uživatelé</div>
+              <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:2px">Všichni uživatelé</div>
               <div id="userCount" style="font-size:12px;color:#aaa"></div>
             </div>
             <div style="display:flex;gap:6px" id="userSearch">
-              <input placeholder="🔍  Hledej uživatele..." style="padding:8px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.5);font-size:12px;color:#333;font-family:inherit;outline:0;width:200px" oninput="filterUsers(this.value)">
+              <input placeholder="🔍  Hledej uživatele..." style="padding:8px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.08);font-size:12px;color:#dcdce2;font-family:inherit;outline:0;width:200px" oninput="filterUsers(this.value)">
             </div>
           </div>
           <div id="userRows"></div>
@@ -1105,14 +1106,14 @@ function showApp(){
 
         <!-- PENDING TAB -->
         <div id="atPending" style="display:none">
-          <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:4px">Čekají na schválení</div>
+          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:4px">Čekají na schválení</div>
           <div style="font-size:12px;color:#aaa;margin-bottom:16px">Nové registrace čekají na tvoje schválení</div>
           <div id="pendingRows"></div>
         </div>
 
         <!-- CONTENT TAB -->
         <div id="atContent" style="display:none">
-          <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:16px">Obsah aplikace</div>
+          <div style="font-size:15px;font-weight:800;color:#f2f2f5;margin-bottom:16px">Obsah aplikace</div>
           <div id="adminContent" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px"></div>
         </div>
 
@@ -1223,10 +1224,10 @@ function showApp(){
     m.id='purposeModal';
     m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeUp .25s ease';
     m.innerHTML=`
-      <div class="g" style="border-radius:24px;padding:26px 24px;width:440px;max-width:96vw;background:rgba(255,255,255,.85)">
+      <div class="g" style="border-radius:24px;padding:26px 24px;width:440px;max-width:96vw;background:rgba(30,30,38,.95)">
         <div style="text-align:center;margin-bottom:18px">
           <div style="font-size:38px;margin-bottom:6px">🎬</div>
-          <div style="font-size:17px;font-weight:900;color:#1a1a2e;margin-bottom:3px">Proč edituješ toto video?</div>
+          <div style="font-size:17px;font-weight:900;color:#f2f2f5;margin-bottom:3px">Proč edituješ toto video?</div>
           <div style="font-size:11px;color:#999">Podle toho ti dám tipy, jak na to 💡</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -1236,7 +1237,7 @@ function showApp(){
               onmouseover="this.style.background='${p.c}22';this.style.transform='translateY(-2px)'"
               onmouseout="this.style.background='${p.c}0d';this.style.transform=''">
               <div style="width:40px;height:40px;border-radius:12px;background:${p.c};display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff">${p.icon}</div>
-              <div style="font-size:12px;font-weight:700;color:#333">${p.label}</div>
+              <div style="font-size:12px;font-weight:700;color:#dcdce2">${p.label}</div>
             </button>`).join('')}
         </div>
         <button onclick="document.getElementById('purposeModal').remove()" style="width:100%;margin-top:12px;padding:9px;border:0;background:0;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit">Přeskočit</button>
@@ -1249,16 +1250,16 @@ function showApp(){
     const modal=document.getElementById('purposeModal');
     if(!modal||!p)return;
     modal.innerHTML=`
-      <div class="g" style="border-radius:24px;padding:26px 24px;width:480px;max-width:96vw;background:rgba(255,255,255,.88);animation:fadeUp .3s ease">
+      <div class="g" style="border-radius:24px;padding:26px 24px;width:480px;max-width:96vw;background:rgba(30,30,38,.96);animation:fadeUp .3s ease">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
           <div style="width:42px;height:42px;border-radius:13px;background:${p.c};display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0">${p.icon}</div>
           <div>
-            <div style="font-size:15px;font-weight:900;color:#1a1a2e">${p.label} — tipy pro tebe</div>
+            <div style="font-size:15px;font-weight:900;color:#f2f2f5">${p.label} — tipy pro tebe</div>
             <div style="font-size:10px;color:#aaa">Rady od profíků 💪</div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
-          ${p.tips.map(t=>`<div style="padding:11px 14px;border-radius:13px;background:${p.c}0a;border:1px solid ${p.c}1f;font-size:12px;color:#444;line-height:1.55">${t}</div>`).join('')}
+          ${p.tips.map(t=>`<div style="padding:11px 14px;border-radius:13px;background:${p.c}0a;border:1px solid ${p.c}1f;font-size:12px;color:#c9c9d0;line-height:1.55">${t}</div>`).join('')}
         </div>
         <button onclick="document.getElementById('purposeModal').remove();confetti('💪 Jdeme na to!','🎬')"
           style="width:100%;padding:13px;border:0;border-radius:14px;cursor:pointer;font-family:inherit;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,${p.c},${p.c}cc);box-shadow:0 4px 18px ${p.c}44">Jdeme na to! →</button>
@@ -1311,7 +1312,7 @@ function showApp(){
         box-shadow:${sel?'0 0 0 2px rgba(26,26,46,.15)':playing?'0 2px 8px '+s.color+'55':'none'};
         transition:all .15s;display:flex;flex-direction:column;justify-content:space-between;padding:3px 6px">
         <div style="font-size:9px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i+1}. ${s.name}</div>
-        <div style="font-size:8px;color:rgba(255,255,255,.85);font-weight:600">${fmt(s.end-s.start)}${playing?' ▶':''}</div>
+        <div style="font-size:8px;color:rgba(30,30,38,.95);font-weight:600">${fmt(s.end-s.start)}${playing?' ▶':''}</div>
       </div>`;
     }).join('');
     document.getElementById('segInfo').textContent=segs.length+' klipů';
@@ -1416,7 +1417,7 @@ function showApp(){
       <div class="g" style="border-radius:14px;overflow:hidden;margin-bottom:8px">
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px">
           <img src="https://img.youtube.com/vi/${c.ytId}/default.jpg" style="width:48px;height:32px;border-radius:6px;object-fit:cover">
-          <div style="flex:1;font-size:11px;font-weight:600;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div>
+          <div style="flex:1;font-size:11px;font-weight:600;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div>
           <button class="b" onclick="selCl(${c.id})" style="padding:3px 8px;font-size:10px;color:#e83e5a">▶</button>
           <button class="b" onclick="rmCl(${c.id})" style="padding:3px 8px;font-size:10px">✕</button>
         </div>
@@ -1426,11 +1427,11 @@ function showApp(){
   // ── Clips ──
   function renderCl(){
     let h='';clips.forEach(c=>{
-      h+=`<div class="g" style="padding:10px;border-radius:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:8px;${aC&&aC.id===c.id?'border-color:rgba(232,62,90,.3)!important;background:rgba(255,255,255,.6)':''}" onclick="selCl(${c.id})">
+      h+=`<div class="g" style="padding:10px;border-radius:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:8px;${aC&&aC.id===c.id?'border-color:rgba(232,62,90,.3)!important;background:rgba(255,255,255,.10)':''}" onclick="selCl(${c.id})">
         ${c.type==='youtube'&&c.ytId?'<img src="https://img.youtube.com/vi/'+c.ytId+'/default.jpg" style="width:44px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<div style="width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#38bdf833,#38bdf811);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📂</div>'}
-        <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Lokální'}</div></div>
+        <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Lokální'}</div></div>
         <button class="b" onclick="event.stopPropagation();rmCl(${c.id})" style="padding:2px 7px;font-size:10px">✕</button></div>`});
-    if(segs.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">🎬 Timeline ('+segs.length+')</div>';segs.forEach((s,i)=>{h+=`<div class="g" style="padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer" onclick="loadSeg2(${i})"><div style="width:10px;height:10px;border-radius:3px;background:${s.color};flex-shrink:0"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#444;font-weight:600">${i+1}. ${s.name}</span><span style="color:#aaa;font-size:10px">${fmt(s.end-s.start)}</span></div>`})}
+    if(segs.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">🎬 Timeline ('+segs.length+')</div>';segs.forEach((s,i)=>{h+=`<div class="g" style="padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer" onclick="loadSeg2(${i})"><div style="width:10px;height:10px;border-radius:3px;background:${s.color};flex-shrink:0"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c9c9d0;font-weight:600">${i+1}. ${s.name}</span><span style="color:#aaa;font-size:10px">${fmt(s.end-s.start)}</span></div>`})}
     document.getElementById('cl').innerHTML=h;
     document.getElementById('homeSubtitle').textContent=clips.length?clips.length+' klipů v editu · klikni pro otevření':'Připravený na editaci? Vyber akci níže.';
     // Update stat badges
@@ -1451,14 +1452,14 @@ function showApp(){
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
         ${clips.map(c=>`
           <div onclick="selCl(${c.id});nav('editor')"
-            style="border-radius:18px;overflow:hidden;cursor:pointer;transition:all .25s;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.35);backdrop-filter:blur(12px)"
+            style="border-radius:18px;overflow:hidden;cursor:pointer;transition:all .25s;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);backdrop-filter:blur(12px)"
             onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(0,0,0,.1)'"
             onmouseout="this.style.transform='';this.style.boxShadow=''">
             ${c.type==='youtube'&&c.ytId?
               `<div style="height:100px;overflow:hidden;background:#000"><img src="https://img.youtube.com/vi/${c.ytId}/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'"></div>`
               :`<div style="height:100px;background:linear-gradient(135deg,rgba(232,62,90,.15),rgba(255,122,61,.08));display:flex;align-items:center;justify-content:center;font-size:36px">🎬</div>`}
             <div style="padding:10px 12px">
-              <div style="font-size:12px;font-weight:700;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${c.name}</div>
+              <div style="font-size:12px;font-weight:700;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${c.name}</div>
               <div style="display:flex;align-items:center;gap:6px">
                 <span style="font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;${c.type==='youtube'?'background:rgba(239,68,68,.1);color:#ef4444':'background:rgba(56,189,248,.1);color:#0284c7'}">${c.type==='youtube'?'▶ YouTube':'📂 Lokální'}</span>
                 ${aC&&aC.id===c.id?'<span style="font-size:9px;padding:2px 7px;border-radius:8px;background:rgba(34,197,94,.1);color:#16a34a;font-weight:600">▶ Aktivní</span>':''}
@@ -1476,7 +1477,7 @@ function showApp(){
             <div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px">
               <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎵</div>
               <div style="flex:1;min-width:0">
-                <div style="font-size:12px;font-weight:700;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div>
+                <div style="font-size:12px;font-weight:700;color:#dcdce2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div>
                 <div style="font-size:10px;color:${t.audio.paused?'#bbb':'#8b5cf6'};font-weight:600;margin-top:2px">${t.audio.paused?'⏸ Pozastaveno':'▶ Přehrává se'}</div>
               </div>
               <button onclick="tgMu(${t.id});renderCl()" style="padding:6px 14px;border-radius:10px;border:1.5px solid ${t.audio.paused?'rgba(139,92,246,.3)':'rgba(34,197,94,.3)'};background:${t.audio.paused?'rgba(139,92,246,.08)':'rgba(34,197,94,.08)'};color:${t.audio.paused?'#8b5cf6':'#16a34a'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">${t.audio.paused?'▶ Přehrát':'⏸ Pauza'}</button>
@@ -1513,7 +1514,7 @@ function showApp(){
 
   // ── Music ──
   document.getElementById('mi').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f),a=new Audio(u);a.loop=true;a.volume=.7;mTr.push({id:Date.now(),name:f.name,audio:a,url:u});renderMu();renderCl();this.value='';confetti('🎵 Hudba přidána!','🎵')});
-  function renderMu(){let h='';mTr.forEach(t=>{h+=`<div class="g" style="border-radius:14px;padding:10px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="b" onclick="tgMu(${t.id})" style="padding:4px 9px;border-radius:10px">${t.audio.paused?'▶':'⏸'}</button><div style="flex:1;font-size:11px;color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div><button class="b" onclick="rmMu(${t.id})" style="padding:2px 7px;font-size:10px">✕</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px">🔈</span><input type="range" min="0" max="100" value="${t.audio.volume*100}" oninput="sMuV(${t.id},this.value)" style="flex:1;accent-color:#8b5cf6;height:3px"></div></div>`});
+  function renderMu(){let h='';mTr.forEach(t=>{h+=`<div class="g" style="border-radius:14px;padding:10px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="b" onclick="tgMu(${t.id})" style="padding:4px 9px;border-radius:10px">${t.audio.paused?'▶':'⏸'}</button><div style="flex:1;font-size:11px;color:#c9c9d0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div><button class="b" onclick="rmMu(${t.id})" style="padding:2px 7px;font-size:10px">✕</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px">🔈</span><input type="range" min="0" max="100" value="${t.audio.volume*100}" oninput="sMuV(${t.id},this.value)" style="flex:1;accent-color:#8b5cf6;height:3px"></div></div>`});
   if(!mTr.length)h='<div style="text-align:center;padding:30px;color:#ccc"><div style="font-size:36px;margin-bottom:8px">🎵</div><div style="font-size:12px;color:#aaa">Nahraj audio podkres</div></div>';
   document.getElementById('ml').innerHTML=h}
   window.tgMu=function(id){const t=mTr.find(m=>m.id===id);if(t){t.audio.paused?t.audio.play():t.audio.pause();renderMu()}};
@@ -1525,8 +1526,8 @@ function showApp(){
   function showAiKeyBar(){
     document.getElementById('aiKeyBar').style.display='block';
     document.getElementById('aiKeyBar').innerHTML=`<div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:8px">
-      <span style="font-size:12px;color:#888;flex-shrink:0">🔑 API klíč:</span>
-      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 10px;font-size:11px;color:#333;font-family:inherit;outline:0">
+      <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 API klíč:</span>
+      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
       <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Uloženo';setTimeout(()=>this.textContent='Uložit',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Uložit</button>
     </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Získej klíč na <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6">console.anthropic.com</a> · klíč zůstane uložen v prohlížeči</div>`;
   }
@@ -1543,7 +1544,7 @@ function showApp(){
           <span>${user.name}</span>
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">${user.name[0].toUpperCase()}</div>
         </div>
-        <div style="padding:12px 16px;border-radius:18px;border-bottom-right-radius:6px;font-size:13px;line-height:1.6;background:linear-gradient(135deg,rgba(232,62,90,.1),rgba(255,122,61,.07));color:#333;border:1.5px solid rgba(232,62,90,.12)">${msg.replace(/</g,'&lt;')}</div>
+        <div style="padding:12px 16px;border-radius:18px;border-bottom-right-radius:6px;font-size:13px;line-height:1.6;background:linear-gradient(135deg,rgba(232,62,90,.1),rgba(255,122,61,.07));color:#dcdce2;border:1.5px solid rgba(232,62,90,.12)">${msg.replace(/</g,'&lt;')}</div>
       </div>`;
     const lid='ld'+Date.now();
     // Typing indicator
@@ -1571,7 +1572,7 @@ function showApp(){
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:11px">🤖</div>
           <span>AI Asistent</span>
         </div>
-        <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6;font-size:13px;line-height:1.7;color:#333;white-space:pre-wrap">${txt.replace(/</g,'&lt;')}</div>`;
+        <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6;font-size:13px;line-height:1.7;color:#dcdce2;white-space:pre-wrap">${txt.replace(/</g,'&lt;')}</div>`;
     }catch(e){
       document.getElementById(lid).innerHTML=`
         <div style="font-size:10px;color:#8b5cf6;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px">
@@ -1615,7 +1616,7 @@ function showApp(){
           <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,${s.c}20,transparent 70%);pointer-events:none"></div>
           <div style="font-size:24px;margin-bottom:8px">${s.i}</div>
           <div style="font-size:24px;font-weight:900;color:${s.c};margin-bottom:2px">${s.v}</div>
-          <div style="font-size:11px;font-weight:700;color:#444;margin-bottom:2px">${s.l}</div>
+          <div style="font-size:11px;font-weight:700;color:#c9c9d0;margin-bottom:2px">${s.l}</div>
           <div style="font-size:9px;color:#bbb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.sub}</div>
         </div>`).join('');
 
@@ -1628,10 +1629,10 @@ function showApp(){
           feed.innerHTML='<div style="text-align:center;padding:24px;color:#ccc"><div style="font-size:32px;margin-bottom:8px">😴</div><div style="font-size:12px">Zatím žádná aktivita</div></div>';
         } else {
           feed.innerHTML=activities.map((a,i)=>`
-            <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:${i<activities.length-1?'1px solid rgba(0,0,0,.04)':'none'}">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:${i<activities.length-1?'1px solid rgba(255,255,255,.06)':'none'}">
               <div style="width:36px;height:36px;border-radius:12px;background:${a.color}18;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${a.icon}</div>
               <div style="flex:1">
-                <div style="font-size:12px;color:#444;line-height:1.4">${a.text}</div>
+                <div style="font-size:12px;color:#c9c9d0;line-height:1.4">${a.text}</div>
                 <div style="font-size:10px;color:#bbb;margin-top:2px">${new Date(a.time).toLocaleDateString('cs')} ${new Date(a.time).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'})}</div>
               </div>
               <span style="padding:3px 8px;border-radius:8px;font-size:9px;font-weight:700;background:${a.bc}12;color:${a.bc}">${a.badge}</span>
@@ -1658,10 +1659,10 @@ function showApp(){
         const lastLogin=a.edited_last_login?new Date(a.edited_last_login).toLocaleDateString('cs')+' '+new Date(a.edited_last_login).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}):'Nikdy';
         const statusC=isBanned?'#ef4444':isMe?'#22c55e':'#aaa';
         const statusT=isBanned?'⛔ Ban':isMe?'● Online':'○ Offline';
-        const statusBg=isBanned?'rgba(239,68,68,.08)':isMe?'rgba(34,197,94,.08)':'rgba(0,0,0,.04)';
+        const statusBg=isBanned?'rgba(239,68,68,.08)':isMe?'rgba(34,197,94,.08)':'rgba(255,255,255,.06)';
         const dispName=a.edited_name||a.email.split('@')[0];
-        return `<div class="g userRow" style="border-radius:16px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.7)'" onmouseout="this.style.background=''">
-          <div style="width:40px;height:40px;border-radius:13px;background:${isAdm?'linear-gradient(135deg,#e83e5a,#ff7a3d)':isBanned?'linear-gradient(135deg,#666,#888)':'linear-gradient(135deg,#8b5cf6,#38bdf8)'};display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;font-weight:800;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)">${dispName[0].toUpperCase()}</div>
+        return `<div class="g userRow" style="border-radius:16px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.10)'" onmouseout="this.style.background=''">
+          <div style="width:40px;height:40px;border-radius:13px;background:${isAdm?'linear-gradient(135deg,#e83e5a,#ff7a3d)':isBanned?'linear-gradient(135deg,#666,#888)':'linear-gradient(135deg,#8b5cf6,#38bdf8)'};display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;font-weight:800;flex-shrink:0;box-shadow:0 3px 10px rgba(255,255,255,.16)">${dispName[0].toUpperCase()}</div>
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:7px;margin-bottom:2px">
               <span style="font-size:13px;font-weight:700;color:${isBanned?'#aaa':'#222'};${isBanned?'text-decoration:line-through':''}">${dispName}</span>
@@ -1683,7 +1684,7 @@ function showApp(){
               ${isBanned?'✓ Unban':'⛔ Ban'}
             </button>
             <button onclick="delUsr('${a.id}')" title="Smazat účet natrvalo"
-              style="padding:6px 12px;border-radius:10px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+              style="padding:6px 12px;border-radius:10px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;${a.email.toLowerCase()==='libor.falta2@gmail.com'?'display:none':''}">
               🗑️
             </button>`:''}
           </div>`:'<span style="font-size:11px;color:#ddd;padding:0 8px">—</span>'}
@@ -1701,7 +1702,7 @@ function showApp(){
           <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,${s.c}18,transparent 70%);pointer-events:none"></div>
           <div style="font-size:26px;margin-bottom:8px">${s.i}</div>
           <div style="font-size:26px;font-weight:900;color:${s.c};margin-bottom:3px">${s.v}</div>
-          <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:6px">${s.l}</div>
+          <div style="font-size:12px;font-weight:700;color:#dcdce2;margin-bottom:6px">${s.l}</div>
           <div style="font-size:10px;color:#bbb;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${s.detail}">${s.detail||'—'}</div>
           ${s.btn}
         </div>`).join('');}
@@ -1767,8 +1768,8 @@ function showConnError(detail){
   R.style.cssText='height:100vh;display:flex;align-items:center;justify-content:center';
   R.innerHTML=`<div class="g" style="padding:36px 32px;border-radius:28px;width:420px;max-width:94vw;text-align:center;animation:fadeUp .5s ease">
     <div style="font-size:48px;margin-bottom:14px">📡</div>
-    <h2 style="font-size:20px;font-weight:800;color:#1a1a2e;margin-bottom:8px">Nelze se připojit</h2>
-    <p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:6px">${detail}</p>
+    <h2 style="font-size:20px;font-weight:800;color:#f2f2f5;margin-bottom:8px">Nelze se připojit</h2>
+    <p style="font-size:13px;color:#8f8f98;line-height:1.6;margin-bottom:6px">${detail}</p>
     <p style="font-size:11px;color:#bbb;line-height:1.6;margin-bottom:18px">Zkontroluj internetové připojení a vypni blokátor reklam / Tracking Prevention pro tuto stránku. V náhledu uvnitř chatu appka nefunguje — otevři ji na edited-video.vercel.app.</p>
     <button onclick="location.reload()" class="btnprimary" style="width:auto;padding:12px 28px">🔄 Zkusit znovu</button>
   </div>`;
