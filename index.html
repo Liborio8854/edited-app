@@ -142,7 +142,7 @@ body{
   .mob-hide{display:none !important}
 
   /* Editor: sidebar becomes a bottom sheet / collapsible drawer */
-  #vEditor{flex-direction:column !important}
+  #editorRow{flex-direction:column !important}
   #editorSidebar{
     width:100% !important;
     height:auto !important;
@@ -699,7 +699,8 @@ function showApp(){
     </div>
 
     <!-- EDITOR -->
-    <div id="vEditor" style="display:none;flex:1;flex-direction:row;overflow:hidden">
+    <div id="vEditor" style="display:none;flex:1;flex-direction:column;overflow:hidden">
+      <div id="editorRow" style="flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0">
 
       <!-- LEFT SIDEBAR -->
       <div id="editorSidebar" class="g" style="width:290px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;border-radius:0;border-top:0;border-bottom:0;border-left:0">
@@ -792,7 +793,7 @@ function showApp(){
       <div class="editor-main-mobile" style="flex:1;display:flex;flex-direction:column;min-width:0">
 
         <!-- Preview window -->
-        <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px 10px 0;border-radius:20px;border:1.5px solid rgba(255,255,255,.10);background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.02));position:relative;min-height:200px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)" id="pa">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px 10px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.07);background:#000;position:relative;min-height:200px;overflow:hidden" id="pa">
           <video id="vid" controls playsinline preload="metadata" style="display:none;max-width:98%;max-height:98%;border-radius:14px;background:#000"></video>
           <iframe id="ytframe" style="display:none;width:96%;height:96%;border:none;border-radius:14px" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           <!-- Empty state with workflow guide -->
@@ -846,63 +847,45 @@ function showApp(){
           </div>
         </div>
 
-        <!-- TRANSPORT CONTROLS -->
-        <div id="tr" style="display:none;padding:8px 12px;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;margin:0 10px">
-
-          <!-- Playback group -->
-          <div class="g" style="display:flex;align-items:center;gap:3px;padding:5px 8px;border-radius:16px">
+        <!-- TRANSPORT CONTROLS (CapCut player bar) -->
+        <div id="tr" style="display:none;padding:4px 16px 8px;align-items:center;flex-shrink:0">
+          <!-- left: time -->
+          <div style="flex:1;display:flex;align-items:center">
+            <span style="font-size:12px;font-weight:700;color:#b6b6bf;font-variant-numeric:tabular-nums;letter-spacing:.5px" id="td">0:00 / 0:00</span>
+          </div>
+          <!-- center: playback -->
+          <div style="display:flex;align-items:center;gap:10px">
             <button onclick="seekGlobal(-5)" title="−5 seconds"
-              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
-              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
-              ◀◀ <span style="font-size:9px">5s</span>
-            </button>
+              style="width:32px;height:32px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:13px;color:#c9c9d0;transition:all .15s;display:flex;align-items:center;justify-content:center"
+              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">◀◀</button>
             <button onclick="vid.paused?vid.play():vid.pause()" id="pb"
-              style="width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#e83e5a,#ff7a3d);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(232,62,90,.35);transition:all .2s;flex-shrink:0"
-              onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 6px 24px rgba(232,62,90,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(232,62,90,.35)'">▶</button>
+              style="width:40px;height:40px;border-radius:50%;border:none;background:#f2f2f5;color:#0e0e12;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0"
+              onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform=''">▶</button>
             <button onclick="seekGlobal(5)" title="+5 seconds"
-              style="padding:6px 10px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:600;color:#8f8f98;transition:all .15s;display:flex;align-items:center;gap:3px"
-              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">
-              <span style="font-size:9px">5s</span> ▶▶
-            </button>
+              style="width:32px;height:32px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:13px;color:#c9c9d0;transition:all .15s;display:flex;align-items:center;justify-content:center"
+              onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='transparent'">▶▶</button>
           </div>
-
-          <!-- Cut group -->
-          <div class="g" style="display:flex;align-items:center;gap:4px;padding:5px 8px;border-radius:16px">
-            <button onclick="addCut()" title="Split at current position (C)"
-              style="padding:7px 14px;border-radius:11px;border:none;background:linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,122,61,.08));border:1.5px solid rgba(232,62,90,.2);color:#e83e5a;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:5px"
-              onmouseover="this.style.background='linear-gradient(135deg,rgba(232,62,90,.2),rgba(255,122,61,.14))';this.style.transform='scale(1.04)'" onmouseout="this.style.background='linear-gradient(135deg,rgba(232,62,90,.12),rgba(255,122,61,.08))';this.style.transform=''">
-              ✂️ Cut
-            </button>
-          </div>
-
-          <!-- Time display -->
-          <div class="g" style="padding:7px 14px;border-radius:14px;font-size:13px;font-weight:800;color:#c9c9d0;font-variant-numeric:tabular-nums;letter-spacing:.5px" id="td">0:00 / 0:00</div>
-
-          <div style="flex:1"></div>
-
-          <!-- Volume group -->
-          <div class="g" style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:14px">
-            <button onclick="vid.muted=!vid.muted;this.textContent=vid.muted?'🔇':'🔊'" style="padding:3px;border:none;background:transparent;cursor:pointer;font-size:16px">🔊</button>
-            <input type="range" min="0" max="100" value="80" oninput="vid.volume=this.value/100" style="width:64px;accent-color:#e83e5a;height:4px;border-radius:2px">
-          </div>
-
-          <!-- Speed selector -->
-          <select onchange="vid.playbackRate=+this.value" title="Playback speed"
-            style="padding:7px 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,.10);background:rgba(255,255,255,.07);backdrop-filter:blur(12px);font-size:11px;font-weight:700;color:#b6b6bf;font-family:inherit;cursor:pointer">
-            <option value="0.25">0.25×</option><option value="0.5">0.5×</option>
-            <option value="0.75">0.75×</option><option value="1" selected>1× ▶</option>
-            <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
-          </select>
-
-          <!-- Keyboard hint -->
-          <div class="g" style="padding:5px 10px;border-radius:12px;font-size:9px;color:#bbb;display:flex;align-items:center;gap:5px">
-            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">Space</span> play
-            <span style="background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px;font-weight:700">C</span> split
+          <!-- right: volume + speed -->
+          <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:10px">
+            <button onclick="vid.muted=!vid.muted;this.textContent=vid.muted?'🔇':'🔊'" style="padding:3px;border:none;background:transparent;cursor:pointer;font-size:14px">🔊</button>
+            <input type="range" min="0" max="100" value="80" oninput="vid.volume=this.value/100" style="width:64px;accent-color:#e83e5a;height:3px;border-radius:2px" class="mob-hide">
+            <select onchange="vid.playbackRate=+this.value" title="Playback speed"
+              style="padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);font-size:11px;font-weight:700;color:#b6b6bf;font-family:inherit;cursor:pointer">
+              <option value="0.25">0.25×</option><option value="0.5">0.5×</option>
+              <option value="0.75">0.75×</option><option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+            </select>
+            <div style="font-size:9px;color:#77777e;display:flex;align-items:center;gap:5px" class="mob-hide">
+              <span style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-weight:700">Space</span>
+              <span style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-weight:700">C</span>
+            </div>
           </div>
         </div>
+      </div><!-- /editor-main-mobile -->
+      </div><!-- /editorRow -->
 
         <!-- TIMELINE -->
-        <div id="tla" class="g" style="display:none;height:112px;border-radius:0;border-left:0;border-right:0;border-bottom:0;flex-shrink:0;flex-direction:column;padding:6px 14px 5px">
+        <div id="tla" style="display:none;height:128px;background:#101014;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-direction:column;padding:8px 16px 6px">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
             <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🎬 Timeline</span>
             <span style="font-size:9px;color:#aaa" id="segInfo">0 clips</span>
@@ -912,21 +895,19 @@ function showApp(){
             <span style="font-size:9px;color:#ccc">click a clip = select · double-click = play from it</span>
           </div>
           <!-- Segment track -->
-          <div id="segTrack" style="flex:1;position:relative;display:flex;gap:2px;border-radius:10px;overflow:visible;background:rgba(0,0,0,.03);border:1.5px solid rgba(255,255,255,.10);padding:3px;cursor:pointer"></div>
+          <div id="segTrack" style="flex:1;position:relative;display:flex;gap:3px;border-radius:8px;overflow:visible;background:#0a0a0d;border:1px solid rgba(255,255,255,.07);padding:4px;cursor:pointer"></div>
           <!-- Selected segment tools -->
           <div id="segTools" style="display:none;align-items:center;gap:6px;padding-top:5px">
             <span style="font-size:10px;font-weight:700;color:#b6b6bf" id="segName"></span>
             <div style="flex:1"></div>
             <button onclick="moveSeg(-1)" title="Move left (e.g. as an intro)" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">⬅ Left</button>
             <button onclick="moveSeg(1)" title="Move right" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Right ➡</button>
-            <button onclick="delSeg()" title="Smazat klip z timeline" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Delete</button>
+            <button onclick="delSeg()" title="Delete clip from timeline" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Delete</button>
           </div>
           <div style="display:flex;align-items:center;gap:14px;padding-top:3px">
-            <span style="font-size:9px;color:#aaa" id="id">Celkem 0:00</span>
+            <span style="font-size:9px;color:#aaa" id="id">Total 0:00</span>
           </div>
         </div>
-
-      </div>
     </div>
 
     <!-- AI -->
@@ -1293,7 +1274,7 @@ function showApp(){
       </div>`;
     }).join('');
     document.getElementById('segInfo').textContent=segs.length+' clips';
-    document.getElementById('id').textContent='Celkem '+fmt(totalDur());
+    document.getElementById('id').textContent='Total '+fmt(totalDur());
     // Tools for selected
     const tools=document.getElementById('segTools');
     if(selSegIdx>=0&&segs[selSegIdx]){
@@ -1730,7 +1711,7 @@ function showApp(){
 // ═══ NAV ═══
 function nav(id){['Home','Editor','Ai','Admin'].forEach(v=>{const el=document.getElementById('v'+v);if(el)el.style.display='none'});
   const el=document.getElementById('v'+id.charAt(0).toUpperCase()+id.slice(1));if(!el)return;
-  if(id==='editor'){el.style.display='flex';el.style.flexDirection='row'}
+  if(id==='editor'){el.style.display='flex';el.style.flexDirection='column'}
   else if(id==='ai'){el.style.display='flex';el.style.flexDirection='column'}
   else{el.style.display='block'}
   ['nH','nE','nA','nAd'].forEach(n=>{const b=document.getElementById(n);if(b)b.classList.remove('on')});
