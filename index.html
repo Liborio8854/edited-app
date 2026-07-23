@@ -128,6 +128,19 @@ body{
 @keyframes typewriter{from{width:0}to{width:100%}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
+/* ═══ CLIP OVERLAY ANIMATIONS (CapCut-style stickers) ═══ */
+@keyframes ovPopIn{0%{transform:scale(0) rotate(-15deg);opacity:0}55%{transform:scale(1.25) rotate(6deg);opacity:1}75%{transform:scale(.92) rotate(-3deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes ovThumb{0%,100%{transform:rotate(-8deg) scale(1)}25%{transform:rotate(8deg) scale(1.15)}50%{transform:rotate(-5deg) scale(1)}}
+@keyframes ovBell{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(16deg)}80%{transform:rotate(-14deg)}85%{transform:rotate(10deg)}90%{transform:rotate(-7deg)}95%{transform:rotate(3deg)}}
+@keyframes ovHeartUp{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-160px) scale(1.1);opacity:0}}
+@keyframes ovShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px) rotate(-3deg)}40%{transform:translateX(6px) rotate(3deg)}60%{transform:translateX(-4px) rotate(-2deg)}80%{transform:translateX(4px) rotate(2deg)}}
+@keyframes ovZoomPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes ovSlideUp{0%{transform:translateY(60px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes ovGlowRing{0%{box-shadow:0 0 0 0 rgba(232,62,90,.6)}100%{box-shadow:0 0 0 26px rgba(232,62,90,0)}}
+@keyframes ovSparkle{0%,100%{opacity:.25;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(180deg)}}
+@keyframes ovFlashBg{0%,100%{opacity:0}50%{opacity:.28}}
+@keyframes ovCounter{0%{transform:translateY(10px);opacity:0}100%{transform:translateY(0);opacity:1}}
+
 /* ═══════════════════════════════════════
    MOBILE RESPONSIVE
    ═══════════════════════════════════════ */
@@ -233,6 +246,9 @@ window.sAi=function(){};
 window.editSegText=function(){};
 window.saveSegText=function(){};
 window.clearSegText=function(){};
+window.editSegFx=function(){};
+window.saveSegFx=function(){};
+window.clearSegFx=function(){};
 
 // ═══ CONFETTI & TOAST ═══
 function confetti(msg, icon){
@@ -798,6 +814,8 @@ function showApp(){
         <!-- Preview window -->
         <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:10px 10px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.07);background:#000;position:relative;min-height:200px;overflow:hidden" id="pa">
           <video id="vid" controls playsinline preload="metadata" style="display:none;max-width:98%;max-height:98%;border-radius:14px;background:#000"></video>
+          <!-- Animation overlay (CapCut-style stickers) -->
+          <div id="fxOverlay" style="display:none;position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden"></div>
           <!-- Text overlay (like CapCut captions) -->
           <div id="txtOverlay" style="display:none;position:absolute;left:0;right:0;bottom:14%;text-align:center;pointer-events:none;z-index:4;padding:0 20px"></div>
           <iframe id="ytframe" style="display:none;width:96%;height:96%;border:none;border-radius:14px" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
@@ -898,6 +916,7 @@ function showApp(){
             <button onclick="splitAtPlayhead()" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✂️ Split</button>
             <button onclick="document.getElementById('fi').click()" title="Add another video at the end — then move it with the arrows, e.g. to the start as an intro" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">➕ Add clip</button>
             <button onclick="editSegText()" title="Add text over the selected clip (e.g. OMG)" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);color:#38bdf8;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">🅣 Text</button>
+            <button onclick="editSegFx()" title="Add an animation (like, subscribe, hearts...)" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(34,197,94,.25);background:rgba(34,197,94,.08);color:#22c55e;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✨ Effects</button>
             <span style="font-size:9px;color:#ccc">click a clip = select · double-click = play from it</span>
           </div>
           <!-- Segment track -->
@@ -909,6 +928,7 @@ function showApp(){
             <button onclick="moveSeg(-1)" title="Move left (e.g. as an intro)" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">⬅ Left</button>
             <button onclick="moveSeg(1)" title="Move right" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Right ➡</button>
             <button onclick="editSegText()" title="Add / edit text over this clip" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);color:#38bdf8;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🅣 Text</button>
+            <button onclick="editSegFx()" title="Add / edit animation on this clip" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(34,197,94,.25);background:rgba(34,197,94,.08);color:#22c55e;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">✨ FX</button>
             <button onclick="delSeg()" title="Delete clip from timeline" style="padding:3px 10px;border-radius:8px;border:1.5px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Delete</button>
           </div>
           <div style="display:flex;align-items:center;gap:14px;padding-top:3px">
@@ -1244,7 +1264,7 @@ function showApp(){
       vid.currentTime=seg.start;updTd();renderSegs();
     }
     if(!pause)vid.play();
-    updTextOverlay();
+    updTextOverlay();updFxOverlay();
   }
 
   // ── Text overlay: zobrazí text aktuálního segmentu přes video ──
@@ -1269,7 +1289,7 @@ function showApp(){
       else{vid.pause();loadSeg(0,true)}
     }
     renderPlayhead();
-    updTextOverlay();
+    updTextOverlay();updFxOverlay();
   };
   vid.onplay=function(){document.getElementById('pb').textContent='⏸'};
   vid.onpause=function(){document.getElementById('pb').textContent='▶'};
@@ -1291,7 +1311,7 @@ function showApp(){
         border:2.5px solid ${sel?'#1a1a2e':playing?'#fff':'transparent'};
         box-shadow:${sel?'0 0 0 2px rgba(26,26,46,.15)':playing?'0 2px 8px '+s.color+'55':'none'};
         transition:all .15s;display:flex;flex-direction:column;justify-content:space-between;padding:3px 6px">
-        <div style="font-size:9px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i+1}. ${s.name}${s.text?' 🅣':''}</div>
+        <div style="font-size:9px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i+1}. ${s.name}${s.text?' 🅣':''}${s.fx?' ✨':''}</div>
         <div style="font-size:8px;color:rgba(30,30,38,.95);font-weight:600">${fmt(s.end-s.start)}${playing?' ▶':''}${s.text?' · "'+s.text.slice(0,12)+'"':''}</div>
       </div>`;
     }).join('');
@@ -1348,6 +1368,7 @@ function showApp(){
       vid.pause();vid.src='';vid.dataset.curUrl='';vid.style.display='none';
       document.getElementById('es').style.display='block';
       document.getElementById('txtOverlay').style.display='none';
+      document.getElementById('fxOverlay').style.display='none';
       document.getElementById('tr').style.display='none';
       document.getElementById('tla').style.display='none';
     } else loadSeg(curSegIdx,true);
@@ -1402,6 +1423,120 @@ function showApp(){
     if(segs[idx])segs[idx].text=null;
     const m=document.getElementById('txtModal');if(m)m.remove();
     renderSegs();updTextOverlay();
+  };
+
+  // ═══ ANIMACE / EFEKTY PŘES KLIP (CapCut stickers) ═══
+  const FX_LIB={
+    like:{name:'Like',emoji:'👍',c:'#3b82f6',desc:'Thumbs up pops in',
+      html:`<div style="position:absolute;left:8%;bottom:20%;animation:ovPopIn .5s cubic-bezier(.34,1.56,.64,1) both">
+        <div style="display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#3b82f6,#2563eb);padding:10px 18px;border-radius:40px;box-shadow:0 8px 26px rgba(59,130,246,.5);animation:ovGlowRing 1.6s ease-out infinite">
+          <span style="font-size:26px;display:inline-block;animation:ovThumb 1.4s ease-in-out infinite">👍</span>
+          <span style="font-size:17px;font-weight:900;color:#fff;font-family:'Outfit',sans-serif">LIKE</span>
+        </div></div>`},
+    subscribe:{name:'Subscribe',emoji:'🔔',c:'#ef4444',desc:'Subscribe + bell ring',
+      html:`<div style="position:absolute;left:50%;bottom:22%;transform:translateX(-50%);animation:ovSlideUp .5s cubic-bezier(.34,1.56,.64,1) both">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="background:linear-gradient(135deg,#ef4444,#dc2626);padding:11px 24px;border-radius:8px;box-shadow:0 8px 26px rgba(239,68,68,.5)">
+            <span style="font-size:17px;font-weight:900;color:#fff;font-family:'Outfit',sans-serif;letter-spacing:.5px">SUBSCRIBE</span>
+          </div>
+          <span style="font-size:30px;display:inline-block;animation:ovBell 2s ease-in-out infinite;transform-origin:top center">🔔</span>
+        </div></div>`},
+    likesub:{name:'Like + Sub',emoji:'👍🔔',c:'#f97316',desc:'Both at once — YouTube combo',
+      html:`<div style="position:absolute;left:50%;bottom:20%;transform:translateX(-50%);animation:ovSlideUp .5s cubic-bezier(.34,1.56,.64,1) both">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#2563eb);padding:9px 16px;border-radius:40px;box-shadow:0 6px 20px rgba(59,130,246,.45)">
+            <span style="font-size:22px;animation:ovThumb 1.4s ease-in-out infinite;display:inline-block">👍</span>
+            <span style="font-size:15px;font-weight:900;color:#fff;font-family:'Outfit',sans-serif">LIKE</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ef4444,#dc2626);padding:9px 16px;border-radius:8px;box-shadow:0 6px 20px rgba(239,68,68,.45)">
+            <span style="font-size:15px;font-weight:900;color:#fff;font-family:'Outfit',sans-serif">SUBSCRIBE</span>
+            <span style="font-size:20px;animation:ovBell 2s ease-in-out infinite;display:inline-block;transform-origin:top center">🔔</span>
+          </div>
+        </div></div>`},
+    hearts:{name:'Hearts',emoji:'❤️',c:'#f472b6',desc:'Floating hearts (TikTok style)',
+      html:[0,1,2,3,4,5].map(i=>`<div style="position:absolute;right:${8+i*3}%;bottom:12%;font-size:${24+(i%3)*8}px;animation:ovHeartUp ${2.2+i*.35}s ease-out ${i*.45}s infinite">${['❤️','💖','💗','😍','💕','❤️'][i]}</div>`).join('')},
+    fire:{name:'Fire',emoji:'🔥',c:'#f59e0b',desc:'Fire burst + flash',
+      html:`<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,rgba(245,158,11,.6),transparent 60%);animation:ovFlashBg 1.2s ease-in-out infinite"></div>
+        ${[0,1,2].map(i=>`<div style="position:absolute;left:${25+i*25}%;bottom:16%;font-size:${34+i*6}px;animation:ovPopIn .5s cubic-bezier(.34,1.56,.64,1) ${i*.15}s both,ovZoomPulse 1s ease-in-out ${i*.2}s infinite">🔥</div>`).join('')}`},
+    shock:{name:'Shock',emoji:'😱',c:'#8b5cf6',desc:'Shake + shocked face',
+      html:`<div style="position:absolute;inset:0;animation:ovShake .45s ease-in-out infinite">
+        <div style="position:absolute;left:50%;top:22%;transform:translateX(-50%);font-size:60px;animation:ovPopIn .45s cubic-bezier(.34,1.56,.64,1) both">😱</div>
+        ${[0,1,2,3].map(i=>`<div style="position:absolute;left:${15+i*24}%;top:${12+(i%2)*55}%;font-size:22px;animation:ovSparkle 1s ease-in-out ${i*.2}s infinite">✨</div>`).join('')}
+      </div>`},
+    views:{name:'Viral counter',emoji:'📈',c:'#22c55e',desc:'Views ticking up',
+      html:`<div style="position:absolute;right:6%;top:10%;animation:ovPopIn .5s cubic-bezier(.34,1.56,.64,1) both">
+        <div style="background:rgba(0,0,0,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);padding:10px 16px;border-radius:14px;text-align:center">
+          <div style="font-size:9px;font-weight:700;color:#8f8f98;letter-spacing:1.5px;margin-bottom:2px">VIEWS</div>
+          <div style="font-size:22px;font-weight:900;color:#22c55e;font-family:'Outfit',sans-serif;animation:ovCounter .5s ease-out infinite alternate">1.2M</div>
+        </div></div>`},
+    confettiFx:{name:'Confetti',emoji:'🎉',c:'#a78bfa',desc:'Party confetti rain',
+      html:[0,1,2,3,4,5,6,7,8,9].map(i=>`<div style="position:absolute;left:${5+i*10}%;top:-8%;font-size:${18+(i%4)*7}px;animation:ovHeartUp ${2+(i%4)*.5}s linear ${i*.25}s infinite;transform:rotate(${i*36}deg)">${['🎉','🎊','⭐','✨','🎈'][i%5]}</div>`).join('')},
+    arrow:{name:'Look here',emoji:'👇',c:'#38bdf8',desc:'Bouncing arrow pointer',
+      html:`<div style="position:absolute;left:50%;top:14%;transform:translateX(-50%);text-align:center;animation:ovPopIn .5s cubic-bezier(.34,1.56,.64,1) both">
+        <div style="font-size:44px;animation:float .9s ease-in-out infinite">👇</div>
+        <div style="background:rgba(56,189,248,.92);padding:7px 16px;border-radius:20px;font-size:13px;font-weight:900;color:#fff;font-family:'Outfit',sans-serif;box-shadow:0 6px 20px rgba(56,189,248,.45)">LOOK HERE</div>
+      </div>`}
+  };
+
+  function updFxOverlay(){
+    const ov=document.getElementById('fxOverlay');
+    if(!ov)return;
+    const seg=segs[curSegIdx];
+    const key=seg&&seg.fx;
+    if(key&&FX_LIB[key]){
+      if(ov.dataset.cur!==key){ov.innerHTML=FX_LIB[key].html;ov.dataset.cur=key}
+      ov.style.display='block';
+    } else {ov.style.display='none';ov.dataset.cur=''}
+  }
+
+  window.editSegFx=function(){
+    let idx=selSegIdx>=0?selSegIdx:curSegIdx;
+    if(idx<0||!segs[idx]){confetti('⚠️ Select a clip on the timeline first','✨');return}
+    const seg=segs[idx];
+    if(document.getElementById('fxModal'))return;
+    const m=document.createElement('div');
+    m.id='fxModal';
+    m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);z-index:9100;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeUp .25s ease';
+    m.innerHTML=`
+      <div class="g" style="border-radius:24px;padding:24px;width:560px;max-width:96vw;max-height:88vh;overflow:auto;background:rgba(30,30,38,.96)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#22c55e,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">✨</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#f2f2f5">Effects on clip ${idx+1}</div>
+            <div style="font-size:10px;color:#8f8f98">Animation plays over the video during this clip</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+          ${Object.entries(FX_LIB).map(([k,f])=>`
+            <button onclick="saveSegFx(${idx},'${k}')"
+              style="padding:14px 10px;border-radius:16px;border:1.5px solid ${seg.fx===k?f.c:'rgba(255,255,255,.1)'};background:${seg.fx===k?f.c+'22':'rgba(255,255,255,.04)'};cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .18s"
+              onmouseover="this.style.borderColor='${f.c}';this.style.background='${f.c}18';this.style.transform='translateY(-2px)'"
+              onmouseout="this.style.borderColor='${seg.fx===k?f.c:'rgba(255,255,255,.1)'}';this.style.background='${seg.fx===k?f.c+'22':'rgba(255,255,255,.04)'}';this.style.transform=''">
+              <div style="font-size:26px">${f.emoji}</div>
+              <div style="font-size:12px;font-weight:800;color:#f2f2f5">${f.name}</div>
+              <div style="font-size:9px;color:#8f8f98;text-align:center;line-height:1.3">${f.desc}</div>
+              ${seg.fx===k?`<div style="font-size:9px;font-weight:800;color:${f.c}">● ACTIVE</div>`:''}
+            </button>`).join('')}
+        </div>
+        <div style="display:flex;gap:8px">
+          ${seg.fx?`<button onclick="clearSegFx(${idx})" style="flex:1;padding:12px;border-radius:14px;border:1.5px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:#ef4444;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Remove effect</button>`:''}
+          <button onclick="document.getElementById('fxModal').remove()" style="flex:1;padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#c9c9d0;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Close</button>
+        </div>
+      </div>`;
+    document.body.appendChild(m);
+  };
+  window.saveSegFx=function(idx,key){
+    if(segs[idx])segs[idx].fx=key;
+    const m=document.getElementById('fxModal');if(m)m.remove();
+    const ov=document.getElementById('fxOverlay');if(ov)ov.dataset.cur='';
+    renderSegs();updFxOverlay();
+    confetti('✨ '+FX_LIB[key].name+' added!',FX_LIB[key].emoji);
+  };
+  window.clearSegFx=function(idx){
+    if(segs[idx])segs[idx].fx=null;
+    const m=document.getElementById('fxModal');if(m)m.remove();
+    const ov=document.getElementById('fxOverlay');if(ov)ov.dataset.cur='';
+    renderSegs();updFxOverlay();
   };
 
   // ── Globální seek (±5s přes hranice segmentů) ──
@@ -1520,7 +1655,7 @@ function showApp(){
     hp.innerHTML=ph;
   }
   window.selCl=function(id){const c=clips.find(x=>x.id===id);if(!c)return;aC=c;
-    if(c.type==='youtube'){vid.style.display='none';document.getElementById('tr').style.display='none';document.getElementById('tla').style.display='none';const fr=document.getElementById('ytframe');fr.src='https://www.youtube.com/embed/'+c.ytId;fr.style.display='block';document.getElementById('es').style.display='none';document.getElementById('txtOverlay').style.display='none'}
+    if(c.type==='youtube'){vid.style.display='none';document.getElementById('tr').style.display='none';document.getElementById('tla').style.display='none';const fr=document.getElementById('ytframe');fr.src='https://www.youtube.com/embed/'+c.ytId;fr.style.display='block';document.getElementById('es').style.display='none';document.getElementById('txtOverlay').style.display='none';document.getElementById('fxOverlay').style.display='none'}
     else{
       document.getElementById('ytframe').style.display='none';vid.style.display='block';
       document.getElementById('es').style.display='none';document.getElementById('tr').style.display='flex';document.getElementById('tla').style.display='flex';
