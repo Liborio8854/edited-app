@@ -1687,15 +1687,15 @@ function showApp(){
   window.sMuV=function(id,v){const t=mTr.find(m=>m.id===id);if(t)t.audio.volume=v/100};
   window.rmMu=function(id){const t=mTr.find(m=>m.id===id);if(t){t.audio.pause()}mTr=mTr.filter(m=>m.id!==id);renderMu()};
 
-  // ── AI ──
+  // ── AI (Google Gemini) ──
   const aiKey=localStorage.getItem('edited_ai_key')||'';
   function showAiKeyBar(){
     document.getElementById('aiKeyBar').style.display='block';
     document.getElementById('aiKeyBar').innerHTML=`<div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:8px">
       <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 API key:</span>
-      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
-      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Saved';setTimeout(()=>this.textContent='Uložit',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Save</button>
-    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Get a key at <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6">console.anthropic.com</a> · klíč zůstane uložen v prohlížeči</div>`;
+      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="AIza..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
+      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Saved';setTimeout(()=>this.textContent='Save',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Save</button>
+    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Get a key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#8b5cf6">aistudio.google.com</a> · same key as LIFA · stored locally in your browser</div>`;
   }
   showAiKeyBar();
 
@@ -1718,7 +1718,7 @@ function showApp(){
       <div id="${lid}" style="align-self:flex-start;max-width:82%;animation:fadeUp .3s ease">
         <div style="font-size:10px;color:#8b5cf6;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px">
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:11px">🤖</div>
-          <span>AI Asistent</span>
+          <span>AI Assistant</span>
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6;display:inline-flex;align-items:center;gap:6px">
           ${[0,.2,.4].map(d=>`<div style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);animation:float .8s ease-in-out infinite ${d}s;opacity:.7"></div>`).join('')}
@@ -1727,26 +1727,34 @@ function showApp(){
       </div>`;
     ch.scrollTop=ch.scrollHeight;
     try{
-      const headers={'Content-Type':'application/json'};
-      if(key)headers['x-api-key']=key;
-      if(key)headers['anthropic-version']='2023-06-01';
-      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are an AI assistant for video editing. Reply in English, briefly and practically.',messages:[{role:'user',content:msg}]})});
-      if(!r.ok)throw new Error(r.status);
-      const d=await r.json();const txt=d.content?.filter(c=>c.type==='text').map(c=>c.text).join('\n')||'Chyba.';
+      if(!key)throw new Error('NO_KEY');
+      const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key='+encodeURIComponent(key),{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          system_instruction:{parts:[{text:'You are an AI assistant for video editing. Reply in English, briefly and practically. Give actionable tips.'}]},
+          contents:[{role:'user',parts:[{text:msg}]}],
+          generationConfig:{maxOutputTokens:1000}
+        })
+      });
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||r.status)}
+      const d=await r.json();
+      const txt=d.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n')||'No response.';
       document.getElementById(lid).innerHTML=`
         <div style="font-size:10px;color:#8b5cf6;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px">
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:11px">🤖</div>
-          <span>AI Asistent</span>
+          <span>AI Assistant</span>
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6;font-size:13px;line-height:1.7;color:#dcdce2;white-space:pre-wrap">${txt.replace(/</g,'&lt;')}</div>`;
     }catch(e){
+      const noKey=e.message==='NO_KEY';
       document.getElementById(lid).innerHTML=`
         <div style="font-size:10px;color:#8b5cf6;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px">
-          <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center">🤖</div><span>AI Asistent</span>
+          <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center">🤖</div><span>AI Assistant</span>
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #ef4444">
-          <div style="color:#e83e5a;font-size:12px;font-weight:600">⚠️ Couldn't connect</div>
-          <div style="color:#999;font-size:11px;margin-top:4px">${key?'Check your API key.':'Enter an API key in the field above.'}</div>
+          <div style="color:#e83e5a;font-size:12px;font-weight:600">${noKey?'🔑 API key needed':'⚠️ Error'}</div>
+          <div style="color:#999;font-size:11px;margin-top:4px">${noKey?'Paste your Google AI Studio key (AIza...) in the field above. Same key as LIFA.':e.message}</div>
         </div>`;
     }
     ch.scrollTop=ch.scrollHeight;
