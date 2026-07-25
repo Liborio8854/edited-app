@@ -1687,21 +1687,46 @@ function showApp(){
   window.sMuV=function(id,v){const t=mTr.find(m=>m.id===id);if(t)t.audio.volume=v/100};
   window.rmMu=function(id){const t=mTr.find(m=>m.id===id);if(t){t.audio.pause()}mTr=mTr.filter(m=>m.id!==id);renderMu()};
 
-  // ── AI (Google Gemini) ──
-  const aiKey=localStorage.getItem('edited_ai_key')||'';
+  // ── AI (Google Gemini — shared key from Supabase) ──
+  let sharedAiKey='';
+
+  // Load shared API key from Supabase settings table
+  function loadAiKey(){
+    if(!sb)return Promise.resolve('');
+    return sb.from('edited_settings').select('value').eq('key','gemini_api_key').single().then(({data,error})=>{
+      if(!error&&data)sharedAiKey=data.value||'';
+      return sharedAiKey;
+    }).catch(()=>'');
+  }
+  loadAiKey();
+
+  // Admin-only: show key management in AI Studio
   function showAiKeyBar(){
+    if(!A)return;
     document.getElementById('aiKeyBar').style.display='block';
     document.getElementById('aiKeyBar').innerHTML=`<div class="g" style="border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:8px">
-      <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 API key:</span>
-      <input id="akInp" type="password" value="${localStorage.getItem('edited_ai_key')||''}" placeholder="AIza..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
-      <button class="b" onclick="localStorage.setItem('edited_ai_key',document.getElementById('akInp').value);this.textContent='✓ Saved';setTimeout(()=>this.textContent='Save',1500)" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Save</button>
-    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">Get a key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#8b5cf6">aistudio.google.com</a> · same key as LIFA · stored locally in your browser</div>`;
+      <span style="font-size:12px;color:#8f8f98;flex-shrink:0">🔑 Shared AI key:</span>
+      <input id="akInp" type="password" value="${sharedAiKey}" placeholder="AIza..." style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;font-size:11px;color:#dcdce2;font-family:inherit;outline:0">
+      <button class="b" onclick="saveSharedAiKey()" style="padding:5px 12px;font-size:11px;color:#34d399;font-weight:600">Save</button>
+    </div><div style="font-size:10px;color:#bbb;margin-top:6px;padding:0 4px">🛡️ Admin only · saved in Supabase · all users will use this key · <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#8b5cf6">aistudio.google.com</a></div>`;
   }
+
+  window.saveSharedAiKey=function(){
+    const val=document.getElementById('akInp').value.trim();
+    sb.from('edited_settings').update({value:val,updated_at:new Date().toISOString()}).eq('key','gemini_api_key').then(({error})=>{
+      if(error){alert('Error: '+error.message);return}
+      sharedAiKey=val;
+      confetti('✅ AI key saved for all users!','🔑');
+    });
+  };
+
   showAiKeyBar();
 
   window.sAi=async function(){
     const inp=document.getElementById('aq'),msg=inp.value.trim();if(!msg)return;inp.value='';
-    const key=localStorage.getItem('edited_ai_key')||'';
+    // Ensure key is loaded
+    if(!sharedAiKey)await loadAiKey();
+    const key=sharedAiKey;
     const ch=document.getElementById('ach');
     // User message
     ch.innerHTML+=`
@@ -1753,8 +1778,8 @@ function showApp(){
           <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:flex;align-items:center;justify-content:center">🤖</div><span>AI Assistant</span>
         </div>
         <div class="g" style="padding:14px 18px;border-radius:18px;border-bottom-left-radius:6px;border-left:3px solid #ef4444">
-          <div style="color:#e83e5a;font-size:12px;font-weight:600">${noKey?'🔑 API key needed':'⚠️ Error'}</div>
-          <div style="color:#999;font-size:11px;margin-top:4px">${noKey?'Paste your Google AI Studio key (AIza...) in the field above. Same key as LIFA.':e.message}</div>
+          <div style="color:#e83e5a;font-size:12px;font-weight:600">${noKey?'🔑 AI not configured':'⚠️ Error'}</div>
+          <div style="color:#999;font-size:11px;margin-top:4px">${noKey?(A?'Paste your Google AI Studio key (AIza...) in the field above. Same key as LIFA.':'AI assistant is not set up yet. Ask your admin to configure it.'):e.message}</div>
         </div>`;
     }
     ch.scrollTop=ch.scrollHeight;
