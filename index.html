@@ -146,71 +146,89 @@ body{
    ═══════════════════════════════════════ */
 @media (max-width: 768px){
   body{overflow:auto}
-
-  /* Prevent iOS auto-zoom on input focus */
   input,select,textarea{font-size:16px !important}
-
-  /* Topbar: hide button text labels, keep icons only */
-  .topbar-label{display:none !important}
-  .mob-hide{display:none !important}
-
-  /* Editor: sidebar becomes a bottom sheet / collapsible drawer */
-  #editorRow{flex-direction:column !important}
-  #editorSidebar{
-    width:100% !important;
-    height:auto !important;
-    max-height:42vh;
-    border-right:0 !important;
-    border-top:1px solid rgba(255,255,255,.08);
-    order:2;
-  }
-  .editor-main-mobile{order:1}
-
-  /* AI Studio: smaller robot, stack header */
-  #vAi{padding:0 12px !important}
-  .ai-hero-row{flex-direction:column;gap:10px !important;text-align:center}
-  .ai-hero-row > div:last-child{text-align:center !important;max-width:100% !important}
-
-  /* Admin: stat grid fewer columns, smaller padding */
-  #vAdmin > div:first-child{padding:18px 16px !important}
-  #vAdmin .admin-content-pad{padding:16px !important}
-  #adminStats{grid-template-columns:repeat(2,1fr) !important}
-  #adminTabs button{font-size:8px !important;padding:8px 2px !important}
-  #adminTabs .ti{font-size:14px !important}
-
-  /* Home: single column quick actions on very small screens */
-  #vHome{padding:0 !important}
-  .home-hero{padding:20px 16px !important}
-  .home-actions{grid-template-columns:repeat(2,1fr) !important;padding:0 16px !important}
-  .home-section-pad{padding:0 16px !important}
-
-  /* Login card: full width with margin */
-  .login-card{width:94vw !important;padding:24px 20px !important}
-
-  /* Transport bar: allow wrap, smaller gaps */
-  #tr{padding:6px 8px !important;gap:5px !important}
-
-  /* Profile dropdown: ensure it doesn't overflow screen */
-  #pdd{right:0 !important;width:220px !important}
+  body:not(.device-desktop) .topbar-label{display:none !important}
+  body:not(.device-desktop) .mob-hide{display:none !important}
+  body:not(.device-desktop) #editorRow{flex-direction:column !important}
+  body:not(.device-desktop) #editorSidebar{width:100% !important;height:auto !important;max-height:35vh;border-right:0 !important;order:2}
+  body:not(.device-desktop) .editor-main-mobile{order:1}
+  body:not(.device-desktop) .home-actions{grid-template-columns:1fr 1fr !important}
+  body:not(.device-desktop) #adminStats{grid-template-columns:repeat(2,1fr) !important}
+  body:not(.device-desktop) .ai-hero-row{flex-direction:column !important;gap:8px !important}
+  body:not(.device-desktop) .home-section-pad{padding:16px 14px !important}
+  body:not(.device-desktop) #pdd{width:200px !important}
+  body:not(.device-desktop) #tr{flex-wrap:wrap !important;justify-content:center}
 }
 
 @media (max-width: 480px){
-  /* Extra small phones */
-  .home-actions{grid-template-columns:1fr 1fr !important}
-  #adminStats{grid-template-columns:1fr 1fr !important}
-  .btn-text-sm{display:none !important}
+  body:not(.device-desktop) .home-actions{grid-template-columns:1fr !important}
 }
 
-/* ═══ DEVICE-MOBILE CLASS (user chose Phone in settings) ═══ */
+/* ═══ DEVICE-MOBILE CLASS (user chose Phone) ═══ */
+
+/* Topbar: compact single row, only icons */
 body.device-mobile .topbar-label{display:none !important}
 body.device-mobile .mob-hide{display:none !important}
-body.device-mobile #editorRow{flex-direction:column !important}
-body.device-mobile #editorSidebar{width:100% !important;height:auto !important;max-height:42vh;border-right:0 !important;border-top:1px solid rgba(255,255,255,.08);order:2}
-body.device-mobile .editor-main-mobile{order:1}
-body.device-mobile .ai-hero-row{flex-direction:column;gap:10px !important;text-align:center}
-body.device-mobile #adminStats{grid-template-columns:repeat(2,1fr) !important}
-body.device-mobile .home-actions{grid-template-columns:1fr 1fr !important}
-body.device-mobile #tr{flex-wrap:wrap}
+
+/* Home: full-width cards stacked */
+body.device-mobile .home-actions{grid-template-columns:1fr 1fr !important;gap:8px !important}
+body.device-mobile .home-actions>button{min-height:110px !important;padding:14px 10px !important}
+body.device-mobile .home-actions>button:first-child{grid-column:1/-1}
+body.device-mobile .home-section-pad{padding:16px 12px !important}
+
+/* Editor: full stack — video top, transport, timeline, sidebar bottom */
+body.device-mobile #vEditor{overflow:auto !important}
+body.device-mobile #editorRow{flex-direction:column !important;overflow:visible !important}
+body.device-mobile #editorSidebar{
+  width:100% !important;height:auto !important;max-height:none !important;
+  border-right:0 !important;border-top:1px solid rgba(255,255,255,.08);
+  order:2;flex-shrink:0;border-radius:0 !important
+}
+body.device-mobile .editor-main-mobile{order:1;flex-shrink:0}
+body.device-mobile #pa{margin:4px !important;border-radius:8px !important;min-height:200px !important;max-height:35vh}
+body.device-mobile #pa video{max-height:34vh !important}
+
+/* Transport: centered row, smaller buttons */
+body.device-mobile #tr{
+  flex-wrap:nowrap !important;padding:4px 10px !important;gap:6px !important;
+  justify-content:center !important;overflow-x:auto
+}
+body.device-mobile #tr>div:first-child{display:none !important}
+body.device-mobile #tr>div:last-child{display:none !important}
+body.device-mobile #tr select{padding:4px 6px !important;font-size:10px !important}
+
+/* Timeline: shorter, full width */
+body.device-mobile #tla{height:90px !important;padding:4px 8px 3px !important}
+body.device-mobile #segTrack{min-height:32px}
+body.device-mobile #tla button{font-size:9px !important;padding:3px 8px !important}
+
+/* Sidebar tabs: bigger tap targets */
+body.device-mobile .ntab{padding:10px 4px !important;font-size:8px !important}
+body.device-mobile .ntab .ti{font-size:16px !important}
+
+/* AI Studio: stack vertically */
+body.device-mobile .ai-hero-row{flex-direction:column !important;gap:8px !important;text-align:center}
+body.device-mobile .ai-hero-row>div:last-child{text-align:center !important}
+body.device-mobile #vAi{padding:0 10px !important}
+body.device-mobile #vAi svg{width:56px !important;height:62px !important}
+
+/* Admin: 2 columns, compact */
+body.device-mobile #adminStats{grid-template-columns:repeat(2,1fr) !important;gap:6px !important}
+body.device-mobile #adminTabs button{font-size:7px !important;padding:8px 2px !important}
+body.device-mobile #adminTabs .ti{font-size:14px !important}
+body.device-mobile .admin-content-pad{padding:12px !important}
+body.device-mobile .userRow{flex-wrap:wrap !important;gap:8px !important}
+body.device-mobile .userRow>div:last-child{width:100% !important;display:flex;gap:6px;justify-content:flex-end}
+
+/* Profile dropdown */
+body.device-mobile #pdd{width:220px !important;right:0 !important}
+
+/* Global touch targets */
+body.device-mobile button{min-height:34px}
+body.device-mobile .inp{padding:12px 14px !important;font-size:15px !important}
+
+/* Login card on phone */
+body.device-mobile .g[style*="width:390px"]{width:100% !important;max-width:100vw !important;border-radius:20px !important;padding:24px 18px !important}
 
 /* ═══ LIGHT THEME ═══ */
 body.theme-light{
