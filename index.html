@@ -1339,8 +1339,6 @@ function showApp(){
       document.getElementById('tla').style.display='flex';
       renderSegs();renderCl();
       if(segs.length===1)loadSeg(0,true);
-      confetti(segs.length>1?'🎬 Clip added at the end! Move it with ⬅➡ (e.g. as an intro).':'🎬 Video uploaded!','🎬');
-      if(segs.length===1)setTimeout(showPurposeModal,600);
       if(A)updAdmin();
     };
     tmp.src=url;
@@ -1357,81 +1355,6 @@ function showApp(){
   });
 
   // ── Modal: Why are you editing this video? + rady podle účelu ──
-  const PURPOSE_TIPS={
-    youtube:{icon:'▶',label:'For YouTube',c:'#ef4444',tips:[
-      '🏁 Make a fun intro! When people see a fun intro, they usually keep watching. The first 5 seconds decide!',
-      '✂️ Cut out the boring parts — every pause, filler word, dead moment. Fast pace = people stay.',
-      '🎵 Background music makes a video feel pro. Just keep it low so the talking is clear.',
-      '📢 At the end, tell viewers what to do: "Like & subscribe!" — it works.'
-    ]},
-    fun:{icon:'🎉',label:'Just for fun',c:'#f59e0b',tips:[
-      '😜 No pressure — experiment! Try splitting the video and shuffling parts, funny moments will appear.',
-      '🎵 Try totally unexpected music — dramatic music over ordinary stuff is hilarious.',
-      '✂️ Try quick cuts back to back (press C) — the video gets a whole new rhythm.',
-      '🏁 Make your own intro you can put before all your videos!'
-    ]},
-    friends:{icon:'👥',label:'For friends & family',c:'#22c55e',tips:[
-      '⏱️ Short is best — nobody wants to watch 10 minutes. Keep only the best moments!',
-      '🏁 Start with the best moment so your friends are hooked right away.',
-      '🎵 Add a song you all love — it instantly feels more personal.',
-      "😂 Let funny moments breathe — don't cut them too fast."
-    ]},
-    school:{icon:'📚',label:'For school',c:'#38bdf8',tips:[
-      "🎯 Stay on topic — cut everything that doesn't belong.",
-      '🏁 Say what the video is about at the start. Briefly sum it up at the end.',
-      "✂️ Cut slips and long pauses — it will feel more prepared.",
-      "🎵 Keep music quiet in the background so it doesn't distract. Or skip it entirely."
-    ]}
-  };
-
-  window.showPurposeModal=function(){
-    if(document.getElementById('purposeModal'))return;
-    const m=document.createElement('div');
-    m.id='purposeModal';
-    m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeUp .25s ease';
-    m.innerHTML=`
-      <div class="g" style="border-radius:24px;padding:26px 24px;width:440px;max-width:96vw;background:rgba(30,30,38,.95)">
-        <div style="text-align:center;margin-bottom:18px">
-          <div style="font-size:38px;margin-bottom:6px">🎬</div>
-          <div style="font-size:17px;font-weight:900;color:#f2f2f5;margin-bottom:3px">Why are you editing this video?</div>
-          <div style="font-size:11px;color:#999">I'll give you tips based on your goal 💡</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          ${Object.entries(PURPOSE_TIPS).map(([key,p])=>`
-            <button onclick="pickPurpose('${key}')"
-              style="padding:16px 12px;border-radius:16px;border:1.5px solid ${p.c}33;background:${p.c}0d;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s"
-              onmouseover="this.style.background='${p.c}22';this.style.transform='translateY(-2px)'"
-              onmouseout="this.style.background='${p.c}0d';this.style.transform=''">
-              <div style="width:40px;height:40px;border-radius:12px;background:${p.c};display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff">${p.icon}</div>
-              <div style="font-size:12px;font-weight:700;color:#dcdce2">${p.label}</div>
-            </button>`).join('')}
-        </div>
-        <button onclick="document.getElementById('purposeModal').remove()" style="width:100%;margin-top:12px;padding:9px;border:0;background:0;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit">Skip</button>
-      </div>`;
-    document.body.appendChild(m);
-  };
-
-  window.pickPurpose=function(key){
-    const p=PURPOSE_TIPS[key];
-    const modal=document.getElementById('purposeModal');
-    if(!modal||!p)return;
-    modal.innerHTML=`
-      <div class="g" style="border-radius:24px;padding:26px 24px;width:480px;max-width:96vw;background:rgba(30,30,38,.96);animation:fadeUp .3s ease">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <div style="width:42px;height:42px;border-radius:13px;background:${p.c};display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0">${p.icon}</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#f2f2f5">${p.label} — tips for you</div>
-            <div style="font-size:10px;color:#aaa">Pro tips 💪</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
-          ${p.tips.map(t=>`<div style="padding:11px 14px;border-radius:13px;background:${p.c}0a;border:1px solid ${p.c}1f;font-size:12px;color:#c9c9d0;line-height:1.55">${t}</div>`).join('')}
-        </div>
-        <button onclick="document.getElementById('purposeModal').remove();confetti('💪 Let's go!','🎬')"
-          style="width:100%;padding:13px;border:0;border-radius:14px;cursor:pointer;font-family:inherit;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,${p.c},${p.c}cc);box-shadow:0 4px 18px ${p.c}44">Let's go! →</button>
-      </div>`;
-  };
-
   // ── Načíst segment do přehrávače ──
   function loadSeg(i,pause){
     if(i<0||i>=segs.length)return;
