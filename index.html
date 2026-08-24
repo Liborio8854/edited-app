@@ -883,22 +883,6 @@ function showApp(){
 
         <!-- Projects -->
         <div id="homeProjects"></div>
-
-        <!-- Shortcuts strip -->
-        <div class="g" style="border-radius:18px;padding:16px 18px;margin-top:6px">
-          <div style="font-size:10px;font-weight:800;color:#8f8f98;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">⌨️ Shortcuts & tips</div>
-          <div style="display:flex;gap:20px;flex-wrap:wrap">
-            ${[
-              {k:'Space',d:'Play / pause'},
-              {k:'C',d:'Split clip at playhead'},
-              {k:'Click timeline',d:'Jump to any moment'},
-              {k:'⬅ ➡',d:'Reorder clips (make an intro!)'}
-            ].map(t=>`<div style="display:flex;align-items:center;gap:8px">
-              <span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:3px 9px;border-radius:7px;font-size:10px;font-weight:800;color:#c9c9d0">${t.k}</span>
-              <span style="font-size:11px;color:#8f8f98">${t.d}</span>
-            </div>`).join('')}
-          </div>
-        </div>
       </div>
     </div>
 
