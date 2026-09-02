@@ -184,23 +184,31 @@ body.device-mobile #editorSidebar{
   border-right:0 !important;border-top:1px solid rgba(255,255,255,.08);
   order:2;flex-shrink:0;border-radius:0 !important
 }
-body.device-mobile .editor-main-mobile{order:1;flex-shrink:0}
-body.device-mobile #pa{margin:4px !important;border-radius:8px !important;min-height:200px !important;max-height:35vh}
-body.device-mobile #pa video{max-height:34vh !important}
+body.device-mobile .editor-main-mobile{order:1;flex-shrink:0;min-height:0 !important}
+body.device-mobile #pa{margin:4px !important;border-radius:8px !important;min-height:180px !important;max-height:42vh !important;aspect-ratio:16/9}
+body.device-mobile #pa video{max-height:42vh !important;max-width:100% !important}
 
-/* Transport: centered row, smaller buttons */
+/* Transport: show all, compact centered row */
 body.device-mobile #tr{
-  flex-wrap:nowrap !important;padding:4px 10px !important;gap:6px !important;
-  justify-content:center !important;overflow-x:auto
+  display:flex !important;flex-wrap:nowrap !important;padding:6px 10px !important;gap:6px !important;
+  justify-content:center !important;align-items:center !important;overflow-x:auto
 }
-body.device-mobile #tr>div:first-child{display:none !important}
-body.device-mobile #tr>div:last-child{display:none !important}
-body.device-mobile #tr select{padding:4px 6px !important;font-size:10px !important}
+body.device-mobile #tr>div:first-child{flex:0 !important;min-width:auto !important}
+body.device-mobile #tr>div:first-child span{font-size:10px !important}
+body.device-mobile #tr>div:nth-child(2) button:first-child,
+body.device-mobile #tr>div:nth-child(2) button:last-child{width:28px !important;height:28px !important;font-size:11px !important}
+body.device-mobile #tr>div:nth-child(2) button:nth-child(2){width:36px !important;height:36px !important;font-size:13px !important}
+body.device-mobile #tr>div:last-child{flex:0 !important;gap:6px !important}
+body.device-mobile #tr>div:last-child select{display:none !important}
+body.device-mobile #tr .mob-hide{display:none !important}
+body.device-mobile #tr button[onclick="exportVideo()"]{padding:4px 10px !important;font-size:10px !important}
 
-/* Timeline: shorter, full width */
-body.device-mobile #tla{height:90px !important;padding:4px 8px 3px !important}
+/* Timeline: compact, full width */
+body.device-mobile #tla{height:auto !important;min-height:80px;padding:4px 8px 3px !important}
 body.device-mobile #segTrack{min-height:32px}
 body.device-mobile #tla button{font-size:9px !important;padding:3px 8px !important}
+body.device-mobile .tla-toolbar{flex-wrap:wrap !important;gap:4px !important}
+body.device-mobile .tla-toolbar button{padding:4px 8px !important;font-size:9px !important}
 
 /* Sidebar tabs: bigger tap targets */
 body.device-mobile .ntab{padding:10px 4px !important;font-size:8px !important}
@@ -1088,17 +1096,17 @@ function showApp(){
       </div><!-- /editor-main-mobile -->
       </div><!-- /editorRow -->
 
-        <!-- TIMELINE -->
-        <div id="tla" style="display:none;height:128px;background:#101014;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-direction:column;padding:8px 16px 6px">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-            <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🎬 Timeline</span>
+      <!-- TIMELINE (full width below editor row) -->
+      <div id="tla" style="display:none;background:#101014;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;padding:8px 12px 6px">
+          <div class="tla-toolbar" style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🎬</span>
             <span style="font-size:9px;color:#aaa" id="segInfo">0 clips</span>
             <div style="flex:1"></div>
             <button onclick="splitAtPlayhead()" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✂️ Split</button>
-            <button onclick="document.getElementById('fi').click()" title="Add another video at the end — then move it with the arrows, e.g. to the start as an intro" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">➕ Add clip</button>
-            <button onclick="editSegText()" title="Add text over the selected clip (e.g. OMG)" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);color:#38bdf8;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">🅣 Text</button>
-            <button onclick="editSegFx()" title="Add an animation (like, subscribe, hearts...)" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(34,197,94,.25);background:rgba(34,197,94,.08);color:#22c55e;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✨ Effects</button>
-            <span style="font-size:9px;color:#ccc">click a clip = select · double-click = play from it</span>
+            <button onclick="document.getElementById('fi').click()" title="Add another video" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(139,92,246,.25);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">➕ Add</button>
+            <button onclick="editSegText()" title="Add text" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);color:#38bdf8;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">🅣</button>
+            <button onclick="editSegFx()" title="Add effects" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(34,197,94,.25);background:rgba(34,197,94,.08);color:#22c55e;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✨</button>
+            <span style="font-size:9px;color:#ccc" class="mob-hide">click a clip = select · double-click = play from it</span>
           </div>
           <!-- Segment track -->
           <div id="segTrack" style="flex:1;position:relative;display:flex;gap:3px;border-radius:8px;overflow:visible;background:#0a0a0d;border:1px solid rgba(255,255,255,.07);padding:4px;cursor:pointer"></div>
