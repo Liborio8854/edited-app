@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Edited – Video Editor</title>
+<title>Moon – Video Editor</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -109,6 +109,8 @@ body{
 @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,18px) scale(1.05)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes moonGlow{0%,100%{box-shadow:0 0 18px 4px rgba(200,200,230,.25),0 0 40px 8px rgba(180,180,220,.1)}50%{box-shadow:0 0 24px 8px rgba(210,210,240,.35),0 0 56px 14px rgba(180,180,220,.18)}}
+.moon-logo{animation:moonGlow 3s ease-in-out infinite}
 
 /* Colorful blob backgrounds */
 .blob{position:absolute;border-radius:50%;pointer-events:none;filter:blur(0px)}
@@ -424,8 +426,8 @@ function showLogin(mode){
     <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:28px 28px 0 0;pointer-events:none"></div>
 
     <div style="text-align:center;margin-bottom:22px;position:relative">
-      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;font-weight:900;margin:0 auto 10px;box-shadow:0 8px 28px rgba(232,62,90,.3)">▸</div>
-      <h1 style="font-size:28px;font-weight:900;margin-bottom:2px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</h1>
+      <div class="moon-logo" style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#0a0a18,#111128);display:flex;align-items:center;justify-content:center;margin:0 auto 10px"><svg width="36" height="36" viewBox="0 0 36 36"><defs><radialGradient id="mg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e8e8f0"/><stop offset="60%" stop-color="#c0c0ce"/><stop offset="100%" stop-color="#8a8a9e"/></radialGradient><filter id="glow1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="18" cy="18" r="12" fill="url(#mg)" filter="url(#glow1)"/><circle cx="13" cy="14" r="2.2" fill="rgba(150,150,170,.35)"/><circle cx="20" cy="11" r="1.4" fill="rgba(150,150,170,.3)"/><circle cx="22" cy="20" r="1.8" fill="rgba(150,150,170,.3)"/><circle cx="16" cy="22" r="1.1" fill="rgba(150,150,170,.25)"/></svg></div>
+      <h1 style="font-size:28px;font-weight:900;margin-bottom:2px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Moon</h1>
       <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px">
         <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(232,62,90,.08);color:#e83e5a;font-weight:600">✂️ Cut</span>
         <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);color:#8b5cf6;font-weight:600">🎵 Music</span>
@@ -506,7 +508,7 @@ function confetti(msg,emoji){
     const dx=Math.cos(angle*Math.PI/180)*dist;
     const dy=Math.sin(angle*Math.PI/180)*dist;
     e.style.cssText=`position:fixed;top:50%;left:50%;font-size:${20+Math.random()*16}px;animation:emojiBurst 1s ease-out ${Math.random()*0.3}s forwards;transform:translate(-50%,-50%);--dx:${dx}px;--dy:${dy}px`;
-    e.textContent=emoji||'🎬';
+    e.textContent=emoji||'🌙';
     container.appendChild(e);
   }
   // Toast message
@@ -621,8 +623,8 @@ function loadProfileAndEnter(authUser){
     sb.from('profiles').update({edited_last_login:new Date().toISOString()}).eq('id',authUser.id).then(()=>{});
 
     // Check if user has chosen device + theme before
-    const savedDevice=localStorage.getItem('edited_device');
-    const savedTheme=localStorage.getItem('edited_theme')||'dark';
+    const savedDevice=localStorage.getItem('moon_device');
+    const savedTheme=localStorage.getItem('moon_theme')||'dark';
     applyTheme(savedTheme);
     if(savedDevice)applyDevice(savedDevice);
 
@@ -650,7 +652,7 @@ function showDevicePicker(cb){
   R.innerHTML=`
   <div class="g" style="padding:32px 28px;border-radius:28px;width:440px;max-width:96vw;text-align:center;animation:fadeUp .4s ease;background:rgba(26,26,32,.92)">
     <div style="font-size:42px;margin-bottom:10px">📱💻</div>
-    <div style="font-size:20px;font-weight:900;color:#f2f2f5;margin-bottom:4px">How are you using Edited?</div>
+    <div style="font-size:20px;font-weight:900;color:#f2f2f5;margin-bottom:4px">How are you using Moon?</div>
     <div style="font-size:12px;color:#8f8f98;margin-bottom:22px">We'll optimize the layout for your device</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
       <button onclick="pickDevice('mobile',${cb?'true':'false'})"
@@ -675,7 +677,7 @@ function showDevicePicker(cb){
 }
 
 window.pickDevice=function(dev,hasCb){
-  localStorage.setItem('edited_device',dev);
+  localStorage.setItem('moon_device',dev);
   applyDevice(dev);
   if(hasCb==='true'&&window._deviceCb){window._deviceCb()}
   else showApp();
@@ -689,13 +691,13 @@ function applyDevice(dev){
 function applyTheme(theme){
   document.body.classList.remove('theme-light','theme-dark');
   document.body.classList.add('theme-'+theme);
-  localStorage.setItem('edited_theme',theme);
+  localStorage.setItem('moon_theme',theme);
 }
 
 // Settings modal
 window.showSettings=function(){
   if(document.getElementById('settingsModal'))return;
-  const curDevice=localStorage.getItem('edited_device')||'desktop';
+  const curDevice=localStorage.getItem('moon_device')||'desktop';
   const m=document.createElement('div');
   m.id='settingsModal';
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);z-index:9300;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeUp .25s ease';
@@ -710,13 +712,13 @@ window.showSettings=function(){
       <div style="margin-bottom:22px">
         <div style="font-size:10px;font-weight:800;color:#8f8f98;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">📐 Layout</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button onclick="applyDevice('mobile');localStorage.setItem('edited_device','mobile');refreshSettingsUI()"
+          <button onclick="applyDevice('mobile');localStorage.setItem('moon_device','mobile');refreshSettingsUI()"
             style="padding:14px;border-radius:14px;border:2px solid ${curDevice==='mobile'?'#8b5cf6':'rgba(255,255,255,.1)'};background:${curDevice==='mobile'?'rgba(139,92,246,.12)':'rgba(255,255,255,.04)'};cursor:pointer;font-family:inherit;text-align:center;transition:all .15s">
             <div style="font-size:24px;margin-bottom:4px">📱</div>
             <div style="font-size:12px;font-weight:800;color:#f2f2f5">Phone</div>
             ${curDevice==='mobile'?'<div style="font-size:9px;color:#8b5cf6;font-weight:700;margin-top:3px">● Active</div>':''}
           </button>
-          <button onclick="applyDevice('desktop');localStorage.setItem('edited_device','desktop');refreshSettingsUI()"
+          <button onclick="applyDevice('desktop');localStorage.setItem('moon_device','desktop');refreshSettingsUI()"
             style="padding:14px;border-radius:14px;border:2px solid ${curDevice==='desktop'?'#38bdf8':'rgba(255,255,255,.1)'};background:${curDevice==='desktop'?'rgba(56,189,248,.12)':'rgba(255,255,255,.04)'};cursor:pointer;font-family:inherit;text-align:center;transition:all .15s">
             <div style="font-size:24px;margin-bottom:4px">💻</div>
             <div style="font-size:12px;font-weight:800;color:#f2f2f5">Computer</div>
@@ -843,8 +845,8 @@ function showApp(){
   <div class="g" style="height:56px;display:flex;align-items:center;padding:0 18px;gap:6px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;z-index:50;position:relative;border-radius:0;border-top:0;border-left:0;border-right:0">
     <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none"></div>
     <div style="display:flex;align-items:center;gap:8px;position:relative">
-      <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#e83e5a,#ff7a3d);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:900;box-shadow:0 3px 12px rgba(232,62,90,.35)">▸</div>
-      <span style="font-weight:900;font-size:18px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Edited</span>
+      <div class="moon-logo" style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#0a0a18,#111128);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 36 36"><defs><radialGradient id="mg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e8e8f0"/><stop offset="60%" stop-color="#c0c0ce"/><stop offset="100%" stop-color="#8a8a9e"/></radialGradient><filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="18" cy="18" r="12" fill="url(#mg2)" filter="url(#glow2)"/><circle cx="13" cy="14" r="2.2" fill="rgba(150,150,170,.35)"/><circle cx="20" cy="11" r="1.4" fill="rgba(150,150,170,.3)"/><circle cx="22" cy="20" r="1.8" fill="rgba(150,150,170,.3)"/><circle cx="16" cy="22" r="1.1" fill="rgba(150,150,170,.25)"/></svg></div>
+      <span style="font-weight:900;font-size:18px;background:linear-gradient(135deg,#ffffff,#b9a5ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Moon</span>
       ${A?'<span style="font-size:8px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e83e5a,#ff7a3d);padding:2px 7px;border-radius:6px;box-shadow:0 2px 8px rgba(232,62,90,.3)">ADMIN</span>':''}
     </div>
     <div style="flex:1"></div>
@@ -969,7 +971,7 @@ function showApp(){
             <div id="cl">
               <!-- Empty state hint -->
               <div style="text-align:center;padding:20px 10px;color:#ccc">
-                <div style="font-size:32px;margin-bottom:8px;animation:float 3s ease infinite">🎬</div>
+                <div style="font-size:32px;margin-bottom:8px;animation:float 3s ease infinite">🌙</div>
                 <div style="font-size:11px;color:#bbb;line-height:1.6">Upload a video and it'll show up here<br>or use the YouTube tab</div>
               </div>
             </div>
@@ -1050,7 +1052,7 @@ function showApp(){
           <iframe id="ytframe" style="display:none;width:96%;height:96%;border:none;border-radius:14px" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           <!-- Empty state with workflow guide -->
           <div id="es" style="text-align:center;padding:24px 20px;max-width:480px">
-            <div style="font-size:52px;margin-bottom:14px;animation:float 3s ease infinite">🎬</div>
+            <div style="font-size:52px;margin-bottom:14px;animation:float 3s ease infinite">🌙</div>
             <p style="font-size:16px;font-weight:800;color:#b6b6bf;margin-bottom:4px">Start your first edit!</p>
             <p style="font-size:12px;color:#bbb;margin-bottom:20px">Choose how to begin:</p>
 
@@ -1144,7 +1146,7 @@ function showApp(){
       <!-- TIMELINE (full width below editor row) -->
       <div id="tla" style="display:none;background:#101014;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;padding:8px 12px 6px">
           <div class="tla-toolbar" style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-            <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🎬</span>
+            <span style="font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">🌙</span>
             <span style="font-size:9px;color:#aaa" id="segInfo">0 clips</span>
             <div style="flex:1"></div>
             <button onclick="splitAtPlayhead()" style="padding:4px 12px;border-radius:9px;border:1.5px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">✂️ Split</button>
@@ -1228,7 +1230,7 @@ function showApp(){
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
           ${[
             {e:'✂️',l:'Cutting & rhythm',c:'#e83e5a'},
-            {e:'🎬',l:'Transitions',c:'#f97316'},
+            {e:'🌙',l:'Transitions',c:'#f97316'},
             {e:'🎵',l:'Music sync',c:'#8b5cf6'},
             {e:'📱',l:'Social media',c:'#38bdf8'},
             {e:'💡',l:'Creative ideas',c:'#22c55e'}
@@ -1243,7 +1245,7 @@ function showApp(){
         <div style="align-self:flex-start;max-width:85%;animation:fadeUp .5s ease">
           <div class="g" style="padding:14px 18px;border-radius:20px;border-bottom-left-radius:6px;border-left:3px solid #8b5cf6">
             <div style="font-size:10px;color:#8b5cf6;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:5px">🤖 AI Assistant</div>
-            <div style="font-size:13px;color:#dcdce2;line-height:1.6">Hi! I'm your AI video-editing assistant. 🎬<br>I can help you with <b>cutting</b>, <b>music</b>, <b>transitions</b> or any video-making tips.<br><span style="color:#8b5cf6;font-weight:600">Click one of the chips above or type your question!</span></div>
+            <div style="font-size:13px;color:#dcdce2;line-height:1.6">Hi! I'm your AI video-editing assistant. 🌙<br>I can help you with <b>cutting</b>, <b>music</b>, <b>transitions</b> or any video-making tips.<br><span style="color:#8b5cf6;font-weight:600">Click one of the chips above or type your question!</span></div>
           </div>
         </div>
       </div>
@@ -1278,7 +1280,7 @@ function showApp(){
         <button class="ntab on" onclick="adminTab('overview')" data-atab="overview"><span class="ti">📊</span>Overview</button>
         <button class="ntab" onclick="adminTab('users')" data-atab="users"><span class="ti">👥</span>Users</button>
         <button class="ntab" onclick="adminTab('pending')" data-atab="pending"><span class="ti">⏳</span>Pending</button>
-        <button class="ntab" onclick="adminTab('content')" data-atab="content"><span class="ti">🎬</span>Content</button>
+        <button class="ntab" onclick="adminTab('content')" data-atab="content"><span class="ti">🌙</span>Content</button>
       </div>
 
       <!-- Tab panels -->
@@ -1786,10 +1788,10 @@ function showApp(){
       if(done){
         done.style.display='block';
         done.innerHTML=`
-          <a href="${url}" download="edited-video.webm" style="display:block;padding:14px;border-radius:14px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:14px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 16px rgba(34,197,94,.35);margin-bottom:8px">⬇ Download video (.webm)</a>
+          <a href="${url}" download="moon-video.webm" style="display:block;padding:14px;border-radius:14px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:14px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 16px rgba(34,197,94,.35);margin-bottom:8px">⬇ Download video (.webm)</a>
           <button onclick="document.getElementById('exportModal').remove()" style="width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#c9c9d0;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Close</button>`;
       }
-      confetti('💾 Video saved!','🎬');
+      confetti('💾 Video saved!','🌙');
     };
 
     // Track progress during playback
@@ -1882,7 +1884,7 @@ function showApp(){
         ${c.type==='youtube'&&c.ytId?'<img src="https://img.youtube.com/vi/'+c.ytId+'/default.jpg" style="width:44px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<div style="width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#38bdf833,#38bdf811);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📂</div>'}
         <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div><div style="font-size:9px;color:#aaa">${c.type==='youtube'?'YouTube':'Local'}</div></div>
         <button class="b" onclick="event.stopPropagation();rmCl(${c.id})" style="padding:2px 7px;font-size:10px">✕</button></div>`});
-    if(segs.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">🎬 Timeline ('+segs.length+')</div>';segs.forEach((s,i)=>{h+=`<div class="g" style="padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer" onclick="loadSeg2(${i})"><div style="width:10px;height:10px;border-radius:3px;background:${s.color};flex-shrink:0"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c9c9d0;font-weight:600">${i+1}. ${s.name}</span><span style="color:#aaa;font-size:10px">${fmt(s.end-s.start)}</span></div>`})}
+    if(segs.length){h+='<div style="font-size:10px;font-weight:700;color:#999;margin:10px 0 6px;text-transform:uppercase;letter-spacing:1px">🌙 Timeline ('+segs.length+')</div>';segs.forEach((s,i)=>{h+=`<div class="g" style="padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;align-items:center;gap:7px;font-size:11px;cursor:pointer" onclick="loadSeg2(${i})"><div style="width:10px;height:10px;border-radius:3px;background:${s.color};flex-shrink:0"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c9c9d0;font-weight:600">${i+1}. ${s.name}</span><span style="color:#aaa;font-size:10px">${fmt(s.end-s.start)}</span></div>`})}
     document.getElementById('cl').innerHTML=h;
     document.getElementById('homeSubtitle').textContent=clips.length?clips.length+' clips in your edit · click to open':'Ready to create something great?';
     // Update stat badges
@@ -1897,7 +1899,7 @@ function showApp(){
     if(clips.length){
       ph+=`<div style="margin-bottom:16px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🎬 Clips in current edit</div>
+          <div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🌙 Clips in current edit</div>
           <button onclick="nav('editor')" style="font-size:11px;font-weight:600;color:#e83e5a;background:0;border:0;cursor:pointer;font-family:inherit">Open editor →</button>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
@@ -1908,7 +1910,7 @@ function showApp(){
             onmouseout="this.style.transform='';this.style.boxShadow=''">
             ${c.type==='youtube'&&c.ytId?
               `<div style="height:100px;overflow:hidden;background:#000"><img src="https://img.youtube.com/vi/${c.ytId}/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'"></div>`
-              :`<div style="height:100px;background:linear-gradient(135deg,rgba(232,62,90,.15),rgba(255,122,61,.08));display:flex;align-items:center;justify-content:center;font-size:36px">🎬</div>`}
+              :`<div style="height:100px;background:linear-gradient(135deg,rgba(232,62,90,.15),rgba(255,122,61,.08));display:flex;align-items:center;justify-content:center;font-size:36px">🌙</div>`}
             <div style="padding:10px 12px">
               <div style="font-size:12px;font-weight:700;color:#ececf0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${c.name}</div>
               <div style="display:flex;align-items:center;gap:6px">
@@ -1968,7 +1970,7 @@ function showApp(){
 
   // ── Free royalty-free music sources ──
   const FREE_MUSIC_SOURCES=[
-    {cat:'🎬 Best free music sites',items:[
+    {cat:'🌙 Best free music sites',items:[
       {name:'Pixabay Music',desc:'Thousands of free tracks, no sign-up needed',url:'https://pixabay.com/music/',color:'#22c55e'},
       {name:'YouTube Audio Library',desc:'Huge library, filter by mood/genre/duration',url:'https://studio.youtube.com/channel/UC/music',color:'#ef4444'},
       {name:'Uppbeat',desc:'Free plan with great tracks for creators',url:'https://uppbeat.io/browse/music',color:'#8b5cf6'},
@@ -2138,7 +2140,7 @@ function showApp(){
       document.getElementById('adminStats').innerHTML=[
         {l:'Total users',v:allAccounts.length,i:'👥',c:'#38bdf8',sub:'registered accounts'},
         {l:'Banned',v:banned.length,i:'⛔',c:'#ef4444',sub:'blocked users'},
-        {l:'Clips in edit',v:clips.length,i:'🎬',c:'#8b5cf6',sub:'current session'},
+        {l:'Clips in edit',v:clips.length,i:'🌙',c:'#8b5cf6',sub:'current session'},
         {l:'Cuts',v:cuts.length,i:'✂️',c:'#e83e5a',sub:'in current project'},
         {l:'Audio tracks',v:mTr.length,i:'🎵',c:'#f472b6',sub:'uploaded music'},
         {l:'Your role',v:'Admin',i:'🛡️',c:'#22c55e',sub:user.email},
@@ -2224,7 +2226,7 @@ function showApp(){
       // Content tab
       const ac=document.getElementById('adminContent');
       if(ac){ac.innerHTML=[
-        {l:'Clips in edit',v:clips.length,i:'🎬',c:'#8b5cf6',detail:clips.map(c=>c.name).join(', ')||'None',btn:clips.length?`<button onclick="nav('editor')" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(139,92,246,.3);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Open editor</button>`:''},
+        {l:'Clips in edit',v:clips.length,i:'🌙',c:'#8b5cf6',detail:clips.map(c=>c.name).join(', ')||'None',btn:clips.length?`<button onclick="nav('editor')" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(139,92,246,.3);background:rgba(139,92,246,.08);color:#8b5cf6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Open editor</button>`:''},
         {l:'Cuts',v:cuts.length,i:'✂️',c:'#e83e5a',detail:cuts.map(c=>fmt(c)).join(' · ')||'None',btn:''},
         {l:'Audio tracks',v:mTr.length,i:'🎵',c:'#f472b6',detail:mTr.map(t=>t.name).join(', ')||'None',btn:mTr.length?`<button onclick="nav('editor');setTimeout(()=>showTab('mu'),50)" style="margin-top:8px;padding:6px 14px;border-radius:10px;border:1.5px solid rgba(244,114,182,.3);background:rgba(244,114,182,.08);color:#f472b6;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">→ Music tab</button>`:''},
         {l:'Registered accounts',v:allAccounts.length,i:'👥',c:'#38bdf8',detail:allAccounts.map(a=>a.edited_name||a.email).join(', ')||'None',btn:''},
@@ -2254,7 +2256,7 @@ function showApp(){
       const a=allProfiles.find(x=>x.id===id);
       if(!a)return;
       const name=a.edited_name||a.email;
-      if(!confirm('⚠️ DELETE ACCOUNT PERMANENTLY?\n\nUser: '+name+' ('+a.email+')\n\nWARNING: This account is shared between Edited and LIFA — deleting it removes access to BOTH apps. This action is IRREVERSIBLE.'))return;
+      if(!confirm('⚠️ DELETE ACCOUNT PERMANENTLY?\n\nUser: '+name+' ('+a.email+')\n\nWARNING: This account is shared between Moon and LIFA — deleting it removes access to BOTH apps. This action is IRREVERSIBLE.'))return;
       if(!confirm('Are you sure? Last chance — the account "'+name+'" will be deleted forever.'))return;
       sb.rpc('delete_user_edited',{target_id:id}).then(({error})=>{
         if(error){alert('Error: '+error.message);return}
@@ -2291,14 +2293,14 @@ function nav(id){['Home','Editor','Ai','Admin'].forEach(v=>{const el=document.ge
   const map={home:'nH',editor:'nE',ai:'nA',admin:'nAd'};const nb=document.getElementById(map[id]);if(nb)nb.classList.add('on')}
 window.nav=nav;
 
-function dlApp(){const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent('<!DOCTYPE html>'+document.documentElement.outerHTML);a.download='edited.html';a.click();}
+function dlApp(){const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent('<!DOCTYPE html>'+document.documentElement.outerHTML);a.download='moon.html';a.click();}
 window.dlApp=dlApp;
 
 // ═══ START APP ═══
 // Force dark theme immediately on page load
 (function(){
-  var t=localStorage.getItem('edited_theme');
-  if(!t||t==='light'){localStorage.setItem('edited_theme','dark');t='dark'}
+  var t=localStorage.getItem('moon_theme');
+  if(!t||t==='light'){localStorage.setItem('moon_theme','dark');t='dark'}
   document.body.classList.remove('theme-light');
   document.body.classList.add('theme-dark');
 })();
@@ -2309,7 +2311,7 @@ function showConnError(detail){
     <div style="font-size:48px;margin-bottom:14px">📡</div>
     <h2 style="font-size:20px;font-weight:800;color:#f2f2f5;margin-bottom:8px">Can't connect</h2>
     <p style="font-size:13px;color:#8f8f98;line-height:1.6;margin-bottom:6px">${detail}</p>
-    <p style="font-size:11px;color:#bbb;line-height:1.6;margin-bottom:18px">Check your internet connection and disable ad-block / Tracking Prevention for this site. The app doesn't work inside chat previews — open it at edited-video.vercel.app.</p>
+    <p style="font-size:11px;color:#bbb;line-height:1.6;margin-bottom:18px">Check your internet connection and disable ad-block / Tracking Prevention for this site. The app doesn't work inside chat previews — open it at edited-video.vercel.app (Moon).</p>
     <button onclick="location.reload()" class="btnprimary" style="width:auto;padding:12px 28px">🔄 Try again</button>
   </div>`;
 }
