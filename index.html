@@ -406,57 +406,46 @@ function getWeekActivity(){
   }
   return days;
 }
+function actFmtDur(s){
+  if(s>=3600)return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m';
+  if(s>=60)return Math.floor(s/60)+'m '+(s%60)+'s';
+  return s+'s';
+}
 function renderActivityChart(){
   var el=document.getElementById('homeActivity');
   if(!el)return;
   try{
     var days=getWeekActivity();
-    var maxDur=Math.max.apply(null,days.map(function(d){return d.dur}).concat([1]));
+    var maxDur=1;
+    for(var i=0;i<days.length;i++){if(days[i].dur>maxDur)maxDur=days[i].dur;}
     var totalVids=0,totalDur=0;
     for(var i=0;i<days.length;i++){totalVids+=days[i].count;totalDur+=days[i].dur;}
     var colors=['#8b5cf6','#a78bfa','#38bdf8','#22c55e','#f59e0b','#f97316','#e83e5a'];
-
-    // Format duration helper
-    function fmtDur(s){
-      if(s>=3600)return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m';
-      if(s>=60)return Math.floor(s/60)+'m '+(s%60)+'s';
-      return s+'s';
-    }
-
-    // Build bars HTML
     var barsHtml='';
     for(var i=0;i<days.length;i++){
       var d=days[i];
       var c=colors[i%colors.length];
-      var h=d.dur>0?Math.max(15,Math.round((d.dur/maxDur)*100)):0;
-      var barBg=d.dur>0?'linear-gradient(180deg,'+c+','+c+'88)':'rgba(255,255,255,.12)';
+      var hPct=d.dur>0?Math.max(15,Math.round((d.dur/maxDur)*100)):0;
+      var barBg=d.dur>0?'linear-gradient(180deg,'+c+','+c+'88)':'rgba(255,255,255,.15)';
       var minH=d.dur>0?'10px':'6px';
-      var countHtml=d.count>0?'<div style="font-size:9px;font-weight:700;color:'+c+'">'+d.count+'</div>':'';
-      var tooltip=d.date+' '+d.count+' video'+(d.count!==1?'s':'')+', '+fmtDur(d.dur);
+      var countLabel=d.count>0?('<div style="font-size:9px;font-weight:700;color:'+c+'">'+d.count+'</div>'):'';
       barsHtml+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end">'
-        +countHtml
-        +'<div title="'+tooltip+'" style="width:100%;height:'+h+'%;min-height:'+minH+';border-radius:6px 6px 3px 3px;background:'+barBg+';transition:all .3s;cursor:pointer" onmouseover="this.style.opacity=\'.75\'" onmouseout="this.style.opacity=\'1\'"></div>'
+        +countLabel
+        +'<div style="width:100%;height:'+hPct+'%;min-height:'+minH+';border-radius:6px 6px 3px 3px;background:'+barBg+';transition:all .3s"></div>'
         +'<span style="font-size:9px;color:#888;font-weight:600">'+d.label+'</span>'
         +'</div>';
     }
-
-    var emptyMsg='';
-    if(totalVids===0){
-      emptyMsg='<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:#888">Zatím žádné exporty — ulož video a uvidíš aktivitu</div>';
-    }
-
+    var emptyNote=totalVids===0?'<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:#888">Zatím žádné exporty — ulož video a uvidíš aktivitu</div>':'';
     el.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">'
-      +'<div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🌙 Aktivita — posledních 7 dní</div>'
+      +'<div style="font-size:11px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1.5px">🌙 Aktivita — 7 dní</div>'
       +'<div style="display:flex;gap:12px">'
-      +'<span style="font-size:11px;color:#8f8f98"><b style="color:#f2f2f5">'+totalVids+'</b> video'+(totalVids!==1?'s':'')+'</span>'
-      +'<span style="font-size:11px;color:#8f8f98"><b style="color:#f2f2f5">'+fmtDur(totalDur)+'</b> celkem</span>'
+      +'<span style="font-size:11px;color:#8f8f98"><b style="color:#f2f2f5">'+totalVids+'</b> videí</span>'
+      +'<span style="font-size:11px;color:#8f8f98"><b style="color:#f2f2f5">'+actFmtDur(totalDur)+'</b> celkem</span>'
       +'</div></div>'
-      +'<div style="display:flex;align-items:flex-end;gap:8px;height:90px;padding-bottom:4px">'
-      +barsHtml
-      +'</div>'
-      +emptyMsg;
+      +'<div style="display:flex;align-items:flex-end;gap:8px;height:90px;padding-bottom:4px">'+barsHtml+'</div>'
+      +emptyNote;
   }catch(e){
-    el.innerHTML='<div style="padding:12px;color:#e83e5a;font-size:12px">Activity error: '+e.message+'</div>';
+    el.innerHTML='<div style="padding:12px;color:#e83e5a;font-size:12px">Chyba aktivity: '+e.message+'</div>';
   }
 }
 
@@ -1014,8 +1003,8 @@ function showApp(){
           ${A?`<div style="margin-left:auto"><button onclick="nav('admin')" style="padding:8px 16px;border-radius:12px;border:1px solid rgba(232,62,90,.25);background:rgba(232,62,90,.08);color:#e83e5a;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">🛡️ Admin panel</button></div>`:''}
         </div>
 
-        <!-- Activity chart -->
-        <div class="g" style="border-radius:20px;padding:20px;margin-bottom:24px" id="homeActivity"></div>
+        <!-- Activity chart (admin only) -->
+        ${A?'<div class="g" style="border-radius:20px;padding:20px;margin-bottom:24px" id="homeActivity"></div>':''}
 
         <!-- Projects -->
         <div id="homeProjects"></div>
