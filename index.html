@@ -169,7 +169,7 @@ body{
 /* ═══ DEVICE-MOBILE CLASS — CapCut Mobile Level ═══ */
 
 /* ── Global mobile reset ── */
-body.device-mobile{overflow:hidden !important}
+body.device-mobile{overflow-y:auto !important;-webkit-overflow-scrolling:touch}
 body.device-mobile *{-webkit-tap-highlight-color:transparent}
 body.device-mobile button{min-height:0}
 body.device-mobile .inp{padding:10px 12px !important;font-size:15px !important;border-radius:10px !important}
@@ -215,9 +215,9 @@ body.device-mobile .home-actions>button div[style*="font-size:46px"]{font-size:2
 
 /* ── EDITOR: CapCut mobile layout ── */
 /* Full column: video → transport → timeline → (sidebar hidden, accessible via tabs) */
-body.device-mobile #vEditor{overflow:hidden !important;flex-direction:column !important}
+body.device-mobile #vEditor{overflow-y:auto !important;-webkit-overflow-scrolling:touch;flex-direction:column !important}
 body.device-mobile #editorRow{
-  flex-direction:column !important;overflow:hidden !important;flex:1 !important;min-height:0 !important
+  flex-direction:column !important;overflow:visible !important;flex:none !important;min-height:0 !important
 }
 
 /* Hide sidebar in editor — show it as a slide-up panel */
@@ -227,11 +227,11 @@ body.device-mobile #editorSidebar{
 
 /* Video preview: fill available space, black bg */
 body.device-mobile .editor-main-mobile{
-  order:1;flex:1 !important;min-height:0 !important;display:flex !important;flex-direction:column !important
+  order:1;flex:none !important;min-height:0 !important;display:flex !important;flex-direction:column !important
 }
 body.device-mobile #pa{
-  flex:1 !important;margin:0 !important;border-radius:0 !important;border:none !important;
-  min-height:0 !important;max-height:none !important
+  flex:none !important;height:44vh !important;margin:0 !important;border-radius:0 !important;border:none !important;
+  min-height:120px !important;max-height:44vh !important
 }
 body.device-mobile #pa video{
   max-height:100% !important;max-width:100% !important;border-radius:0 !important
